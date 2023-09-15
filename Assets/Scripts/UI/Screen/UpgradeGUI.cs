@@ -16,14 +16,14 @@ namespace RetroRush.UI.Screen
             m_Close.onClick.AddListener(Close);
             foreach (var upgrade in Data)
             {
-                AddGuiComponent<UpgradeComponent, UpgradeData>(GUIKeys.UPGRADE_COMPONENT, upgrade, m_Content);
+                _GuiEngine.CreateDataGUIComponent<UpgradeComponent, UpgradeData>(GUIKeys.UPGRADE_COMPONENT, upgrade, m_Content);
             }
             
         }
 
         private void Close()
         {
-            Dispose();
+            Destroy();
         }
         private void OnDestroy()
         {
