@@ -77,6 +77,14 @@ MonoBehaviour:
     m_Address: Header
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: b37460d9c0484154f81a53a30ea54e84
+    m_Address: UpgradesGUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c41c08af8be35e045811bb35921f6e28
+    m_Address: UpgradeComponent
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 89ea6fe348b10654e944f8b5690ee99d, type: 2}
   m_SchemaSet:

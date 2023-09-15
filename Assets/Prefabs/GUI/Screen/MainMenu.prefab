@@ -230,8 +230,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Canvas: {fileID: 4547895667828574105}
   m_StartButton: {fileID: 270667333674357602}
-  m_SettingsButton: {fileID: 0}
-  m_UpgradesButton: {fileID: 0}
+  m_SettingsButton: {fileID: 2002104073664038529}
+  m_UpgradesButton: {fileID: 3934870075209600114}
 --- !u!1 &7880886824275980629
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +438,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc547df8b5c0076419132aa0027121ed, type: 3}
+--- !u!114 &2002104073664038529 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5365250703176711267, guid: dc547df8b5c0076419132aa0027121ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 5890097098889149154}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5296896868139940588 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1747273207767138318, guid: dc547df8b5c0076419132aa0027121ed,
@@ -770,6 +782,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc547df8b5c0076419132aa0027121ed, type: 3}
+--- !u!114 &3934870075209600114 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5365250703176711267, guid: dc547df8b5c0076419132aa0027121ed,
+    type: 3}
+  m_PrefabInstance: {fileID: 9002207930907226129}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7264811782121287711 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1747273207767138318, guid: dc547df8b5c0076419132aa0027121ed,

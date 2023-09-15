@@ -51,12 +51,15 @@ namespace RetroRush.Game.Economics
             return null;
         }
         
-        public void TrySpend(CurrencyType type, long value)
+        public bool TrySpend(CurrencyType type, long value)
         {
             if(HasEnough(type, value))
             {
                 _Currencies[type].Value -= value;
+                return true;
             }
+
+            return false;
         }
     }
 }

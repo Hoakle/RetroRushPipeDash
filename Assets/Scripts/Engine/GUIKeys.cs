@@ -13,6 +13,7 @@ namespace RetroRush.Engine
         public const string SETTINGS_SCREEN = "SettingsScreen";
         public const string DEBUG_OVERLAY = "DebugOverlay";
         public static string HEADER = "Header";
-
+        public static string UPGRADE_COMPONENT = "UpgradeComponent";
+        public static string UPGRADE_GUI = "UpgradesGUI";
     }
 }
