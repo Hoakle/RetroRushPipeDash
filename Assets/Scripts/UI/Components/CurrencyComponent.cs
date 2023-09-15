@@ -7,7 +7,7 @@ namespace RetroRush
 {
     public class CurrencyComponent : DataGuiComponent<CurrencyData>
     {
-        [SerializeField] private TextMeshProUGUI _Text = null;
+        [SerializeField] protected TextMeshProUGUI _Text = null;
 
         public void Start()
         {

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d8f86601b68f784e9a401e5cfe75c9c, type: 3}
+  m_Name: SpeedBoostConfigData
+  m_EditorClassIdentifier: 
+  _Type: 2
+  _Title: Speed Boost
+  _Desc: Augmente votre vitesse durant {0} secondes
+  _Icone: {fileID: 21300000, guid: 13cc8c61cea2cd146a108abfd81af045, type: 3}
+  _ValuePerLevel: 0300000004000000050000000600000007000000
+  _PricePerLevel: 3200000064000000c800000090010000

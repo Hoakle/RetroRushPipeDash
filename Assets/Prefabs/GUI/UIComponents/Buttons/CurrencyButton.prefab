@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: 2407442795254331876}
   - component: {fileID: 5365250703176711267}
   - component: {fileID: 931788887087075316}
+  - component: {fileID: 4079209706028326241}
   m_Layer: 0
   m_Name: CurrencyButton
   m_TagString: Untagged
@@ -375,6 +376,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &4079209706028326241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065112043403755455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aeaf669847368d42b9b5a9f4dbb7b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Animator: {fileID: 931788887087075316}
+  _Text: {fileID: 656671886781378239}
+  _Button: {fileID: 5365250703176711267}
 --- !u!1 &6177192753486017773
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +484,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60.65
+  m_fontSize: 61.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

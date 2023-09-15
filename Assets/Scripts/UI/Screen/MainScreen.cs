@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Graphics;
+using RetroRush.Engine;
+using RetroRush.GameSave;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,7 +35,7 @@ namespace RetroRush.UI.Screen
 
         private void OpenUpgrades()
         {
-            //_GuiEngine.CreateGUI<UpgradeGUI>();
+            _GuiEngine.CreateDataGUI<UpgradeGUI, List<UpgradeData>>(GUIKeys.UPGRADE_GUI, _GuiEngine.GameSave.GetSave<GlobalGameSave>()._Upgrades);
         }
         private void OnDestroy()
         {
