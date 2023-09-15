@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: a8bc3d56ed1dcb647856ee947093f399
+  m_SerializeEntries:
+  - m_GUID: 4025abfcc70aec64684f33d4fc29ce91
+    m_Address: MainGUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 53da556f19c07ad45ba0f93c14e51bca
+    m_Address: Level
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8adae52367a917a44950eff3ab465309
+    m_Address: Player
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f7fe822f14dd96743b5842aeb0fe4383
+    m_Address: Coin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f12429fe487673b4db75241dc5d3e81b
+    m_Address: SpeedBonus
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e492298c223308e469f1cf8d63189e25
+    m_Address: DebugOverlay
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b1d9f92a557c3be4bb771b62c613d12c
+    m_Address: SettingsScreen
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 287da73848e287241862c0d639da4848
+    m_Address: SettingsComponent
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 40f1b8552684b5a46a1fde830b3a6031
+    m_Address: PipeFace
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a48beb74194bf0f4db7be94a92635398
+    m_Address: ScoreGUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 750eb7b7c50746842b866fbb8862956b
+    m_Address: BestScore
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 577feea11cc528e4a9055c3ad29f3768
+    m_Address: Shield
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fc9004872237c584c9bf5ab332f531c7
+    m_Address: Magnet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f20c9ac5abb155b4fb7eed95f3181a57
+    m_Address: Lazer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5ac76b4dea2807b4d88935634bb63c24
+    m_Address: Header
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 89ea6fe348b10654e944f8b5690ee99d, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 75e7fbe85369f1744901672942ba7520, type: 2}
+    - {fileID: 11400000, guid: 6b11b21e9a8bfc649a7d66cfad8f3585, type: 2}
