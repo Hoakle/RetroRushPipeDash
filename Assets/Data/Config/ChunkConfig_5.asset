@@ -1,0 +1,451 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da99e8363e55784b8a1cd426ac5fb17, type: 3}
+  m_Name: ChunkConfig_5
+  m_EditorClassIdentifier: 
+  Id: 5
+  ChunkDepth: 8
+  Weight: 10
+  IncompatibleNextChunk: 
+  PipeFaceConfigs:
+  - Depth: 0
+    FaceIndex: 0
+    PickableType: 0
+    Exist: 1
+  - Depth: 0
+    FaceIndex: 1
+    PickableType: 0
+    Exist: 1
+  - Depth: 0
+    FaceIndex: 2
+    PickableType: 0
+    Exist: 1
+  - Depth: 0
+    FaceIndex: 3
+    PickableType: 0
+    Exist: 1
+  - Depth: 0
+    FaceIndex: 4
+    PickableType: 0
+    Exist: 1
+  - Depth: 0
+    FaceIndex: 5
+    PickableType: 0
+    Exist: 1
+  - Depth: 0
+    FaceIndex: 6
+    PickableType: 0
+    Exist: 1
+  - Depth: 0
+    FaceIndex: 7
+    PickableType: 0
+    Exist: 1
+  - Depth: 0
+    FaceIndex: 8
+    PickableType: 0
+    Exist: 1
+  - Depth: 0
+    FaceIndex: 9
+    PickableType: 0
+    Exist: 1
+  - Depth: 0
+    FaceIndex: 10
+    PickableType: 0
+    Exist: 1
+  - Depth: 0
+    FaceIndex: 11
+    PickableType: 0
+    Exist: 1
+  - Depth: 1
+    FaceIndex: 0
+    PickableType: 0
+    Exist: 1
+  - Depth: 1
+    FaceIndex: 1
+    PickableType: 0
+    Exist: 1
+  - Depth: 1
+    FaceIndex: 2
+    PickableType: 0
+    Exist: 1
+  - Depth: 1
+    FaceIndex: 3
+    PickableType: 0
+    Exist: 1
+  - Depth: 1
+    FaceIndex: 4
+    PickableType: 0
+    Exist: 1
+  - Depth: 1
+    FaceIndex: 5
+    PickableType: 0
+    Exist: 1
+  - Depth: 1
+    FaceIndex: 6
+    PickableType: 0
+    Exist: 1
+  - Depth: 1
+    FaceIndex: 7
+    PickableType: 0
+    Exist: 1
+  - Depth: 1
+    FaceIndex: 8
+    PickableType: 0
+    Exist: 1
+  - Depth: 1
+    FaceIndex: 9
+    PickableType: 0
+    Exist: 1
+  - Depth: 1
+    FaceIndex: 10
+    PickableType: 0
+    Exist: 1
+  - Depth: 1
+    FaceIndex: 11
+    PickableType: 0
+    Exist: 1
+  - Depth: 2
+    FaceIndex: 0
+    PickableType: 0
+    Exist: 0
+  - Depth: 2
+    FaceIndex: 1
+    PickableType: 0
+    Exist: 0
+  - Depth: 2
+    FaceIndex: 2
+    PickableType: 0
+    Exist: 0
+  - Depth: 2
+    FaceIndex: 3
+    PickableType: 0
+    Exist: 0
+  - Depth: 2
+    FaceIndex: 4
+    PickableType: 0
+    Exist: 0
+  - Depth: 2
+    FaceIndex: 5
+    PickableType: 0
+    Exist: 0
+  - Depth: 2
+    FaceIndex: 6
+    PickableType: 0
+    Exist: 0
+  - Depth: 2
+    FaceIndex: 7
+    PickableType: 0
+    Exist: 0
+  - Depth: 2
+    FaceIndex: 8
+    PickableType: 0
+    Exist: 0
+  - Depth: 2
+    FaceIndex: 9
+    PickableType: 0
+    Exist: 0
+  - Depth: 2
+    FaceIndex: 10
+    PickableType: 0
+    Exist: 0
+  - Depth: 2
+    FaceIndex: 11
+    PickableType: 0
+    Exist: 0
+  - Depth: 3
+    FaceIndex: 0
+    PickableType: 0
+    Exist: 1
+  - Depth: 3
+    FaceIndex: 1
+    PickableType: 0
+    Exist: 1
+  - Depth: 3
+    FaceIndex: 2
+    PickableType: 0
+    Exist: 1
+  - Depth: 3
+    FaceIndex: 3
+    PickableType: 0
+    Exist: 1
+  - Depth: 3
+    FaceIndex: 4
+    PickableType: 0
+    Exist: 1
+  - Depth: 3
+    FaceIndex: 5
+    PickableType: 0
+    Exist: 1
+  - Depth: 3
+    FaceIndex: 6
+    PickableType: 0
+    Exist: 1
+  - Depth: 3
+    FaceIndex: 7
+    PickableType: 0
+    Exist: 1
+  - Depth: 3
+    FaceIndex: 8
+    PickableType: 0
+    Exist: 1
+  - Depth: 3
+    FaceIndex: 9
+    PickableType: 0
+    Exist: 1
+  - Depth: 3
+    FaceIndex: 10
+    PickableType: 0
+    Exist: 1
+  - Depth: 3
+    FaceIndex: 11
+    PickableType: 0
+    Exist: 1
+  - Depth: 4
+    FaceIndex: 0
+    PickableType: 0
+    Exist: 1
+  - Depth: 4
+    FaceIndex: 1
+    PickableType: 0
+    Exist: 1
+  - Depth: 4
+    FaceIndex: 2
+    PickableType: 0
+    Exist: 1
+  - Depth: 4
+    FaceIndex: 3
+    PickableType: 0
+    Exist: 1
+  - Depth: 4
+    FaceIndex: 4
+    PickableType: 0
+    Exist: 1
+  - Depth: 4
+    FaceIndex: 5
+    PickableType: 0
+    Exist: 1
+  - Depth: 4
+    FaceIndex: 6
+    PickableType: 0
+    Exist: 1
+  - Depth: 4
+    FaceIndex: 7
+    PickableType: 0
+    Exist: 1
+  - Depth: 4
+    FaceIndex: 8
+    PickableType: 0
+    Exist: 1
+  - Depth: 4
+    FaceIndex: 9
+    PickableType: 0
+    Exist: 1
+  - Depth: 4
+    FaceIndex: 10
+    PickableType: 0
+    Exist: 1
+  - Depth: 4
+    FaceIndex: 11
+    PickableType: 0
+    Exist: 1
+  - Depth: 5
+    FaceIndex: 0
+    PickableType: 0
+    Exist: 0
+  - Depth: 5
+    FaceIndex: 1
+    PickableType: 0
+    Exist: 0
+  - Depth: 5
+    FaceIndex: 2
+    PickableType: 0
+    Exist: 0
+  - Depth: 5
+    FaceIndex: 3
+    PickableType: 0
+    Exist: 0
+  - Depth: 5
+    FaceIndex: 4
+    PickableType: 0
+    Exist: 0
+  - Depth: 5
+    FaceIndex: 5
+    PickableType: 0
+    Exist: 0
+  - Depth: 5
+    FaceIndex: 6
+    PickableType: 0
+    Exist: 0
+  - Depth: 5
+    FaceIndex: 7
+    PickableType: 0
+    Exist: 0
+  - Depth: 5
+    FaceIndex: 8
+    PickableType: 0
+    Exist: 0
+  - Depth: 5
+    FaceIndex: 9
+    PickableType: 0
+    Exist: 0
+  - Depth: 5
+    FaceIndex: 10
+    PickableType: 0
+    Exist: 0
+  - Depth: 5
+    FaceIndex: 11
+    PickableType: 0
+    Exist: 0
+  - Depth: 6
+    FaceIndex: 0
+    PickableType: 0
+    Exist: 1
+  - Depth: 6
+    FaceIndex: 1
+    PickableType: 0
+    Exist: 1
+  - Depth: 6
+    FaceIndex: 2
+    PickableType: 0
+    Exist: 1
+  - Depth: 6
+    FaceIndex: 3
+    PickableType: 0
+    Exist: 1
+  - Depth: 6
+    FaceIndex: 4
+    PickableType: 0
+    Exist: 1
+  - Depth: 6
+    FaceIndex: 5
+    PickableType: 0
+    Exist: 1
+  - Depth: 6
+    FaceIndex: 6
+    PickableType: 0
+    Exist: 1
+  - Depth: 6
+    FaceIndex: 7
+    PickableType: 0
+    Exist: 1
+  - Depth: 6
+    FaceIndex: 8
+    PickableType: 0
+    Exist: 1
+  - Depth: 6
+    FaceIndex: 9
+    PickableType: 0
+    Exist: 1
+  - Depth: 6
+    FaceIndex: 10
+    PickableType: 0
+    Exist: 1
+  - Depth: 6
+    FaceIndex: 11
+    PickableType: 0
+    Exist: 1
+  - Depth: 7
+    FaceIndex: 0
+    PickableType: 0
+    Exist: 1
+  - Depth: 7
+    FaceIndex: 1
+    PickableType: 0
+    Exist: 1
+  - Depth: 7
+    FaceIndex: 2
+    PickableType: 0
+    Exist: 1
+  - Depth: 7
+    FaceIndex: 3
+    PickableType: 0
+    Exist: 1
+  - Depth: 7
+    FaceIndex: 4
+    PickableType: 0
+    Exist: 1
+  - Depth: 7
+    FaceIndex: 5
+    PickableType: 0
+    Exist: 1
+  - Depth: 7
+    FaceIndex: 6
+    PickableType: 0
+    Exist: 1
+  - Depth: 7
+    FaceIndex: 7
+    PickableType: 0
+    Exist: 1
+  - Depth: 7
+    FaceIndex: 8
+    PickableType: 0
+    Exist: 1
+  - Depth: 7
+    FaceIndex: 9
+    PickableType: 0
+    Exist: 1
+  - Depth: 7
+    FaceIndex: 10
+    PickableType: 0
+    Exist: 1
+  - Depth: 7
+    FaceIndex: 11
+    PickableType: 0
+    Exist: 1
+  - Depth: 8
+    FaceIndex: 0
+    PickableType: 0
+    Exist: 0
+  - Depth: 8
+    FaceIndex: 1
+    PickableType: 0
+    Exist: 0
+  - Depth: 8
+    FaceIndex: 2
+    PickableType: 0
+    Exist: 0
+  - Depth: 8
+    FaceIndex: 3
+    PickableType: 0
+    Exist: 0
+  - Depth: 8
+    FaceIndex: 4
+    PickableType: 0
+    Exist: 0
+  - Depth: 8
+    FaceIndex: 5
+    PickableType: 0
+    Exist: 0
+  - Depth: 8
+    FaceIndex: 6
+    PickableType: 0
+    Exist: 0
+  - Depth: 8
+    FaceIndex: 7
+    PickableType: 0
+    Exist: 0
+  - Depth: 8
+    FaceIndex: 8
+    PickableType: 0
+    Exist: 0
+  - Depth: 8
+    FaceIndex: 9
+    PickableType: 0
+    Exist: 0
+  - Depth: 8
+    FaceIndex: 10
+    PickableType: 0
+    Exist: 0
+  - Depth: 8
+    FaceIndex: 11
+    PickableType: 0
+    Exist: 0
