@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using HoakleEngine.Core.Graphics;
 using RetroRush.Config;
 using RetroRush.Game.Economics;
+using RetroRush.GameData;
 using RetroRush.GameSave;
-using RetroRush.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RetroRush
+namespace RetroRush.UI.Components 
 {
     public class UpgradeComponent : DataGuiComponent<UpgradeData>
     {
@@ -20,7 +18,7 @@ namespace RetroRush
 
         private UpgradeConfigData _Config;
         // Start is called before the first frame update
-        void Start()
+        public override void OnReady()
         {
             _Config = _GuiEngine.ConfigContainer.GetConfig<GameplayConfigData>().GetUpgradeConfig(Data.Type);
             
@@ -28,6 +26,7 @@ namespace RetroRush
             _UpgradeButton.OnBuy += Upgrade;
 
             UpdateInfo();
+            base.OnReady();
         }
 
         private void UpdateInfo()
@@ -40,6 +39,7 @@ namespace RetroRush
         private void Upgrade()
         {
             Data.Level++;
+            _GuiEngine.GameSave.Save();
             UpdateInfo();
         }
     }

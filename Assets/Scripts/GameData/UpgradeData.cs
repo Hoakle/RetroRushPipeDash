@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using HoakleEngine.Core.Game;
 using RetroRush.Game.Gameplay;
-using UnityEngine;
 
-namespace RetroRush
+namespace RetroRush.GameData
 {
-    public class UpgradeData
+    [Serializable]
+    public class UpgradeData : GameSaveData
     {
         public UpgradeData(PickableType type)
         {

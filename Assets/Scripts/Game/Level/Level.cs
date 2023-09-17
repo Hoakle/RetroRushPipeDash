@@ -9,6 +9,7 @@ using HoakleEngine.Core.Graphics;
 using RetroRush.Config;
 using RetroRush.Engine;
 using RetroRush.Game.Gameplay;
+using RetroRush.GameData;
 using RetroRush.GameSave;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -23,8 +24,14 @@ namespace RetroRush.Game.Level
 
         private List<PipeFace> _PipeFaces;
         private List<Bonus> _BonusList;
+
+        private GlobalGameSave _GlobalGameSave;
+        private GameplayConfigData _GameplayConfig;
         public override void OnReady()
         {
+            _GlobalGameSave = _GraphicsEngine.GameSave.GetSave<GlobalGameSave>();
+            _GameplayConfig = _GraphicsEngine.ConfigContainer.GetConfig<GameplayConfigData>();
+            
             _PipeFaces = new List<PipeFace>();
             _BonusList = new List<Bonus>();
             
@@ -179,19 +186,23 @@ namespace RetroRush.Game.Level
         private void OnSpeedBonusPicked()
         {
             //TODO Get value from save (player bonus upgrade data)
-            AddBonus(new SpeedBonus(4f, 1.2f));
+            var upgrade = _GameplayConfig.GetUpgradeConfig(PickableType.SpeedBonus);
+            AddBonus(new SpeedBonus(upgrade.GetValue(_GlobalGameSave._Upgrades.Find(b => b.Type == PickableType.SpeedBonus).Level),
+                upgrade.Factor));
         }
 
         private void OnMagnetPicked()
         {
             //TODO Get value from save (player bonus upgrade data)
-            AddBonus(new MagnetBonus(4f));
+            var upgrade = _GameplayConfig.GetUpgradeConfig(PickableType.Magnet);
+            AddBonus(new MagnetBonus(upgrade.GetValue(_GlobalGameSave._Upgrades.Find(b => b.Type == PickableType.Magnet).Level)));
         }
 
         private void OnShieldPicked()
         {
             //TODO Get value from save (player bonus upgrade data)
-            AddBonus(new ShieldBonus(4f));
+            var upgrade = _GameplayConfig.GetUpgradeConfig(PickableType.Shield);
+            AddBonus(new ShieldBonus(upgrade.GetValue(_GlobalGameSave._Upgrades.Find(b => b.Type == PickableType.Shield).Level)));
         }
 #endregion
         private void EndLevel()

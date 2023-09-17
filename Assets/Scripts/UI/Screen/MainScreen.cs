@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Graphics;
 using RetroRush.Engine;
+using RetroRush.GameData;
 using RetroRush.GameSave;
 using UnityEngine;
 using UnityEngine.UI;

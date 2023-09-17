@@ -13,11 +13,13 @@ namespace RetroRush.Config
         [SerializeField] private Sprite _Icone;
         [SerializeField] private List<int> _ValuePerLevel;
         [SerializeField] private List<int> _PricePerLevel;
-        
+        [SerializeField] private float _Factor = 1.2f;
         public PickableType Type => _Type;
         public string Title => _Title;
         public string Desc => _Desc;
         public Sprite Icone => _Icone;
+
+        public float Factor => _Factor;
 
         public float GetValue(int level)
         {

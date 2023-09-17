@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using HoakleEngine.Core.Graphics;
 using RetroRush.Engine;
+using RetroRush.GameData;
+using RetroRush.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +13,7 @@ namespace RetroRush.UI.Screen
         [SerializeField] private Button m_Close = null;
         [SerializeField] private Transform m_Content = null;
         // Start is called before the first frame update
-        void Start()
+        public override void OnReady()
         {
             m_Close.onClick.AddListener(Close);
             foreach (var upgrade in Data)
@@ -19,6 +21,7 @@ namespace RetroRush.UI.Screen
                 _GuiEngine.CreateDataGUIComponent<UpgradeComponent, UpgradeData>(GUIKeys.UPGRADE_COMPONENT, upgrade, m_Content);
             }
             
+            base.OnReady();
         }
 
         private void Close()
