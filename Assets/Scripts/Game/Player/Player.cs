@@ -14,7 +14,7 @@ namespace RetroRush.Game.PlayerNS
         private static readonly int HASH_JUMP = Animator.StringToHash(KEY_JUMP);
         
         [SerializeField] private Animator _Animator = null;
-        [SerializeField] private PlayerInput _PlayerInput = null;
+        [SerializeField] private PlayerInputV2 _PlayerInput = null;
         [SerializeField] private Rigidbody _Rigidbody = null;
         [SerializeField] private CapsuleCollider _Collider = null;
         

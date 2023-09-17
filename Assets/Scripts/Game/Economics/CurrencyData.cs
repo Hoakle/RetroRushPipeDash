@@ -1,10 +1,13 @@
 using System;
+using HoakleEngine.Core.Game;
 using UnityEngine;
 
 namespace RetroRush.Game.Economics
 {
-    public class CurrencyData
+    [Serializable]
+    public class CurrencyData : GameSaveData
     {
+        [SerializeField]
         protected long _Value;
         public CurrencyType Type;
         public Action OnValueChange;
