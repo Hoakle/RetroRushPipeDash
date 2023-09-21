@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using HoakleEngine.Core.Communication;
+using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
 using RetroRush.Engine;
 using RetroRush.GameData;
 using RetroRush.GameSave;
+using RetroRush.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,26 +14,28 @@ namespace RetroRush.UI.Screen
 {
     public class MainScreen : GraphicalUserInterface
     {
-        [SerializeField] private Button m_StartButton = null;
-        [SerializeField] private Button m_SettingsButton = null;
-        [SerializeField] private Button m_UpgradesButton = null;
-        
-        private void Start()
+        [SerializeField] private Button _SettingsButton = null;
+        [SerializeField] private Button _UpgradesButton = null;
+        [SerializeField] private BestScore _BestScore = null;
+        public override void OnReady()
         {
-            m_StartButton.onClick.AddListener(StartGame);
-            m_SettingsButton.onClick.AddListener(OpenSettings);
-            m_UpgradesButton.onClick.AddListener(OpenUpgrades);
+            _SettingsButton.onClick.AddListener(OpenSettings);
+            _UpgradesButton.onClick.AddListener(OpenUpgrades);
+
+            EventBus.Instance.Subscribe(EngineEventType.StartGame, Dispose);
+            _GuiEngine.InitGUIComponent<BestScore>(_BestScore);
         }
 
-        private void StartGame()
+        protected override void Dispose()
         {
-            EventBus.Instance.Publish(EngineEventType.StartGame);
-            Destroy(gameObject);
+            EventBus.Instance.UnSubscribe(EngineEventType.StartGame, Dispose);
+            base.Dispose();
         }
-    
+        
         private void OpenSettings()
         {
-        
+            _GuiEngine.CreateDataGUI<SettingsGUI, SettingsGameSave>(GUIKeys.SETTINGS_SCREEN,
+                _GuiEngine.GameSave.GetSave<SettingsGameSave>());
         }
 
         private void OpenUpgrades()
@@ -40,9 +44,8 @@ namespace RetroRush.UI.Screen
         }
         private void OnDestroy()
         {
-            m_StartButton.onClick.RemoveListener(StartGame);
-            m_SettingsButton.onClick.RemoveListener(OpenSettings);
-            m_UpgradesButton.onClick.RemoveListener(OpenUpgrades);
+            _SettingsButton.onClick.RemoveListener(OpenSettings);
+            _UpgradesButton.onClick.RemoveListener(OpenUpgrades);
         }
     }
 }

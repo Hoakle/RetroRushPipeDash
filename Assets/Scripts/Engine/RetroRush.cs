@@ -1,8 +1,5 @@
 using HoakleEngine;
-using HoakleEngine.Core.Graphics;
-using RetroRush.Config;
 using RetroRush.Engine;
-using RetroRush.UI.Screen;
 using UnityEngine;
 
 namespace Scripts.Engine
@@ -27,8 +24,8 @@ namespace Scripts.Engine
 
         public void Update()
         {
-            GameEngine.Update();
-            GraphicsEngine.Update();
+            GameEngine.Update(_IsPaused);
+            GraphicsEngine.Update(_IsPaused);
         }
     }
 }

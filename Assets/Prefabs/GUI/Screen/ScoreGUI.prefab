@@ -246,7 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1877739437931357296}
   - component: {fileID: 354984859301807982}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreGUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}

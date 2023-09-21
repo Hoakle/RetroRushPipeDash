@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f7fb4f8423a8f6449fcee0d86b70bd1, type: 3}
+  m_Name: AudioList
+  m_EditorClassIdentifier: HoakleEngine:HoakleEngine:AudioList
+  _AudioList:
+  - Key: 0
+    AudioClip: {fileID: 8300000, guid: 851117d03d716de41b0c1383ddb8f225, type: 3}
+    IsMusic: 0
+    IsLooping: 0
+    PlayOnlyOnce: 0
+    Volume: 0.465
+  - Key: 100
+    AudioClip: {fileID: 8300000, guid: b9ccc8f4b2ed0d543a18cf52bf6e8031, type: 3}
+    IsMusic: 1
+    IsLooping: 1
+    PlayOnlyOnce: 1
+    Volume: 0.339
+  - Key: 1
+    AudioClip: {fileID: 8300000, guid: 605c7c2640927634ebd6abe2e6942c93, type: 3}
+    IsMusic: 0
+    IsLooping: 0
+    PlayOnlyOnce: 0
+    Volume: 0.455
+  - Key: 2
+    AudioClip: {fileID: 8300000, guid: a05d021e40a1f714d83af0680b7d5de6, type: 3}
+    IsMusic: 0
+    IsLooping: 0
+    PlayOnlyOnce: 0
+    Volume: 0.455
+  - Key: 3
+    AudioClip: {fileID: 8300000, guid: 4581cc5bf5c19534194c451728c125f1, type: 3}
+    IsMusic: 0
+    IsLooping: 0
+    PlayOnlyOnce: 0
+    Volume: 0.478
+  - Key: 4
+    AudioClip: {fileID: 8300000, guid: bf55748449b153f4d8e81c2619a8c274, type: 3}
+    IsMusic: 0
+    IsLooping: 0
+    PlayOnlyOnce: 0
+    Volume: 0.519
+  - Key: 5
+    AudioClip: {fileID: 8300000, guid: e3ffb296fb7d1b04da8d84e9d1802c30, type: 3}
+    IsMusic: 0
+    IsLooping: 0
+    PlayOnlyOnce: 0
+    Volume: 0.469
+  - Key: 101
+    AudioClip: {fileID: 8300000, guid: 1d0e5b7d50fdf8f4faf77e0ab43b78aa, type: 3}
+    IsMusic: 1
+    IsLooping: 1
+    PlayOnlyOnce: 1
+    Volume: 0.132

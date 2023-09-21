@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7106684894852300345}
   - component: {fileID: 7724694424882631766}
   - component: {fileID: 8686555046762732976}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 7358763880400406953}
   - component: {fileID: 1101038471763796480}
   - component: {fileID: 2478786353239109861}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 4800704689973017484}
   - component: {fileID: 2319649548243814756}
   - component: {fileID: 5308978698599236370}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BonusIcone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,8 @@ GameObject:
   - component: {fileID: 2407442795254331876}
   - component: {fileID: 5365250703176711267}
   - component: {fileID: 931788887087075316}
-  m_Layer: 0
+  - component: {fileID: 8559551150146911246}
+  m_Layer: 5
   m_Name: IconLabelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,6 +360,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8559551150146911246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065112043403755455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2849bf7c35dfe14479e5675030ca2bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Button: {fileID: 5365250703176711267}
+  _Key: 0
 --- !u!1 &6177192753486017773
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +386,7 @@ GameObject:
   - component: {fileID: 1458584890934041660}
   - component: {fileID: 5924375147144722815}
   - component: {fileID: 656671886781378239}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}

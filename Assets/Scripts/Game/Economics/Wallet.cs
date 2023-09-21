@@ -9,21 +9,22 @@ namespace RetroRush.Game.Economics
     public class Wallet : GameSaveData
     {
         private Dictionary<CurrencyType, CurrencyData> _Currencies;
-        public List<CurrencyType> _CurrencyTypes = new List<CurrencyType>();
-        public List<CurrencyData> _CurrencyDatas = new List<CurrencyData>();
+        public List<CurrencyType> CurrencyTypes = new List<CurrencyType>();
+        public List<CurrencyData> CurrencyDatas = new List<CurrencyData>();
         public void Init()
         {
             _Currencies = new Dictionary<CurrencyType, CurrencyData>();
             
-            if(!_CurrencyTypes.Contains(CurrencyType.Coin))
+            if(!CurrencyTypes.Contains(CurrencyType.Coin))
             {
-                _CurrencyTypes.Add(CurrencyType.Coin);
-                _CurrencyDatas.Add(new CurrencyData(CurrencyType.Coin, 0));
+                CurrencyTypes.Add(CurrencyType.Coin);
+                CurrencyDatas.Add(new CurrencyData(CurrencyType.Coin, 0));
+                Debug.LogError("Create coin wallet");
             }
             
-            foreach (var currency in _CurrencyTypes)
+            foreach (var currency in CurrencyTypes)
             {
-                _Currencies.Add(currency, _CurrencyDatas.Find(c => c.Type == currency));
+                _Currencies.Add(currency, CurrencyDatas.Find(c => c.Type == currency));
             }
         }
         protected bool Exist(CurrencyType type)

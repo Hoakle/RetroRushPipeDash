@@ -21,7 +21,7 @@ namespace RetroRush
         private void Dispose()
         {
             EventBus.Instance.UnSubscribe(EngineEventType.GameOver, Dispose);
-            Destroy(gameObject);
+            base.Dispose();
         }
 
         public void Update()

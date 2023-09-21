@@ -24,16 +24,16 @@ namespace RetroRush.Engine
             base.Init();
         }
 
-        public override void Update()
+        public override void Update(bool isPaused)
         {
-            base.Update();
+            base.Update(isPaused);
         }
 
         public void StartGame()
         {
             GetEngine<GraphicsEngine>().CreateGraphicalRepresentation<Player, PlayerData>("Player", new PlayerData());
             GetEngine<GraphicsEngine>().CreateGraphicalRepresentation<Level, LevelData>("Level", ((GameDataHandlerImpl)_GameDataHandler).CreateNewLevel());
-            GetEngine<GraphicsEngine>().GuiEngine.CreateGUI<DebugOverlay>(GUIKeys.DEBUG_OVERLAY);
+            //GetEngine<GraphicsEngine>().GuiEngine.CreateGUI<DebugOverlay>(GUIKeys.DEBUG_OVERLAY);
         }
     }
 }
