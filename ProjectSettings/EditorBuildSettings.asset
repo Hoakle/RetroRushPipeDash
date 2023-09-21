@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/RetroRush.unity
-    guid: e00f59bf70162834ba664603cb13680f
+    path: Assets/Scenes/Game/Root.unity
+    guid: a4edd2bd502133f4da4f52ac73aa1b8b
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: fc5a612775cc594408faea4a33ae8cb0,
       type: 2}

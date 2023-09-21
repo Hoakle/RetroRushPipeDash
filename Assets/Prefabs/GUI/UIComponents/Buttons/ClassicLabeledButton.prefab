@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2364996450426548732}
   - component: {fileID: 3008262485258104168}
   - component: {fileID: 661846646091312844}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 504780480261131942}
   - component: {fileID: 1210444273451788044}
   - component: {fileID: 5064967903141738025}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 4572420543406465339}
   - component: {fileID: 8754703788547654776}
   - component: {fileID: 2474051670062273464}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
+  m_fontSize: 95.75
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -318,7 +318,8 @@ GameObject:
   - component: {fileID: 7552374065489340165}
   - component: {fileID: 7006576748910592356}
   - component: {fileID: 2857268390772060915}
-  m_Layer: 0
+  - component: {fileID: 2468855895697197632}
+  m_Layer: 5
   m_Name: ClassicLabeledButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +406,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 0, g: 0.008504391, b: 1, a: 1}
     m_HighlightedColor: {r: 0.43137252, g: 0.9287286, b: 0.9607843, a: 1}
@@ -450,3 +451,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2468855895697197632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9179167529901671096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2849bf7c35dfe14479e5675030ca2bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Button: {fileID: 7006576748910592356}
+  _Key: 0

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HoakleEngine;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Game;
@@ -25,17 +26,40 @@ namespace RetroRush.Engine
             
             GuiEngine.CreateGUI<Header>(GUIKeys.HEADER);
             
-            EventBus.Instance.Subscribe(EngineEventType.GameOver, DisplayMainMenu);
-            DisplayMainMenu();
+            EventBus.Instance.Subscribe(EngineEventType.BackToMenu, DisplayMainMenu);
+            EventBus.Instance.Subscribe(EngineEventType.StartGame, LoadLevelScene);
+            
+            GuiEngine.CreateGUI<LoadingScreen>(GUIKeys.LOADING);
             
             base.Init(camera);
         }
-
+        
         private void DisplayMainMenu()
         {
             _GameRoot.GameSaveContainer.Save();
-            GuiEngine.CreateGUI<MainScreen>(GUIKeys.MAIN_GUI);
-            GuiEngine.CreateGUI<BestScore>(GUIKeys.BEST_SCORE);
+            CreateGraphicalRepresentation<MainMenu>("MainMenu");
+        }
+
+        private void LoadLevelScene()
+        {
+            SetCameraControl(new ThirdPersonCameraControl(_GameRoot.Camera, new CameraSettingsData( -7f, 3f, 1.5f)));
+        }
+
+        public void SetCameraControl(CameraControl cameraControl, List<Transform> targets = null)
+        {
+            if (_UpdateableList.Contains(CameraControl))
+                _UpdateableList.Remove(CameraControl);
+
+            CameraControl = cameraControl;
+            _UpdateableList.Add(CameraControl);
+            
+            if(targets != null)
+                foreach (var target in targets)
+                {
+                    CameraControl.AddTarget(target);
+                }
+            
+            CameraControl.SetStartPositionAndSize();
         }
     }
 }

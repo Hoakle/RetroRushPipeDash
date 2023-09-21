@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using HoakleEngine;
+using HoakleEngine.Core.Audio;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
@@ -11,6 +12,7 @@ using RetroRush.Engine;
 using RetroRush.Game.Gameplay;
 using RetroRush.GameData;
 using RetroRush.GameSave;
+using RetroRush.UI.Screen;
 using Unity.VisualScripting;
 using UnityEngine;
 using EventBus = HoakleEngine.Core.Communication.EventBus;
@@ -19,6 +21,7 @@ namespace RetroRush.Game.Level
 {
     public class Level : GraphicalObjectRepresentation<LevelData>
     {
+        [SerializeField] private Transform _LevelContainer;
         [SerializeField] private LevelInput _LevelInput = null;
         private LevelGenerator _LevelGenerator;
 
@@ -27,21 +30,37 @@ namespace RetroRush.Game.Level
 
         private GlobalGameSave _GlobalGameSave;
         private GameplayConfigData _GameplayConfig;
+        
+        //Used for interpolation
+        private float _RotationAngle;
+        private float _RotationProgression;
+        private float _InterpolationDuration = 0f;
+        private int _PendingRotation;
+
+        private bool _IsGameOver;
+        
         public override void OnReady()
         {
+            AudioPlayer.Instance.Play(AudioKeys.MainLevelLoop);
+            
             _GlobalGameSave = _GraphicsEngine.GameSave.GetSave<GlobalGameSave>();
             _GameplayConfig = _GraphicsEngine.ConfigContainer.GetConfig<GameplayConfigData>();
             
             _PipeFaces = new List<PipeFace>();
             _BonusList = new List<Bonus>();
             
+            _IsGameOver = false;
+            
+            EventBus.Instance.Subscribe<int>(EngineEventType.MoveSideway, RotateLevel);
             EventBus.Instance.Subscribe(EngineEventType.Magnet, OnMagnetPicked);
             EventBus.Instance.Subscribe(EngineEventType.Shield, OnShieldPicked);
             EventBus.Instance.Subscribe(EngineEventType.SpeedBonus, OnSpeedBonusPicked);
             EventBus.Instance.Subscribe(EngineEventType.GameOver, EndLevel);
+            EventBus.Instance.Subscribe(EngineEventType.BackToMenu, Dispose);
+            
             _LevelGenerator = new LevelGeneratorV3(Data, _GraphicsEngine.ConfigContainer.GetConfig<LevelConfigData>());
             
-            _LevelInput.OnMove += RotateLevel;
+            //_LevelInput.OnMove += RotateLevel;
             Data.OnDepthAdded += AddDepth;
             
             while (_LevelGenerator.NeedMoreDepth())
@@ -56,11 +75,19 @@ namespace RetroRush.Game.Level
 
         public override void Dispose()
         {
+            AudioPlayer.Instance.Stop(AudioKeys.MainLevelLoop);
+            
+            EventBus.Instance.UnSubscribe<int>(EngineEventType.MoveSideway, RotateLevel);
             EventBus.Instance.UnSubscribe(EngineEventType.Magnet, OnMagnetPicked);
             EventBus.Instance.UnSubscribe(EngineEventType.Shield, OnShieldPicked);
             EventBus.Instance.UnSubscribe(EngineEventType.SpeedBonus, OnSpeedBonusPicked);
             EventBus.Instance.UnSubscribe(EngineEventType.GameOver, EndLevel);
-            _LevelInput.OnMove -= RotateLevel;
+            EventBus.Instance.UnSubscribe(EngineEventType.BackToMenu, Dispose);
+            
+            _LevelContainer.transform.position = Vector3.zero;
+            _LevelContainer.transform.position = Vector3.zero;
+            
+            //_LevelInput.OnMove -= RotateLevel;
             Data.OnDepthAdded -= AddDepth;
             
             base.Dispose();
@@ -68,11 +95,15 @@ namespace RetroRush.Game.Level
 
         public void Update()
         {
-            MoveLevel();
+            if (!_IsGameOver)
+            {
+                MoveLevel();
 
-            TickBonus();
+                TickBonus();
 
-            Data.Score = (int) -transform.position.z * 10;
+                Data.Score = (int) - _LevelContainer.position.z * 10;
+            }
+            
         }
 
         private void TickBonus()
@@ -85,24 +116,44 @@ namespace RetroRush.Game.Level
 
         private void MoveLevel()
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - (Data.Speed * Data.SpeedFactor * Time.deltaTime));
-            _LevelGenerator.UpdateLevel(transform.position.z);
+            _LevelContainer.position = new Vector3(_LevelContainer.position.x, _LevelContainer.position.y, _LevelContainer.position.z - (Data.Speed * Data.SpeedFactor * Data.DifficultySpeedFactor * Time.deltaTime));
+            _LevelGenerator.UpdateLevel(_LevelContainer.position.z);
+
+            if (_RotationAngle != 0f)
+            {
+                //Rotation du tube
+                var lerp = Mathf.Lerp(0, _RotationAngle - _RotationProgression, _InterpolationDuration);
+                _RotationProgression += lerp;
+                _LevelContainer.Rotate(0, 0, lerp);
+                _InterpolationDuration += Time.deltaTime / _PendingRotation;
+                
+                if (Math.Abs(_RotationAngle - _RotationProgression) == 0f)
+                {
+                    _InterpolationDuration = 0f;
+                    _RotationAngle = 0f;
+                    _RotationProgression = 0f;
+                    _PendingRotation = 0;
+                }
+            }
         }
 
-        private void RotateLevel(float angle)
+        private void RotateLevel(int direction)
         {
-            //Rotation du tube
-            transform.Rotate(0, 0, angle * Time.deltaTime);
+            //Calculate the angle to mode to the next plane
+            _RotationAngle += (360 / Data.NumberOfFace) * -direction;
+            _PendingRotation++;
+            _InterpolationDuration = (_InterpolationDuration * (_PendingRotation - 1)) / (float) _PendingRotation;
         }
 
         private int _InstanciationNotReady = 0;
+
         private void CreateLevelRepresentation()
         {
             _GraphicsEngine.GuiEngine.CreateDataGUI<Score, LevelData>(GUIKeys.SCORE_GUI, Data);
             _InstanciationNotReady = Data.PipeFaces.Count;
             foreach (var face in Data.PipeFaces)
             {
-                AddGOR<PipeFace, PipeFaceData>("PipeFace", face, transform, OnPipeFaceInstantiated);
+                AddGOR<PipeFace, PipeFaceData>("PipeFace", face, _LevelContainer, OnPipeFaceInstantiated);
             }
 
             StartCoroutine(SetObstacleCoroutine());
@@ -114,7 +165,7 @@ namespace RetroRush.Game.Level
             _InstanciationNotReady = list.Count;
             foreach (var face in list)
             {
-                AddGOR<PipeFace, PipeFaceData>("PipeFace", face, transform, OnPipeFaceInstantiated);
+                AddGOR<PipeFace, PipeFaceData>("PipeFace", face, _LevelContainer, OnPipeFaceInstantiated);
             }
             
             StartCoroutine(SetObstacleCoroutine());
@@ -168,6 +219,7 @@ namespace RetroRush.Game.Level
         {
             bonus.OnEnd -= RemoveBonus;
             _BonusList.Remove(bonus);
+            UpdateLevelGameplayParams();
         }
 
         private Bonus GetBonus(PickableType type)
@@ -177,11 +229,14 @@ namespace RetroRush.Game.Level
         private void UpdateLevelGameplayParams()
         {
             Data.SpeedFactor = 1f;
+            var totalFactor = 0f;
             foreach (var bonus in _BonusList)
             {
-                Data.SpeedFactor += bonus.GetSpeedFactor();
+                totalFactor += bonus.GetSpeedFactor();
             }
-            
+
+            if (totalFactor > 0)
+                Data.SpeedFactor = totalFactor;
         }
         private void OnSpeedBonusPicked()
         {
@@ -207,9 +262,12 @@ namespace RetroRush.Game.Level
 #endregion
         private void EndLevel()
         {
+            _IsGameOver = true;
+            
             GlobalGameSave save = _GraphicsEngine.GetEngine<GameEngine>().GameSave.GetSave<GlobalGameSave>();
             save.BestScore = Math.Max(save.BestScore, Data.Score);
-            Dispose();
+            
+            _GraphicsEngine.GuiEngine.CreateDataGUI<PostGameGUI, LevelData>(GUIKeys.POSTGAME, Data);
         }
     }
     

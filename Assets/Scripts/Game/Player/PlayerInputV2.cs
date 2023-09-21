@@ -1,5 +1,7 @@
 using System;
+using HoakleEngine.Core.Communication;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace RetroRush.Game.PlayerNS
 {
@@ -10,8 +12,6 @@ namespace RetroRush.Game.PlayerNS
         public Action<int> OnSideways;
 
         private Vector2 _InitialTouchPos;
-
-        private bool _InputInProgress;
         void Update()
         {
             if(Input.touchCount > 0)
@@ -24,37 +24,49 @@ namespace RetroRush.Game.PlayerNS
                     if (touch.phase == TouchPhase.Began)
                     {
                         _InitialTouchPos = pos;
-                        _InputInProgress = true;
                     }
-                    else if(touch.phase == TouchPhase.Moved && _InputInProgress)
+                    else if(touch.phase == TouchPhase.Ended)
                     {
-                        Debug.LogError("Moved");
-                        if (Vector2.Distance(pos, _InitialTouchPos) > 1f)
-                        {
-                            var direction = pos - _InitialTouchPos;
-                            var angle = Vector2.SignedAngle(Vector2.right, direction);
-                            if (angle is < 45 and > -45)
-                            {
-                                Debug.LogError("Side 1");
-                                OnSideways?.Invoke(1);
-                            }
-                            else if(angle is >= 45 and < 135)
-                            {
-                                Debug.LogError("jump");
-                                OnJump?.Invoke();
-                            }
-                            else if(angle is >= 135 and < 180)
-                            {
-                                Debug.LogError("Slide");
-                                OnSlide?.Invoke();
-                            }
-                            else
-                            {
-                                Debug.LogError("Side -1");
-                                OnSideways?.Invoke(-1);
-                            }
-                        }
+                        OnInputInProgress(pos);
                     }
+                }
+            }
+            
+#if UNITY_EDITOR
+            if (Input.GetMouseButtonDown((int) MouseButton.LeftMouse))
+            {
+                _InitialTouchPos = Input.mousePosition;
+            }
+            else if(Input.GetMouseButtonUp((int) MouseButton.LeftMouse))
+            {
+                OnInputInProgress(Input.mousePosition);
+            }
+#endif
+            
+        }
+
+        private void OnInputInProgress(Vector2 pos)
+        {
+            if (Vector2.Distance(Input.mousePosition, _InitialTouchPos) > 10f)
+            {
+                var direction = (Vector2) Input.mousePosition - _InitialTouchPos;
+                var angle = Vector2.SignedAngle(Vector2.right, direction);
+                
+                if (angle is < 45 and > -45)
+                {
+                    EventBus.Instance.Publish<int>(EngineEventType.MoveSideway, 1);
+                }
+                else if(angle is >= 45 and < 135)
+                {
+                    OnJump?.Invoke();
+                }
+                else if(angle is >= 135 and < 225)
+                {
+                    EventBus.Instance.Publish<int>(EngineEventType.MoveSideway, -1);
+                }
+                else
+                {
+                    OnSlide?.Invoke();
                 }
             }
         }

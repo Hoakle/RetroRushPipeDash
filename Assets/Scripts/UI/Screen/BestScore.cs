@@ -8,21 +8,15 @@ using UnityEngine;
 
 namespace RetroRush.UI.Screen
 {
-    public class BestScore : GraphicalUserInterface
+    public class BestScore : GuiComponent
     {
         [SerializeField] private TextMeshProUGUI m_Text = null;
 
         public override void OnReady()
         {
-            EventBus.Instance.Subscribe(EngineEventType.StartGame, Dispose);
             UpdateScore();
         }
-
-        private void Dispose()
-        {
-            EventBus.Instance.UnSubscribe(EngineEventType.StartGame, Dispose);
-            Destroy(gameObject);
-        }
+        
         private void UpdateScore()
         {
             GlobalGameSave save = _GuiEngine.GetEngine<GraphicsEngine>().GameSave.GetSave<GlobalGameSave>();

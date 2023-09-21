@@ -1,4 +1,6 @@
 ﻿using System;
+using HoakleEngine;
+using HoakleEngine.Core.Audio;
 using HoakleEngine.Core.Communication;
 using UnityEngine;
 
@@ -12,6 +14,12 @@ namespace RetroRush.Game.Gameplay
         public override void SendEvent()
         {
             EventBus.Instance.Publish(EngineEventType.Coin);
+        }
+
+        public override void PlayAudio()
+        {
+            AudioPlayer.Instance.Play(AudioKeys.CoinCollect);
+            AudioPlayer.Instance.Play(AudioKeys.CoinCollect_02);
         }
 
         public override void Dispose()

@@ -10,6 +10,7 @@ namespace RetroRush.Game.Gameplay
         {
             if (other.CompareTag("Player") && _IsReady)
             {
+                PlayAudio();
                 SendEvent();
                 Dispose();
             }
@@ -17,6 +18,7 @@ namespace RetroRush.Game.Gameplay
         }
 
         public abstract void SendEvent();
+        public abstract void PlayAudio();
     }
 
     public enum PickableType

@@ -26,7 +26,7 @@ namespace RetroRush.UI.Screen
 
         private void Close()
         {
-            Destroy();
+            Dispose();
         }
         private void OnDestroy()
         {

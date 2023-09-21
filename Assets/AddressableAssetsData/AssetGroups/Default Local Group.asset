@@ -42,7 +42,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: b1d9f92a557c3be4bb771b62c613d12c
-    m_Address: SettingsScreen
+    m_Address: DebugGUI
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 287da73848e287241862c0d639da4848
@@ -55,10 +55,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: a48beb74194bf0f4db7be94a92635398
     m_Address: ScoreGUI
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 750eb7b7c50746842b866fbb8862956b
-    m_Address: BestScore
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 577feea11cc528e4a9055c3ad29f3768
@@ -83,6 +79,22 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: c41c08af8be35e045811bb35921f6e28
     m_Address: UpgradeComponent
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a4b0077dc4ddaf64199f0e697286d77d
+    m_Address: MainMenu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 01bb268165ae20e45a762785d51a1050
+    m_Address: PostGameGUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: eff2e63bd770f9e4a8e97162b5a23a0b
+    m_Address: LoadingScreen
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d797e1a908f7b8c4caf349b27956a8ec
+    m_Address: SettingsGUI
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

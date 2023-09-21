@@ -1,3 +1,5 @@
+using HoakleEngine;
+using HoakleEngine.Core.Audio;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
@@ -11,7 +13,9 @@ namespace RetroRush.Game.PlayerNS
     public class Player : GraphicalObjectRepresentation<PlayerData>
     {
         private const string KEY_JUMP = "Jump";
+        private const string KEY_SLIDE = "Slide";
         private static readonly int HASH_JUMP = Animator.StringToHash(KEY_JUMP);
+        private static readonly int HASH_SLIDE = Animator.StringToHash(KEY_SLIDE);
         
         [SerializeField] private Animator _Animator = null;
         [SerializeField] private PlayerInputV2 _PlayerInput = null;
@@ -29,10 +33,14 @@ namespace RetroRush.Game.PlayerNS
             EventBus.Instance.Subscribe(EngineEventType.SpeedBonus, ActiveBonusSpeedParticulSystem);
             EventBus.Instance.Subscribe(EngineEventType.SpeedBonusFadeOut, DeactiveBonusSpeedParticulSystem);
             EventBus.Instance.Subscribe(EngineEventType.Coin, CollectCoin);
-            EventBus.Instance.Subscribe(EngineEventType.GameOver, Dispose);
+            EventBus.Instance.Subscribe(EngineEventType.GameOver, GameOver);
+
+            _GraphicsEngine.OnCameraControlChange += AddPlayerAsTarget;
             _GraphicsEngine.CameraControl.AddTarget(this.transform);
             
             _PlayerInput.OnJump += TryJump;
+            _PlayerInput.OnSlide += TrySlide;
+            
             _Jump = false;
             
             base.OnReady();
@@ -47,12 +55,20 @@ namespace RetroRush.Game.PlayerNS
             EventBus.Instance.UnSubscribe(EngineEventType.SpeedBonus, ActiveBonusSpeedParticulSystem);
             EventBus.Instance.UnSubscribe(EngineEventType.SpeedBonusFadeOut, DeactiveBonusSpeedParticulSystem);
             EventBus.Instance.UnSubscribe(EngineEventType.Coin, CollectCoin);
-            EventBus.Instance.UnSubscribe(EngineEventType.GameOver, Dispose);
+            EventBus.Instance.UnSubscribe(EngineEventType.GameOver, GameOver);
+            
             _GraphicsEngine.CameraControl.RemoveTarget(this.transform);
+            _GraphicsEngine.OnCameraControlChange -= AddPlayerAsTarget;
             _PlayerInput.OnJump -= TryJump;
+            _PlayerInput.OnSlide -= TrySlide;
+            
             base.Dispose();
         }
 
+        private void AddPlayerAsTarget()
+        {
+            _GraphicsEngine.CameraControl.AddTarget(this.transform);
+        }
         private void Update()
         {
             Move();
@@ -73,10 +89,26 @@ namespace RetroRush.Game.PlayerNS
         }
         private void Jump()
         {
+            AudioPlayer.Instance.Play(AudioKeys.Jump);
             _Rigidbody.AddForce(Vector3.up * 7, ForceMode.Impulse);
             _Animator.SetBool(HASH_JUMP, true);
             _Jump = true;
             _JumpStart = Time.time;
+        }
+
+        private void TrySlide()
+        {
+            if(IsGrounded())
+                Slide();
+            else
+            {
+                _Rigidbody.AddForce(Vector3.down * 7, ForceMode.Impulse);
+            }
+        }
+        
+        private void Slide()
+        {
+            _Animator.SetTrigger(HASH_SLIDE);
         }
 
         private void Move()
@@ -85,7 +117,7 @@ namespace RetroRush.Game.PlayerNS
             position = new Vector3(position.x, position.y, position.z);
             transform.position = position;
         }
-
+        
         private void CheckEnd()
         {
             if(transform.position.y <= -6.5f)
@@ -115,6 +147,11 @@ namespace RetroRush.Game.PlayerNS
         {
             _GlobalGameSave.Wallet.Add(CurrencyType.Coin, 1);
             Data.CollectedCoin++;
+        }
+
+        private void GameOver()
+        {
+            Dispose();
         }
     }
 }
