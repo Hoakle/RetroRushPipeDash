@@ -1,10 +1,11 @@
 using HoakleEngine;
+using HoakleEngine.Addons;
 using HoakleEngine.Core.Audio;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
 using RetroRush.Game.Economics;
-using RetroRush.Game.Player;
+using RetroRush.Game.PlayerNS;
 using RetroRush.GameSave;
 using UnityEngine;
 
@@ -22,8 +23,7 @@ namespace RetroRush.Game.PlayerNS
         [SerializeField] private Rigidbody _Rigidbody = null;
         [SerializeField] private CapsuleCollider _Collider = null;
         
-        [SerializeField] private ParticleSystem _BonusSpeedFx = null;
-        [SerializeField] private MagnetForceField _MagnetForceField = null;
+        [SerializeField] private MeshTrail _MeshTrail = null;
 
         private GlobalGameSave _GlobalGameSave;
         public override void OnReady()
@@ -40,7 +40,8 @@ namespace RetroRush.Game.PlayerNS
             
             _PlayerInput.OnJump += TryJump;
             _PlayerInput.OnSlide += TrySlide;
-            
+
+            _MeshTrail.IsActive = false;
             _Jump = false;
             
             base.OnReady();
@@ -135,12 +136,12 @@ namespace RetroRush.Game.PlayerNS
 
         public void ActiveBonusSpeedParticulSystem()
         {
-            _BonusSpeedFx.Play();
+            _MeshTrail.IsActive = true;
         }
 
         public void DeactiveBonusSpeedParticulSystem()
         {
-            _BonusSpeedFx.Stop();
+            _MeshTrail.IsActive = false;
         }
 
         private void CollectCoin()
@@ -152,6 +153,11 @@ namespace RetroRush.Game.PlayerNS
         private void GameOver()
         {
             Dispose();
+        }
+
+        public void NotifyMovement(float speed)
+        {
+            _MeshTrail.Speed = speed;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace RetroRush.UI.Screen
                  _ZOffsetComponent = component;
                  _ZOffsetComponent.Init("ZOffset", 0f, -20f, 1f);
              });
-             _GuiEngine.CreateDataGUIComponent<SettingsComponent, float>(GUIKeys.SETTINGS_COMPONENT, Data.ZLookAtOffset, m_Content, component =>
+             _GuiEngine.CreateDataGUIComponent<SettingsComponent, float>(GUIKeys.SETTINGS_COMPONENT, Data.YLookAtOffset, m_Content, component =>
              {
                  _ZLookAtComponent = component;
                  _ZLookAtComponent.Init("ZLookAtOffset", 20f, 0f, 0.5f);
@@ -45,7 +45,7 @@ namespace RetroRush.UI.Screen
         {
             Data.YOffset = _YOffsetComponent.Data;
             Data.ZOffset = _ZOffsetComponent.Data;
-            Data.ZLookAtOffset = _ZLookAtComponent.Data;
+            Data.YLookAtOffset = _ZLookAtComponent.Data;
         }
     }
 }

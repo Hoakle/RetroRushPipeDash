@@ -60,7 +60,7 @@ namespace RetroRush.Game.PlayerNS
                 {
                     OnJump?.Invoke();
                 }
-                else if(angle is >= 135 and < 225)
+                else if(angle is >= 135 or <= -135)
                 {
                     EventBus.Instance.Publish<int>(EngineEventType.MoveSideway, -1);
                 }

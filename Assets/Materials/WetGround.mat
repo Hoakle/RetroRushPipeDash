@@ -21,6 +21,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AmbiantOclusion:
+        m_Texture: {fileID: 2800000, guid: 4e5db54939164e245a1496087ac8d5f1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -49,6 +53,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Height:
+        m_Texture: {fileID: 2800000, guid: 3178f03ddb8a5fb4389a856b08b822ac, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -75,6 +83,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Ripple:
         m_Texture: {fileID: 2800000, guid: 8e199dac88b1e34408e46fe12705e2fe, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Roughtness:
+        m_Texture: {fileID: 2800000, guid: 3495c9f5806a4d24aaafaca5a7c57123, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -106,7 +118,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _Flow: 0.01
+    - _Flow: 0.3
     - _FlowTilling: 200
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -130,9 +142,10 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainTiling: {r: 15, g: 15, b: 0, a: 0}
     - _RippleSpeed: {r: 0.1, g: 0.1, b: 0, a: 0}
-    - _RippleTilling: {r: 200, g: 200, b: 0, a: 0}
-    - _SmoothTilling: {r: 0.15, g: 0.15, b: 0, a: 0}
+    - _RippleTilling: {r: 5, g: 5, b: 0, a: 0}
+    - _SmoothTilling: {r: 1, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Tiling: {r: 10, g: 10, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4688571473171328645
 MonoBehaviour:
