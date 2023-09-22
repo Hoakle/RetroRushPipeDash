@@ -1,4 +1,5 @@
 using HoakleEngine;
+using HoakleEngine.Core;
 using HoakleEngine.Core.Graphics;
 
 public class GUIEngineImpl : GUIEngine
