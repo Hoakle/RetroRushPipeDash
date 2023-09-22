@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using HoakleEngine;
+using HoakleEngine.Core;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
