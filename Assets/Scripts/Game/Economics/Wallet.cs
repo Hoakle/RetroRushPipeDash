@@ -19,7 +19,6 @@ namespace RetroRush.Game.Economics
             {
                 CurrencyTypes.Add(CurrencyType.Coin);
                 CurrencyDatas.Add(new CurrencyData(CurrencyType.Coin, 0));
-                Debug.LogError("Create coin wallet");
             }
             
             foreach (var currency in CurrencyTypes)

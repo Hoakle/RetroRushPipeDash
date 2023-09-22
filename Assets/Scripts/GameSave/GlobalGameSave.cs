@@ -7,13 +7,17 @@ using UnityEngine;
 
 namespace RetroRush.GameSave
 {
-    [CreateAssetMenu(fileName = "GlobalGameSave", menuName = "Game Data/GameSaves/GlobalGameSave")]
     [Serializable]
     public class GlobalGameSave : HoakleEngine.Core.Game.GameSave
     {
         public Wallet Wallet = new Wallet();
         public List<UpgradeData> _Upgrades = new List<UpgradeData>();
         public long BestScore;
+
+        public GlobalGameSave()
+        {
+            SaveName = "GlobalGameSave";
+        }
         public override void Init()
         {
             Wallet.Init();

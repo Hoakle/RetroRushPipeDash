@@ -34,7 +34,6 @@ namespace RetroRush.UI.Components
 
         private void Toogle()
         {
-            Debug.LogError("Toogle");
             Data = !Data;
             OnToogleChange?.Invoke(Data);
             UpdateText();

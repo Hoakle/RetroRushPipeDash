@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using HoakleEngine;
 using HoakleEngine.Core.Audio;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Game;
@@ -10,19 +9,16 @@ using HoakleEngine.Core.Graphics;
 using RetroRush.Config;
 using RetroRush.Engine;
 using RetroRush.Game.Gameplay;
-using RetroRush.GameData;
+using RetroRush.Game.PlayerNS;
 using RetroRush.GameSave;
 using RetroRush.UI.Screen;
-using Unity.VisualScripting;
 using UnityEngine;
-using EventBus = HoakleEngine.Core.Communication.EventBus;
 
 namespace RetroRush.Game.Level
 {
     public class Level : GraphicalObjectRepresentation<LevelData>
     {
         [SerializeField] private Transform _LevelContainer;
-        [SerializeField] private LevelInput _LevelInput = null;
         private LevelGenerator _LevelGenerator;
 
         private List<PipeFace> _PipeFaces;
@@ -30,6 +26,8 @@ namespace RetroRush.Game.Level
 
         private GlobalGameSave _GlobalGameSave;
         private GameplayConfigData _GameplayConfig;
+
+        private Player _Player;
         
         //Used for interpolation
         private float _RotationAngle;
@@ -68,6 +66,12 @@ namespace RetroRush.Game.Level
                 _LevelGenerator.AddDepth();
             }
 
+            _GraphicsEngine.CreateGraphicalRepresentation<Player, PlayerData>("Player", new PlayerData(), null, (player) =>
+            {
+                _Player = player;
+                _Player.transform.position += new Vector3(0, -Data.Radius + 1f, 0);
+            });
+            
             CreateLevelRepresentation();
             
             base.OnReady();
@@ -119,7 +123,7 @@ namespace RetroRush.Game.Level
             _LevelContainer.position = new Vector3(_LevelContainer.position.x, _LevelContainer.position.y, _LevelContainer.position.z - (Data.Speed * Data.SpeedFactor * Data.DifficultySpeedFactor * Time.deltaTime));
             _LevelGenerator.UpdateLevel(_LevelContainer.position.z);
 
-            if (_RotationAngle != 0f)
+            if (Math.Abs(_RotationAngle - _RotationProgression) > 0.01f)
             {
                 //Rotation du tube
                 var lerp = Mathf.Lerp(0, _RotationAngle - _RotationProgression, _InterpolationDuration);
@@ -135,6 +139,9 @@ namespace RetroRush.Game.Level
                     _PendingRotation = 0;
                 }
             }
+
+            if(_Player != null)
+                _Player.NotifyMovement(Data.Speed * Data.SpeedFactor * Data.DifficultySpeedFactor * Time.deltaTime);
         }
 
         private void RotateLevel(int direction)

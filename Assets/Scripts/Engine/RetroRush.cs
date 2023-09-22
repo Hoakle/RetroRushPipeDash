@@ -1,5 +1,7 @@
 using HoakleEngine;
+using HoakleEngine.Core.Game;
 using RetroRush.Engine;
+using RetroRush.GameSave;
 using UnityEngine;
 
 namespace Scripts.Engine
@@ -20,6 +22,12 @@ namespace Scripts.Engine
             base.Init();
             GraphicsEngine.Init(_Camera);
             GameEngine.Init();
+        }
+
+        protected override void InitGameSave(GameSaveContainer container)
+        {
+            container.SetSave(new GlobalGameSave());
+            base.InitGameSave(container);
         }
 
         public void Update()

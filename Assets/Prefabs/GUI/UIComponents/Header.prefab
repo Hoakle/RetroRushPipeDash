@@ -392,6 +392,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: IconButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7724694424882631766, guid: c584123f37df0e648b49850f9dcf5032,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 08ad0bfff84ed5c4ba518d0ffd7a5668, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c584123f37df0e648b49850f9dcf5032, type: 3}
 --- !u!224 &6523974326193153696 stripped

@@ -21,7 +21,7 @@ namespace RetroRush.Engine
             GuiEngine.LinkEngine(GetEngine<GameEngineImpl>());
             GuiEngine.LinkEngine(this);
             
-            CameraControl = new ThirdPersonCameraControl(_GameRoot.Camera, new CameraSettingsData( -7f, 3f, 1.5f));
+            CameraControl = new ThirdPersonCameraControl(_GameRoot.Camera, new CameraSettingsData( -7f, -2f, -3f));
             _UpdateableList.Add(CameraControl);
             
             GuiEngine.CreateGUI<Header>(GUIKeys.HEADER);
@@ -42,7 +42,7 @@ namespace RetroRush.Engine
 
         private void LoadLevelScene()
         {
-            SetCameraControl(new ThirdPersonCameraControl(_GameRoot.Camera, new CameraSettingsData( -7f, 3f, 1.5f)));
+            SetCameraControl(new ThirdPersonCameraControl(_GameRoot.Camera, new CameraSettingsData( -7f, -2f, -3f)));
         }
 
         public void SetCameraControl(CameraControl cameraControl, List<Transform> targets = null)

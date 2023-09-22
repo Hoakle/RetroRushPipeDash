@@ -1,12 +1,8 @@
-using System.Collections;
 using HoakleEngine;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
 using RetroRush.Game.Level;
-using RetroRush.Game.Player;
-using RetroRush.Game.PlayerNS;
-using RetroRush.UI.Screen;
 
 namespace RetroRush.Engine
 {
@@ -31,7 +27,6 @@ namespace RetroRush.Engine
 
         public void StartGame()
         {
-            GetEngine<GraphicsEngine>().CreateGraphicalRepresentation<Player, PlayerData>("Player", new PlayerData());
             GetEngine<GraphicsEngine>().CreateGraphicalRepresentation<Level, LevelData>("Level", ((GameDataHandlerImpl)_GameDataHandler).CreateNewLevel());
             //GetEngine<GraphicsEngine>().GuiEngine.CreateGUI<DebugOverlay>(GUIKeys.DEBUG_OVERLAY);
         }
