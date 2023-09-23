@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f7fb4f8423a8f6449fcee0d86b70bd1, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f7fc7f8d7579ea44816cba87e5f9f83, type: 3}
   m_Name: AudioList
   m_EditorClassIdentifier: HoakleEngine:HoakleEngine:AudioList
   _AudioList:
@@ -36,13 +36,13 @@ MonoBehaviour:
     IsMusic: 0
     IsLooping: 0
     PlayOnlyOnce: 0
-    Volume: 0.455
+    Volume: 0.165
   - Key: 3
     AudioClip: {fileID: 8300000, guid: 4581cc5bf5c19534194c451728c125f1, type: 3}
     IsMusic: 0
     IsLooping: 0
     PlayOnlyOnce: 0
-    Volume: 0.478
+    Volume: 0.179
   - Key: 4
     AudioClip: {fileID: 8300000, guid: bf55748449b153f4d8e81c2619a8c274, type: 3}
     IsMusic: 0
