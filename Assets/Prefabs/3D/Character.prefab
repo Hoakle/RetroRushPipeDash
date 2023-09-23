@@ -1303,7 +1303,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3123247851139652497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c62ae61291ad008468f44eaa449e648f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fa924856e534b345972354ce2de6958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _CharacterTransform: {fileID: 2894725462032213056}
@@ -1316,9 +1316,9 @@ MonoBehaviour:
   - {fileID: 443482275240884936}
   - {fileID: 4750440487289968501}
   _Materail: {fileID: 2100000, guid: 187d1d493b90af7428582e24e476e0ea, type: 2}
-  _ShaderValue: _Alpha
-  _MeshRefreshRate: 0.05
-  _MeshDestroyDelay: 0.25
+  _ShaderValue: 
+  _MeshRefreshRate: 0.2
+  _MeshDestroyDelay: 2
   Speed: 0
 --- !u!1 &3163078915211833631
 GameObject:
