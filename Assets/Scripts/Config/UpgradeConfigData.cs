@@ -12,18 +12,22 @@ namespace RetroRush.Config
         [SerializeField] private string _Desc;
         [SerializeField] private Sprite _Icone;
         [SerializeField] private List<int> _ValuePerLevel;
+        [SerializeField] private List<float> _FactorPerLevel;
         [SerializeField] private List<int> _PricePerLevel;
-        [SerializeField] private float _Factor = 1.2f;
         public PickableType Type => _Type;
         public string Title => _Title;
         public string Desc => _Desc;
         public Sprite Icone => _Icone;
-
-        public float Factor => _Factor;
+        public int MaxLevel => _ValuePerLevel.Count;
 
         public float GetValue(int level)
         {
             return _ValuePerLevel[level - 1];
+        }
+
+        public float GetFactor(int level)
+        {
+            return _FactorPerLevel[level - 1];
         }
 
         public int GetUpgradePrice(int level)

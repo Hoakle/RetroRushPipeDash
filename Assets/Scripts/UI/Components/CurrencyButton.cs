@@ -18,7 +18,7 @@ namespace RetroRush.UI.Components
         private Wallet _Wallet = null;
         private int _Price;
         private bool HasEnough => Data.Value >= _Price;
-        public void Start()
+        public override void OnReady()
         {
             _Wallet = _GuiEngine.GameSave.GetSave<GlobalGameSave>().Wallet;
             

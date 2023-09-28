@@ -1,11 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
 using HoakleEngine;
 using HoakleEngine.Addons;
 using HoakleEngine.Core.Audio;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
+using RetroRush.Config;
 using RetroRush.Game.Economics;
+using RetroRush.Game.Gameplay;
 using RetroRush.Game.PlayerNS;
+using RetroRush.GameData;
 using RetroRush.GameSave;
 using UnityEngine;
 
@@ -22,17 +27,29 @@ namespace RetroRush.Game.PlayerNS
         [SerializeField] private PlayerInputV2 _PlayerInput = null;
         [SerializeField] private Rigidbody _Rigidbody = null;
         [SerializeField] private CapsuleCollider _Collider = null;
-        
+        [SerializeField] private Material _Material;
+        [SerializeField] private string _DissolvePower;
         [SerializeField] private MeshTrail _MeshTrail = null;
 
         private GlobalGameSave _GlobalGameSave;
+        private UpgradeData _CoinUpgrade;
+        private UpgradeConfigData _CoinConfig;
+        private bool _IsCoinBonusActive;
+
+        private bool _IsGameOver;
         public override void OnReady()
         {
             _GlobalGameSave = _GraphicsEngine.GetEngine<GameEngine>().GameSave.GetSave<GlobalGameSave>();
             
+            _CoinConfig = _GraphicsEngine.ConfigContainer.GetConfig<GameplayConfigData>().GetUpgradeConfig(PickableType.CoinFactor);
+            _CoinUpgrade = _GlobalGameSave._Upgrades.Find(b => b.Type == PickableType.CoinFactor);
+            
             EventBus.Instance.Subscribe(EngineEventType.SpeedBonus, ActiveBonusSpeedParticulSystem);
+            EventBus.Instance.Subscribe(EngineEventType.StartBoost, ActiveStartBoost);
             EventBus.Instance.Subscribe(EngineEventType.SpeedBonusFadeOut, DeactiveBonusSpeedParticulSystem);
+            EventBus.Instance.Subscribe(EngineEventType.CoinFactorStarted, ActiveCoinFactor);
             EventBus.Instance.Subscribe(EngineEventType.Coin, CollectCoin);
+            EventBus.Instance.Subscribe(EngineEventType.PlayerDied, PlayerDied);
             EventBus.Instance.Subscribe(EngineEventType.GameOver, GameOver);
 
             _GraphicsEngine.OnCameraControlChange += AddPlayerAsTarget;
@@ -41,6 +58,8 @@ namespace RetroRush.Game.PlayerNS
             _PlayerInput.OnJump += TryJump;
             _PlayerInput.OnSlide += TrySlide;
 
+            _IsGameOver = false;
+            _Material.SetFloat(_DissolvePower, 1);
             _MeshTrail.IsActive = false;
             _Jump = false;
             
@@ -54,8 +73,11 @@ namespace RetroRush.Game.PlayerNS
         public override void Dispose()
         {
             EventBus.Instance.UnSubscribe(EngineEventType.SpeedBonus, ActiveBonusSpeedParticulSystem);
+            EventBus.Instance.UnSubscribe(EngineEventType.StartBoost, ActiveStartBoost);
             EventBus.Instance.UnSubscribe(EngineEventType.SpeedBonusFadeOut, DeactiveBonusSpeedParticulSystem);
+            EventBus.Instance.UnSubscribe(EngineEventType.CoinFactorStarted, ActiveCoinFactor);
             EventBus.Instance.UnSubscribe(EngineEventType.Coin, CollectCoin);
+            EventBus.Instance.UnSubscribe(EngineEventType.PlayerDied, PlayerDied);
             EventBus.Instance.UnSubscribe(EngineEventType.GameOver, GameOver);
             
             _GraphicsEngine.CameraControl.RemoveTarget(this.transform);
@@ -121,9 +143,10 @@ namespace RetroRush.Game.PlayerNS
         
         private void CheckEnd()
         {
-            if(transform.position.y <= -6.5f)
+            if(transform.position.y <= -5.5f && !_IsGameOver)
             {
-                EventBus.Instance.Publish(EngineEventType.GameOver);
+                _IsGameOver = true;
+                EventBus.Instance.Publish(EngineEventType.PlayerDied);
             }
         }
         private bool IsGrounded()
@@ -144,14 +167,52 @@ namespace RetroRush.Game.PlayerNS
             _MeshTrail.IsActive = false;
         }
 
+        public void ActiveStartBoost()
+        {
+            _MeshTrail.IsActive = true;
+        }
+        private void ActiveCoinFactor()
+        {
+            _IsCoinBonusActive = true;
+            _MeshTrail.IsActive = true;
+        }
         private void CollectCoin()
         {
-            _GlobalGameSave.Wallet.Add(CurrencyType.Coin, 1);
+            float value = 1;
+            if (_IsCoinBonusActive)
+                value *= _CoinConfig.GetFactor(_CoinUpgrade.Level);
+            
+            _GlobalGameSave.Wallet.Add(CurrencyType.Coin, (long) value);
             Data.CollectedCoin++;
         }
 
+        private Coroutine _DissolveCoroutine;
+        private void PlayerDied()
+        {
+            _Rigidbody.useGravity = false;
+            _Rigidbody.velocity = Vector3.zero;
+            
+            _DissolveCoroutine = StartCoroutine(PlayerDissolve());
+        }
+
+        private IEnumerator PlayerDissolve()
+        {
+            yield return new WaitForEndOfFrame();
+            
+            float power = _Material.GetFloat(_DissolvePower);
+            while (power > 0)
+            {
+                power = Mathf.Max(power - 1f * Time.deltaTime, 0);
+                _Material.SetFloat(_DissolvePower, power);
+                yield return new WaitForEndOfFrame();
+            }
+            
+            _Rigidbody.useGravity = true;
+            EventBus.Instance.Publish(EngineEventType.GameOver);
+        }
         private void GameOver()
         {
+            StopCoroutine(_DissolveCoroutine);
             Dispose();
         }
 

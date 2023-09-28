@@ -17,4 +17,10 @@ MonoBehaviour:
   _Desc: "Attire les pi\xE8ces vers vous durant {0} secondes"
   _Icone: {fileID: 21300000, guid: aa93d6f7046305d46a381205787f19f3, type: 3}
   _ValuePerLevel: 0300000004000000050000000600000007000000
-  _PricePerLevel: 3200000064000000c800000090010000
+  _FactorPerLevel:
+  - -1
+  - -1
+  - -1
+  - -1
+  - -1
+  _PricePerLevel: 32000000c8000000f4010000e8030000

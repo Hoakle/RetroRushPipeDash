@@ -7,7 +7,7 @@ namespace RetroRush.Game.Gameplay.Obstacle
     {
         protected override void SendEvent()
         {
-            EventBus.Instance.Publish(EngineEventType.GameOver);
+            EventBus.Instance.Publish(EngineEventType.Lazer);
         }
     }
 }

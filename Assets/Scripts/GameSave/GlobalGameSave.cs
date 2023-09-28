@@ -21,11 +21,14 @@ namespace RetroRush.GameSave
         public override void Init()
         {
             Wallet.Init();
-            if (_Upgrades.Count == 0)
+            foreach (PickableType pickable in Enum.GetValues(typeof(PickableType)))
             {
-                _Upgrades.Add(new UpgradeData(PickableType.Magnet));
-                _Upgrades.Add(new UpgradeData(PickableType.SpeedBonus));
-                _Upgrades.Add(new UpgradeData(PickableType.Shield));
+                if(pickable is PickableType.None or PickableType.Coin)
+                    continue;
+                
+                var upgrade = _Upgrades.Find(f => f.Type == pickable);
+                if(upgrade == null)
+                    _Upgrades.Add(new UpgradeData(pickable));
             }
         }
     }
