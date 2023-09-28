@@ -104,7 +104,7 @@ namespace RetroRush.Game.Level
         
         private PickableType GeneratePickable()
         {
-            if(Random.Range(0, 100) >= 90)
+            if(Random.Range(0, 100) >= 90 - (90 * PickableSpawnBonusRate / 100f))
                     return (PickableType)Random.Range(2, 5);
 
             return PickableType.None;

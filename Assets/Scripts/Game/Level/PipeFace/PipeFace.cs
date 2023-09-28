@@ -1,11 +1,11 @@
 using System;
+using System.Collections;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Graphics;
 using RetroRush.Engine;
 using RetroRush.Game.Gameplay;
 using RetroRush.Game.Gameplay.Obstacle;
 using UnityEngine;
-using UnityEngine.SubsystemsImplementation;
 
 namespace RetroRush.Game.Level
 {
@@ -16,6 +16,7 @@ namespace RetroRush.Game.Level
         [SerializeField] private Transform _PickableContainer;
         [SerializeField] private Material _BaseMaterial;
         [SerializeField] private Material _ShieldMaterial;
+        
         public override void OnReady()
         {
             Data.OnRemoveFace += Dispose;
@@ -35,6 +36,7 @@ namespace RetroRush.Game.Level
             else
             {
                 EventBus.Instance.Subscribe(EngineEventType.Shield, ActiveShield);
+                EventBus.Instance.Subscribe(EngineEventType.StartBoost, ActiveShield);
                 EventBus.Instance.Subscribe(EngineEventType.ShieldFadeOut, UnActiveShield);
                 _MeshRenderer.sharedMaterial = _ShieldMaterial;
             }
@@ -111,13 +113,14 @@ namespace RetroRush.Game.Level
         {
             gameObject.SetActive(false);
         }
-        
+
         public override void Dispose()
         {
             Data.OnRemoveFace -= Dispose;
             if (!Data.Exist)
             {
                 EventBus.Instance.UnSubscribe(EngineEventType.Shield, ActiveShield);
+                EventBus.Instance.UnSubscribe(EngineEventType.StartBoost, ActiveShield);
                 EventBus.Instance.UnSubscribe(EngineEventType.ShieldFadeOut, UnActiveShield);
                 _MeshRenderer.sharedMaterial = _ShieldMaterial;
             }

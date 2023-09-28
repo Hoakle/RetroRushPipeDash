@@ -11,6 +11,11 @@ namespace RetroRush.Game.Level
         public float Speed = 10f;
         public float SpeedFactor = 1f;
         public float DifficultySpeedFactor => Mathf.Lerp(1f, 2f, CurrentDepth / 500f);
+
+        public float GetFinalSpeed()
+        {
+            return Speed * SpeedFactor * DifficultySpeedFactor * Time.deltaTime;
+        }
         public int NumberOfFace = 12;
         public int Radius = 5;
         public int FaceDepth = 4;

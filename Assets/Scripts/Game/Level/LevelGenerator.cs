@@ -1,3 +1,4 @@
+using System;
 using RetroRush.Game.Gameplay;
 
 namespace RetroRush.Game.Level
@@ -8,6 +9,8 @@ namespace RetroRush.Game.Level
         {
 
         }
+
+        public float PickableSpawnBonusRate { get; set; }
 
         public abstract bool NeedMoreDepth();
         public abstract void AddDepth();

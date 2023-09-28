@@ -11,6 +11,7 @@ namespace RetroRush.UI.Components
 {
     public class UpgradeComponent : DataGuiComponent<UpgradeData>
     {
+        [SerializeField] private Animator _Animator = null;
         [SerializeField] private TextMeshProUGUI _Title = null;
         [SerializeField] private TextMeshProUGUI _Desc = null;
         [SerializeField] private Image _Icone = null;
@@ -31,10 +32,13 @@ namespace RetroRush.UI.Components
 
         private void UpdateInfo()
         {
+            _Animator.SetBool("IsMaxRank", Data.Level == _Config.MaxLevel);
             _Title.text = _Config.Title;
             _Desc.text = _Config.Desc.Replace("{0}", _Config.GetValue(Data.Level).ToString());
             _Icone.sprite = _Config.Icone;
-            _UpgradeButton.SetPrice(_Config.GetUpgradePrice(Data.Level));
+            
+            if(Data.Level != _Config.MaxLevel)
+                _UpgradeButton.SetPrice(_Config.GetUpgradePrice(Data.Level));
         }
         private void Upgrade()
         {

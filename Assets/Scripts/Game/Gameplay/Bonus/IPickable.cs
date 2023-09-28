@@ -28,5 +28,8 @@ namespace RetroRush.Game.Gameplay
         SpeedBonus = 2,
         Magnet = 3,
         Shield = 4,
+        CoinFactor = 5,
+        StartBoost = 6,
+        PickableSpawn = 7,
     }
 }
