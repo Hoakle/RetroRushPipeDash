@@ -25,16 +25,16 @@ namespace RetroRush.UI.Screen
             base.OnReady();
         }
 
-        protected override void Dispose()
+        protected override void Close()
         {
             _Continue.onClick.RemoveListener(BackToMenu);
-            base.Dispose();
+            base.Close();
         }
 
         private void BackToMenu()
         {
             EventBus.Instance.Publish(EngineEventType.BackToMenu);
-            Dispose();
+            Close();
         }
     }
 }

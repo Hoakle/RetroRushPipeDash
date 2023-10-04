@@ -4,6 +4,8 @@ using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
 using RetroRush.Game.Level;
+using RetroRush.GameData;
+using RetroRush.GameSave;
 
 namespace RetroRush.Engine
 {
@@ -30,6 +32,14 @@ namespace RetroRush.Engine
         {
             GetEngine<GraphicsEngine>().CreateGraphicalRepresentation<Level, LevelData>("Level", ((GameDataHandlerImpl)_GameDataHandler).CreateNewLevel());
             //GetEngine<GraphicsEngine>().GuiEngine.CreateGUI<DebugOverlay>(GUIKeys.DEBUG_OVERLAY);
+        }
+
+        public void CompleteMission(MissionType type)
+        {
+            var mission = GameSave.GetSave<GlobalGameSave>().GetMission(type);
+            mission.IsCompleted = true;
+            
+            ServicesContainer.GetService<PlayServicesTP>().UnlockAchievement(ConfigContainer.GetConfig<GameplayConfigData>().GetMission(type).Key);
         }
     }
 }

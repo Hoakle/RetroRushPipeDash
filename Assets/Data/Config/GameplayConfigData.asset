@@ -19,3 +19,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f5d62ceff4004be47be139bc531db21b, type: 2}
   - {fileID: 11400000, guid: d533e8633e312d74597e4e83363c6f55, type: 2}
   - {fileID: 11400000, guid: 8abe14357440c844e94a007293c6fda8, type: 2}
+  _MissionConfigs:
+  - Type: 0
+    Key: CgkIybW_k5kQEAIQAQ
+  - Type: 1
+    Key: CgkIybW_k5kQEAIQAw
+  - Type: 2
+    Key: CgkIybW_k5kQEAIQBA

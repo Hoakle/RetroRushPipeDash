@@ -1,6 +1,8 @@
 using System;
 using HoakleEngine.Core.Communication;
+using Unity.VisualScripting;
 using UnityEngine;
+using EventBus = HoakleEngine.Core.Communication.EventBus;
 
 namespace RetroRush.Game.Gameplay
 {
@@ -70,6 +72,7 @@ namespace RetroRush.Game.Gameplay
     
     public class ShieldBonus : Bonus
     {
+        private bool _WarningTrigered;
         public ShieldBonus(float duration, float factor) : base(duration, factor)
         {
             Type = PickableType.Shield;
@@ -78,8 +81,9 @@ namespace RetroRush.Game.Gameplay
         public override void Tick()
         {
             base.Tick();
-            if(ElapsedTime >= Duration - 1.5f)
+            if(ElapsedTime >= Duration - 1.5f && !_WarningTrigered)
             {
+                _WarningTrigered = true;
                 EventBus.Instance.Publish(EngineEventType.ShieldFadeOutWarning);
             }
         }
