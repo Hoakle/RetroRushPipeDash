@@ -26,11 +26,11 @@ MonoBehaviour:
     PlayOnlyOnce: 1
     Volume: 0.339
   - Key: 1
-    AudioClip: {fileID: 8300000, guid: 605c7c2640927634ebd6abe2e6942c93, type: 3}
+    AudioClip: {fileID: 8300000, guid: 6bf62f51de91acd488107cf7d61d2287, type: 3}
     IsMusic: 0
     IsLooping: 0
     PlayOnlyOnce: 0
-    Volume: 0.455
+    Volume: 0.18
   - Key: 2
     AudioClip: {fileID: 8300000, guid: a05d021e40a1f714d83af0680b7d5de6, type: 3}
     IsMusic: 0
@@ -61,3 +61,9 @@ MonoBehaviour:
     IsLooping: 1
     PlayOnlyOnce: 1
     Volume: 0.132
+  - Key: 6
+    AudioClip: {fileID: 8300000, guid: f1eaf4bd181c6804789bec2140ae1c83, type: 3}
+    IsMusic: 0
+    IsLooping: 0
+    PlayOnlyOnce: 0
+    Volume: 0.528

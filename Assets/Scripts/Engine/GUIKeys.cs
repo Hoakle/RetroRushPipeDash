@@ -16,5 +16,9 @@ namespace RetroRush.Engine
         public static string UPGRADE_COMPONENT = "UpgradeComponent";
         public static string UPGRADE_GUI = "UpgradesGUI";
         public static string POSTGAME = "PostGameGUI";
+        public static string LEADERBOARD_GUI = "LeaderboardGUI";
+        public static string RANKING_COMPONENT = "RankingComponent";
+        public static string MISSION_SCREEN = "MissionsGUI";
+        public static string MISSION_COMPONENT = "MissionComponent";
     }
 }

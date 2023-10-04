@@ -23,11 +23,7 @@ namespace RetroRush.UI.Screen
             
             base.OnReady();
         }
-
-        private void Close()
-        {
-            Dispose();
-        }
+        
         private void OnDestroy()
         {
             m_Close.onClick.RemoveListener(Close);

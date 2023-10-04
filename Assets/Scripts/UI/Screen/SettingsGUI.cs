@@ -18,7 +18,7 @@ namespace RetroRush.UI.Screen
             _GuiEngine.InitDataGUIComponent<ToogleButton, bool>(_MusicToogle, Data.HasMusic);
             _GuiEngine.InitDataGUIComponent<ToogleButton, bool>(_SfxToogle, Data.HasSfx);
             
-            _CloseButton.onClick.AddListener(Dispose);
+            _CloseButton.onClick.AddListener(Close);
             _MusicToogle.OnToogleChange += ToogleMusic;
             _SfxToogle.OnToogleChange += ToogleSfx;
             
@@ -27,14 +27,14 @@ namespace RetroRush.UI.Screen
             base.OnReady();
         }
 
-        protected override void Dispose()
+        protected override void Close()
         {
-            _CloseButton.onClick.RemoveListener(Dispose);
+            _CloseButton.onClick.RemoveListener(Close);
             _MusicToogle.OnToogleChange -= ToogleMusic;
             _SfxToogle.OnToogleChange -= ToogleSfx;
             
             _ContactUs.onClick.RemoveListener(ContactUs);
-            base.Dispose();
+            base.Close();
         }
 
         private void ToogleMusic(bool isActive)

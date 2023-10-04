@@ -17,7 +17,7 @@ namespace RetroRush
             
             base.OnReady();
             
-            _GraphicsEngine.CreateGraphicalRepresentation<MainMenu>("MainMenu", null, menu => Dispose());
+            _GraphicsEngine.CreateGraphicalRepresentation<MainMenu>("MainMenu", null, menu => Close());
         }
     }
 }

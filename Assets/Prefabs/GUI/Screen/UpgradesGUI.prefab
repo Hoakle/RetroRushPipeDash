@@ -111,6 +111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3654382165968827748}
   - component: {fileID: 2223435406851300346}
+  - component: {fileID: 7779770028956421468}
   m_Layer: 5
   m_Name: UpgradesGUI
   m_TagString: Untagged
@@ -147,8 +148,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Canvas: {fileID: 2809644229189693048}
+  _Animator: {fileID: 7779770028956421468}
   m_Close: {fileID: 5358566668501658665}
   m_Content: {fileID: 2991273728482951410}
+--- !u!95 &7779770028956421468
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165476129564274344}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a9b11acf04f51154081b9fda0df7a64a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1348608519349016561
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,8 +443,8 @@ RectTransform:
   m_Father: {fileID: 2648273056105901241}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: -1.0291667}
+  m_AnchorMax: {x: 1, y: -0.029166548}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

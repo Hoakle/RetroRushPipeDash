@@ -48,7 +48,7 @@ namespace Scripts.Engine
         private int _GUICurrencyAmount;
         private void OnGUI()
         {
-            _GUIRect = new Rect(10, 10, 150, 100);
+            /*_GUIRect = new Rect(10, 10, 150, 100);
             if (GUI.Button(_GUIRect, ""))
             {
                 _GUIOpened = !_GUIOpened;
@@ -82,7 +82,7 @@ namespace Scripts.Engine
                 {
                     GameSaveContainer.GetSave<GlobalGameSave>().Wallet.Add(_GUICurrencyType, _GUICurrencyAmount);
                 }
-            }
+            }*/
         }
 
         #endregion

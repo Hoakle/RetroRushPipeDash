@@ -97,6 +97,22 @@ MonoBehaviour:
     m_Address: SettingsGUI
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 61852ca1f07854547adb0b6fb4a2950a
+    m_Address: LeaderboardGUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fd0110f8cb90e134ea945c26e2cbe81a
+    m_Address: RankingComponent
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f650f3ea469168c40bf6bfa3b09244b2
+    m_Address: MissionsGUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 889519c294b1280448ffaf14cac44804
+    m_Address: MissionComponent
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 89ea6fe348b10654e944f8b5690ee99d, type: 2}
   m_SchemaSet:

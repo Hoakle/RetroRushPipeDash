@@ -49,10 +49,11 @@ namespace RetroRush.Game.Level
             _GameplayConfig = _GraphicsEngine.ConfigContainer.GetConfig<GameplayConfigData>();
             
             _CoinConfig = _GameplayConfig.GetUpgradeConfig(PickableType.CoinFactor);
-            _CoinUpgrade = _GlobalGameSave._Upgrades.Find(b => b.Type == PickableType.CoinFactor);
+            _CoinUpgrade = _GlobalGameSave.Upgrades.Find(b => b.Type == PickableType.CoinFactor);
             
             _PipeFaces = new List<PipeFace>();
             _BonusList = new List<Bonus>();
+            _UniqueTypeCollected = new List<PickableType>();
             
             _IsGameOver = false;
             
@@ -67,7 +68,7 @@ namespace RetroRush.Game.Level
             
             _LevelGenerator = new LevelGeneratorV3(Data, _GraphicsEngine.ConfigContainer.GetConfig<LevelConfigData>());
             _LevelGenerator.PickableSpawnBonusRate = _GameplayConfig.GetUpgradeConfig(PickableType.PickableSpawn)
-                .GetValue(_GlobalGameSave._Upgrades.Find(b => b.Type == PickableType.PickableSpawn).Level);
+                .GetValue(_GlobalGameSave.Upgrades.Find(b => b.Type == PickableType.PickableSpawn).Level);
             
             //_LevelInput.OnMove += RotateLevel;
             Data.OnDepthAdded += AddDepth;
@@ -124,7 +125,7 @@ namespace RetroRush.Game.Level
 
                 TickBonus();
 
-                Data.Score = (int) - _LevelContainer.position.z * 10;
+                Data.Score = ((int) - _LevelContainer.position.z * 10) * _GlobalGameSave.GetMultiplicator();
             }
             
         }
@@ -242,6 +243,8 @@ namespace RetroRush.Game.Level
                 face.SetObstacle();
         }
 #region Bonus
+
+        private List<PickableType> _UniqueTypeCollected = new List<PickableType>();
         private void AddBonus(Bonus bonus)
         {
             var currentBonus = GetBonus(bonus.Type);
@@ -253,6 +256,10 @@ namespace RetroRush.Game.Level
                 bonus.OnEnd += RemoveBonus;
                 UpdateLevelGameplayParams();
             }
+            
+            if(bonus.Type is PickableType.Magnet or PickableType.Shield or PickableType.SpeedBonus)
+                if(!_UniqueTypeCollected.Contains(bonus.Type))
+                    _UniqueTypeCollected.Add(bonus.Type);
         }
 
         private void RemoveBonus(Bonus bonus)
@@ -285,7 +292,7 @@ namespace RetroRush.Game.Level
                 return;
             
             var upgradeConfig = _GameplayConfig.GetUpgradeConfig(PickableType.SpeedBonus);
-            var upgradeData = _GlobalGameSave._Upgrades.Find(b => b.Type == PickableType.SpeedBonus);
+            var upgradeData = _GlobalGameSave.Upgrades.Find(b => b.Type == PickableType.SpeedBonus);
             AddBonus(new SpeedBonus(upgradeConfig.GetValue(upgradeData.Level),
                 upgradeConfig.GetFactor(upgradeData.Level)));
         }
@@ -293,7 +300,7 @@ namespace RetroRush.Game.Level
         private void OnMagnetPicked()
         {
             var upgradeConfig = _GameplayConfig.GetUpgradeConfig(PickableType.Magnet);
-            var upgradeData = _GlobalGameSave._Upgrades.Find(b => b.Type == PickableType.Magnet);
+            var upgradeData = _GlobalGameSave.Upgrades.Find(b => b.Type == PickableType.Magnet);
             AddBonus(new MagnetBonus(upgradeConfig.GetValue(upgradeData.Level), upgradeConfig.GetFactor(upgradeData.Level)));
         }
 
@@ -303,14 +310,14 @@ namespace RetroRush.Game.Level
                 return;
             
             var upgradeConfig = _GameplayConfig.GetUpgradeConfig(PickableType.Shield);
-            var upgradeData = _GlobalGameSave._Upgrades.Find(b => b.Type == PickableType.Shield);
+            var upgradeData = _GlobalGameSave.Upgrades.Find(b => b.Type == PickableType.Shield);
             AddBonus(new ShieldBonus(upgradeConfig.GetValue(upgradeData.Level), upgradeConfig.GetFactor(upgradeData.Level)));
         }
 
         private void AddStartBoost()
         {
             var upgradeConfig = _GameplayConfig.GetUpgradeConfig(PickableType.StartBoost);
-            var upgradeData = _GlobalGameSave._Upgrades.Find(b => b.Type == PickableType.StartBoost);
+            var upgradeData = _GlobalGameSave.Upgrades.Find(b => b.Type == PickableType.StartBoost);
             
             AddBonus(new StartBonus(upgradeConfig.GetValue(upgradeData.Level), upgradeConfig.GetFactor(upgradeData.Level)));
         }
@@ -325,6 +332,11 @@ namespace RetroRush.Game.Level
         {
             GlobalGameSave save = _GraphicsEngine.GetEngine<GameEngine>().GameSave.GetSave<GlobalGameSave>();
             save.BestScore = Math.Max(save.BestScore, Data.Score);
+            
+            
+            _GraphicsEngine.GetEngine<GameEngineImpl>().CompleteMission(MissionType.FIRST_RUN);
+            if(_UniqueTypeCollected.Count == 3)
+                _GraphicsEngine.GetEngine<GameEngineImpl>().CompleteMission(MissionType.BOOST_COLLECTOR);
             
             _GraphicsEngine.GuiEngine.CreateDataGUI<PostGameGUI, LevelData>(GUIKeys.POSTGAME, Data);
         }

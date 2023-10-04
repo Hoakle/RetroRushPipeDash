@@ -7,6 +7,7 @@ using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
 using RetroRush.Config;
+using RetroRush.Engine;
 using RetroRush.Game.Economics;
 using RetroRush.Game.Gameplay;
 using RetroRush.Game.PlayerNS;
@@ -42,7 +43,7 @@ namespace RetroRush.Game.PlayerNS
             _GlobalGameSave = _GraphicsEngine.GetEngine<GameEngine>().GameSave.GetSave<GlobalGameSave>();
             
             _CoinConfig = _GraphicsEngine.ConfigContainer.GetConfig<GameplayConfigData>().GetUpgradeConfig(PickableType.CoinFactor);
-            _CoinUpgrade = _GlobalGameSave._Upgrades.Find(b => b.Type == PickableType.CoinFactor);
+            _CoinUpgrade = _GlobalGameSave.Upgrades.Find(b => b.Type == PickableType.CoinFactor);
             
             EventBus.Instance.Subscribe(EngineEventType.SpeedBonus, ActiveBonusSpeedParticulSystem);
             EventBus.Instance.Subscribe(EngineEventType.StartBoost, ActiveStartBoost);
@@ -62,6 +63,7 @@ namespace RetroRush.Game.PlayerNS
             _Material.SetFloat(_DissolvePower, 1);
             _MeshTrail.IsActive = false;
             _Jump = false;
+            _JumpCount = 0;
             
             base.OnReady();
         }
@@ -69,6 +71,7 @@ namespace RetroRush.Game.PlayerNS
         private bool _Jump;
         private float _JumpStart;
         private float _JumpThreshold = 0.1f;
+        private int _JumpCount;
 
         public override void Dispose()
         {
@@ -117,6 +120,7 @@ namespace RetroRush.Game.PlayerNS
             _Animator.SetBool(HASH_JUMP, true);
             _Jump = true;
             _JumpStart = Time.time;
+            _JumpCount++;
         }
 
         private void TrySlide()
@@ -193,12 +197,16 @@ namespace RetroRush.Game.PlayerNS
             _Rigidbody.velocity = Vector3.zero;
             
             _DissolveCoroutine = StartCoroutine(PlayerDissolve());
+            
+            if(_JumpCount >= 15)
+                _GraphicsEngine.GetEngine<GameEngineImpl>().CompleteMission(MissionType.BUNNY_UP);
         }
 
         private IEnumerator PlayerDissolve()
         {
             yield return new WaitForEndOfFrame();
             
+            AudioPlayer.Instance.Play(AudioKeys.GameOver);
             float power = _Material.GetFloat(_DissolvePower);
             while (power > 0)
             {

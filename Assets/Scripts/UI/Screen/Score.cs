@@ -15,13 +15,13 @@ namespace RetroRush
 
         public override void OnReady()
         {
-            EventBus.Instance.Subscribe(EngineEventType.GameOver, Dispose);
+            EventBus.Instance.Subscribe(EngineEventType.GameOver, Close);
         }
         
-        private void Dispose()
+        protected override void Close()
         {
-            EventBus.Instance.UnSubscribe(EngineEventType.GameOver, Dispose);
-            base.Dispose();
+            EventBus.Instance.UnSubscribe(EngineEventType.GameOver, Close);
+            base.Close();
         }
 
         public void Update()
