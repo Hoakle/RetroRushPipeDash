@@ -23,6 +23,7 @@ namespace RetroRush.Game.PlayerNS
             EventBus.Instance.Subscribe(EngineEventType.StartBoost, ActiveShield);
             EventBus.Instance.Subscribe(EngineEventType.ShieldFadeOut, UnactiveShield);
             EventBus.Instance.Subscribe(EngineEventType.Shield, ActiveShield);
+            EventBus.Instance.Subscribe(EngineEventType.Continue, ActiveShield);
         }
 
         private void OnDestroy()
@@ -31,6 +32,7 @@ namespace RetroRush.Game.PlayerNS
             EventBus.Instance.UnSubscribe(EngineEventType.StartBoost, ActiveShield);
             EventBus.Instance.UnSubscribe(EngineEventType.ShieldFadeOut, UnactiveShield);
             EventBus.Instance.UnSubscribe(EngineEventType.Shield, ActiveShield);
+            EventBus.Instance.UnSubscribe(EngineEventType.Continue, ActiveShield);
         }
 
         public void ActiveShield()

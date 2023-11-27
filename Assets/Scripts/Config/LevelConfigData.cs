@@ -7,15 +7,17 @@ namespace RetroRush.Config
     public class LevelConfigData : ScriptableObject
     {
         [SerializeField]
-        private ChunkConfigData _FirstChunk;
-        public ChunkConfigData FirstChunk => _FirstChunk;
-        
-        [SerializeField]
-        private List<ChunkConfigData> _ChunkConfigs = new List<ChunkConfigData>();
+        private List<StageConfigData> _StageConfigs = new List<StageConfigData>();
 
-        public ChunkConfigData GetNextChunk(ChunkConfigData currentChunk)
+        public List<StageConfigData> StageConfigs => _StageConfigs;
+        public StageConfigData GetStage(int level)
         {
-            return _ChunkConfigs[Random.Range(1, _ChunkConfigs.Count)];
+            return _StageConfigs[level - 1];
+        }
+
+        public int GetStars(int level, int coinCollected)
+        {
+            return 2;
         }
     }
 }

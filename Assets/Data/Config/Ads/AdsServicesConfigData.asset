@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b68b0d19b0688f47831248330feb358, type: 3}
+  m_Name: AdsServicesConfigData
+  m_EditorClassIdentifier: 
+  _AdsConfig:
+  - {fileID: 11400000, guid: abd32f654fc259e45a0228da6ab7c897, type: 2}
+  - {fileID: 11400000, guid: 111f000683f3646409648c40cf750954, type: 2}

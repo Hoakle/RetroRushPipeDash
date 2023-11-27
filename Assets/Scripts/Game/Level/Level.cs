@@ -17,10 +17,10 @@ using UnityEngine;
 
 namespace RetroRush.Game.Level
 {
-    public class Level : GraphicalObjectRepresentation<LevelData>
+    public class Level : GraphicalObjectRepresentation<LevelDesignData>
     {
         [SerializeField] private Transform _LevelContainer;
-        private LevelGenerator _LevelGenerator;
+        private ILevelGenerator _LevelGenerator;
 
         private List<PipeFace> _PipeFaces;
         private List<Bonus> _BonusList;
@@ -39,14 +39,15 @@ namespace RetroRush.Game.Level
         private float _InterpolationDuration = 0f;
         private int _PendingRotation;
 
-        private bool _IsGameOver;
-        
+        private LevelState _State;
+        private GameModeData _GameModeData;
         public override void OnReady()
         {
             AudioPlayer.Instance.Play(AudioKeys.MainLevelLoop);
             
             _GlobalGameSave = _GraphicsEngine.GameSave.GetSave<GlobalGameSave>();
             _GameplayConfig = _GraphicsEngine.ConfigContainer.GetConfig<GameplayConfigData>();
+            _GameModeData = _GlobalGameSave.GameMode;
             
             _CoinConfig = _GameplayConfig.GetUpgradeConfig(PickableType.CoinFactor);
             _CoinUpgrade = _GlobalGameSave.Upgrades.Find(b => b.Type == PickableType.CoinFactor);
@@ -55,20 +56,21 @@ namespace RetroRush.Game.Level
             _BonusList = new List<Bonus>();
             _UniqueTypeCollected = new List<PickableType>();
             
-            _IsGameOver = false;
+            _State = LevelState.Start;
             
             EventBus.Instance.Subscribe<int>(EngineEventType.MoveSideway, RotateLevel);
             EventBus.Instance.Subscribe(EngineEventType.Magnet, OnMagnetPicked);
+            EventBus.Instance.Subscribe(EngineEventType.Coin, OnCoinPicked);
             EventBus.Instance.Subscribe(EngineEventType.Shield, OnShieldPicked);
             EventBus.Instance.Subscribe(EngineEventType.SpeedBonus, OnSpeedBonusPicked);
             EventBus.Instance.Subscribe(EngineEventType.Lazer, OnHitLazer);
             EventBus.Instance.Subscribe(EngineEventType.PlayerDied, StopLevel);
             EventBus.Instance.Subscribe(EngineEventType.GameOver, EndLevel);
-            EventBus.Instance.Subscribe(EngineEventType.BackToMenu, Dispose);
-            
-            _LevelGenerator = new LevelGeneratorV3(Data, _GraphicsEngine.ConfigContainer.GetConfig<LevelConfigData>());
-            _LevelGenerator.PickableSpawnBonusRate = _GameplayConfig.GetUpgradeConfig(PickableType.PickableSpawn)
-                .GetValue(_GlobalGameSave.Upgrades.Find(b => b.Type == PickableType.PickableSpawn).Level);
+            EventBus.Instance.Subscribe(EngineEventType.Continue, Continue);
+            EventBus.Instance.Subscribe(EngineEventType.Win, WinLevel);
+            EventBus.Instance.Subscribe(EngineEventType.BackToMenu, Close);
+
+            InitLevel();
             
             //_LevelInput.OnMove += RotateLevel;
             Data.OnDepthAdded += AddDepth;
@@ -89,10 +91,23 @@ namespace RetroRush.Game.Level
             });
             
             CreateLevelRepresentation();
-            
-            AddStartBoost();
-            
+
             base.OnReady();
+        }
+
+        private void InitLevel()
+        {
+            if (_GameModeData.Type == GameModeType.ENDLESS)
+            {
+                _LevelGenerator = new EndlessLevelGenerator(Data, _GameplayConfig.GetUpgradeConfig(PickableType.PickableSpawn)
+                    .GetValue(_GlobalGameSave.Upgrades.Find(b => b.Type == PickableType.PickableSpawn).Level));
+                
+                AddStartBoost();
+            }
+            else
+            {
+                _LevelGenerator = new StageLevelGenerator(Data, _GraphicsEngine.ConfigContainer.GetConfig<LevelConfigData>().GetStage(_GameModeData.CurrentLevel));
+            }
         }
 
         public override void Dispose()
@@ -101,12 +116,15 @@ namespace RetroRush.Game.Level
             
             EventBus.Instance.UnSubscribe<int>(EngineEventType.MoveSideway, RotateLevel);
             EventBus.Instance.UnSubscribe(EngineEventType.Magnet, OnMagnetPicked);
+            EventBus.Instance.UnSubscribe(EngineEventType.Coin, OnCoinPicked);
             EventBus.Instance.UnSubscribe(EngineEventType.Shield, OnShieldPicked);
             EventBus.Instance.UnSubscribe(EngineEventType.SpeedBonus, OnSpeedBonusPicked);
             EventBus.Instance.UnSubscribe(EngineEventType.Lazer, OnHitLazer);
             EventBus.Instance.UnSubscribe(EngineEventType.PlayerDied, StopLevel);
             EventBus.Instance.UnSubscribe(EngineEventType.GameOver, EndLevel);
-            EventBus.Instance.UnSubscribe(EngineEventType.BackToMenu, Dispose);
+            EventBus.Instance.UnSubscribe(EngineEventType.Continue, Continue);
+            EventBus.Instance.UnSubscribe(EngineEventType.Win, WinLevel);
+            EventBus.Instance.UnSubscribe(EngineEventType.BackToMenu, Close);
             
             _LevelContainer.transform.position = Vector3.zero;
             _LevelContainer.transform.position = Vector3.zero;
@@ -119,7 +137,7 @@ namespace RetroRush.Game.Level
 
         public void Update()
         {
-            if (!_IsGameOver)
+            if (_State == LevelState.Start)
             {
                 MoveLevel();
 
@@ -175,7 +193,7 @@ namespace RetroRush.Game.Level
 
         private void StopLevel()
         {
-            _IsGameOver = true;
+            _State = LevelState.GameOver;
         }
 
         private void RotateLevel(int direction)
@@ -190,7 +208,7 @@ namespace RetroRush.Game.Level
 
         private void CreateLevelRepresentation()
         {
-            _GraphicsEngine.GuiEngine.CreateDataGUI<Score, LevelData>(GUIKeys.SCORE_GUI, Data);
+            _GraphicsEngine.GuiEngine.CreateDataGUI<Score, LevelDesignData>(GUIKeys.SCORE_GUI, Data);
             _InstanciationNotReady = Data.PipeFaces.Count;
             foreach (var face in Data.PipeFaces)
             {
@@ -286,6 +304,11 @@ namespace RetroRush.Game.Level
             if (totalSpeedFactor > 0)
                 Data.SpeedFactor = totalSpeedFactor;
         }
+
+        private void OnCoinPicked()
+        {
+            Data.CoinCollected++;
+        }
         private void OnSpeedBonusPicked()
         {
             if (GetBonus(PickableType.StartBoost) != null)
@@ -330,16 +353,40 @@ namespace RetroRush.Game.Level
         }
         private void EndLevel()
         {
+            _GraphicsEngine.GuiEngine.CreateDataGUI<PostGameGUI, LevelDesignData>(GUIKeys.POSTGAME, Data);
+        }
+
+        private void WinLevel()
+        {
+            _State = LevelState.GameOver;
+            Data.IsFinished = true;
+            _GraphicsEngine.GuiEngine.CreateDataGUI<PostGameGUI, LevelDesignData>(GUIKeys.POSTGAME, Data);
+        }
+        
+        private void Continue()
+        {
+            _State = LevelState.Start;
+            _Player.transform.position = new Vector3(0, -Data.Radius + 1f, 0);
+            AddBonus(new ShieldBonus(4f, 1f));
+        }
+        
+        private void Close()
+        {
             GlobalGameSave save = _GraphicsEngine.GetEngine<GameEngine>().GameSave.GetSave<GlobalGameSave>();
             save.BestScore = Math.Max(save.BestScore, Data.Score);
-            
             
             _GraphicsEngine.GetEngine<GameEngineImpl>().CompleteMission(MissionType.FIRST_RUN);
             if(_UniqueTypeCollected.Count == 3)
                 _GraphicsEngine.GetEngine<GameEngineImpl>().CompleteMission(MissionType.BOOST_COLLECTOR);
             
-            _GraphicsEngine.GuiEngine.CreateDataGUI<PostGameGUI, LevelData>(GUIKeys.POSTGAME, Data);
+            Dispose();
         }
     }
-    
+
+    public enum LevelState
+    {
+        Menu,
+        Start,
+        GameOver
+    }
 }

@@ -12,12 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bf5990d67a3ef648a137e3bc0c9d3ee, type: 3}
   m_Name: LevelConfigData
   m_EditorClassIdentifier: 
-  _FirstChunk: {fileID: 11400000, guid: dfc8ec7006b5c3a4e8647e238ac63750, type: 2}
-  _ChunkConfigs:
-  - {fileID: 11400000, guid: dfc8ec7006b5c3a4e8647e238ac63750, type: 2}
-  - {fileID: 11400000, guid: 82b05266ee42fdb459b241075dccf75f, type: 2}
-  - {fileID: 11400000, guid: 4bd2520a5f7cb7344b6ff50fe73c382b, type: 2}
-  - {fileID: 11400000, guid: 98d7122a677d27846b7b3a7259b48e0e, type: 2}
-  - {fileID: 11400000, guid: 9f3df2039d25a1c4c93746cb2968bd36, type: 2}
-  - {fileID: 11400000, guid: edc40cf5f550241409c21717c5edd64a, type: 2}
-  - {fileID: 11400000, guid: 42c0792265747b84cb59b652855d55f4, type: 2}
+  _StageConfigs:
+  - {fileID: 11400000, guid: 7dc460c178a58974e93f1231a5d99613, type: 2}
