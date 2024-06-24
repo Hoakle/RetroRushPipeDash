@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2085500057389841942}
   - component: {fileID: 2727793688413266554}
+  - component: {fileID: 5651361090914987374}
   m_Layer: 6
   m_Name: PipeFace
   m_TagString: Untagged
@@ -82,7 +83,20 @@ MonoBehaviour:
   _PickableContainer: {fileID: 953580030917856427}
   _BaseMaterial: {fileID: 2100000, guid: 107c7683c47d14c48b2d4613d9a2bd18, type: 2}
   _ShieldMaterial: {fileID: 2100000, guid: 6a0f6db2b228f8f4c9dcf53563c8321b, type: 2}
-  _DissolvePower: _Alpha
+  _FinishMaterial: {fileID: 2100000, guid: aadd5a709a48466c887296bb5b1b8110, type: 2}
+--- !u!65 &5651361090914987374
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085500057389841938}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6996428711271838540
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ namespace RetroRush.GameSave
         public Wallet Wallet = new Wallet();
         public List<UpgradeData> Upgrades = new List<UpgradeData>();
         public List<MissionData> Missions = new List<MissionData>();
+
+        public GameModeData GameMode = new GameModeData();
         
         public long BestScore;
 
@@ -23,6 +25,8 @@ namespace RetroRush.GameSave
         public override void Init()
         {
             Wallet.Init();
+            GameMode.Init();
+            
             foreach (PickableType pickable in Enum.GetValues(typeof(PickableType)))
             {
                 if(pickable is PickableType.None or PickableType.Coin)

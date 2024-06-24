@@ -51,7 +51,8 @@ namespace RetroRush.Game.PlayerNS
             EventBus.Instance.Subscribe(EngineEventType.CoinFactorStarted, ActiveCoinFactor);
             EventBus.Instance.Subscribe(EngineEventType.Coin, CollectCoin);
             EventBus.Instance.Subscribe(EngineEventType.PlayerDied, PlayerDied);
-            EventBus.Instance.Subscribe(EngineEventType.GameOver, GameOver);
+            EventBus.Instance.Subscribe(EngineEventType.BackToMenu, GameOver);
+            EventBus.Instance.Subscribe(EngineEventType.Continue, Continue);
 
             _GraphicsEngine.OnCameraControlChange += AddPlayerAsTarget;
             _GraphicsEngine.CameraControl.AddTarget(this.transform);
@@ -64,10 +65,11 @@ namespace RetroRush.Game.PlayerNS
             _MeshTrail.IsActive = false;
             _Jump = false;
             _JumpCount = 0;
+            _Rigidbody.useGravity = true;
             
             base.OnReady();
         }
-        
+
         private bool _Jump;
         private float _JumpStart;
         private float _JumpThreshold = 0.1f;
@@ -82,6 +84,7 @@ namespace RetroRush.Game.PlayerNS
             EventBus.Instance.UnSubscribe(EngineEventType.Coin, CollectCoin);
             EventBus.Instance.UnSubscribe(EngineEventType.PlayerDied, PlayerDied);
             EventBus.Instance.UnSubscribe(EngineEventType.GameOver, GameOver);
+            EventBus.Instance.UnSubscribe(EngineEventType.Continue, Continue);
             
             _GraphicsEngine.CameraControl.RemoveTarget(this.transform);
             _GraphicsEngine.OnCameraControlChange -= AddPlayerAsTarget;
@@ -202,6 +205,14 @@ namespace RetroRush.Game.PlayerNS
                 _GraphicsEngine.GetEngine<GameEngineImpl>().CompleteMission(MissionType.BUNNY_UP);
         }
 
+        private void Continue()
+        {
+            _IsGameOver = false;
+            _Material.SetFloat(_DissolvePower, 1);
+            _MeshTrail.IsActive = false;
+            _Jump = false;
+            _Rigidbody.useGravity = true;
+        }
         private IEnumerator PlayerDissolve()
         {
             yield return new WaitForEndOfFrame();
@@ -215,12 +226,13 @@ namespace RetroRush.Game.PlayerNS
                 yield return new WaitForEndOfFrame();
             }
             
-            _Rigidbody.useGravity = true;
             EventBus.Instance.Publish(EngineEventType.GameOver);
         }
         private void GameOver()
         {
-            StopCoroutine(_DissolveCoroutine);
+            if(_DissolveCoroutine != null)
+                StopCoroutine(_DissolveCoroutine);
+            
             Dispose();
         }
 

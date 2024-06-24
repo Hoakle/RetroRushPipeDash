@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using RetroRush.Config;
 using RetroRush.Game.Gameplay;
 using RetroRush.GameData;
 using UnityEngine;
 
-namespace RetroRush
+namespace RetroRush.Config
 {
     [CreateAssetMenu(fileName = "GameplayConfigData", menuName = "Game Data/Config/GameplayConfigData")]
     public class GameplayConfigData : ScriptableObject

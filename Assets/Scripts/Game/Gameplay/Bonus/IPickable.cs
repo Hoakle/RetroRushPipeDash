@@ -31,5 +31,6 @@ namespace RetroRush.Game.Gameplay
         CoinFactor = 5,
         StartBoost = 6,
         PickableSpawn = 7,
+        Finish
     }
 }

@@ -113,6 +113,14 @@ MonoBehaviour:
     m_Address: MissionComponent
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 83bd54949ffc267479ef91ac7004f204
+    m_Address: GameModeGUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6c4e94fa91f59eb48b1787a22d19fe6b
+    m_Address: LevelComponent
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 89ea6fe348b10654e944f8b5690ee99d, type: 2}
   m_SchemaSet:

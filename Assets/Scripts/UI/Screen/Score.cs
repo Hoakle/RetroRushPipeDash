@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace RetroRush
 {
-    public class Score : DataGUI<LevelData>
+    public class Score : DataGUI<LevelDesignData>
     {
         [SerializeField] private TextMeshProUGUI m_Text = null;
 
