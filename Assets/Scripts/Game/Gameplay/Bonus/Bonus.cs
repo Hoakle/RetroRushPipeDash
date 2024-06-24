@@ -1,31 +1,37 @@
 using System;
 using HoakleEngine.Core.Communication;
-using Unity.VisualScripting;
+using RetroRush.Config;
+using RetroRush.Game.Level;
+using RetroRush.GameData;
 using UnityEngine;
+using Zenject;
 using EventBus = HoakleEngine.Core.Communication.EventBus;
 
 namespace RetroRush.Game.Gameplay
 {
-    public class Bonus
+    public abstract class Bonus
     {
-        public PickableType Type;
-        
-        public float Duration = 4f;
-        public float ElapsedTime = 0;
-        
-        private float Factor;
-
+        public PickableType Type => _Type;
+        public float Duration => _Duration;
+        public float ElapsedTime => _ElapsedTime;
         public Action<Bonus> OnEnd;
-        public Bonus(float duration, float factor)
-        {
-            Duration = duration;
-            Factor = factor;
-        }
 
+        protected GameModeType _GameMode;
+        protected PickableType _Type;
+        protected float _Duration;
+        protected float _Factor;
+        private float _ElapsedTime;
+
+        [Inject]
+        public void Inject(ProgressionHandler progressionHandler)
+        {
+            _GameMode = progressionHandler.GameModeType;
+        }
+        
         public virtual void Tick()
         {
-            ElapsedTime += Time.deltaTime;
-            if(ElapsedTime >= Duration)
+            _ElapsedTime += Time.deltaTime;
+            if(_ElapsedTime >= _Duration)
             {
                 RemoveBonus();
             }
@@ -35,47 +41,64 @@ namespace RetroRush.Game.Gameplay
         {
             OnEnd?.Invoke(this);
         }
+        
         public virtual float GetFactor()
         {
-            return Factor;
+            return _Factor;
+        }
+
+        public void RefreshDuration()
+        {
+            _ElapsedTime = Mathf.Max(0,_ElapsedTime - _Duration);
         }
     }
 
     public class SpeedBonus : Bonus
     {
-        public SpeedBonus(float duration, float factor) : base(duration, factor)
+        [Inject]
+        public void Inject(
+            [Inject(Id = GameIdentifier.SpeedBoostConfig)] UpgradeConfigData configData,
+            [Inject(Id = GameIdentifier.SpeedBoostData)] UpgradeData upgradeData)
         {
-
-            Type = PickableType.SpeedBonus;
-        }
-
-        protected override void RemoveBonus()
-        {
-            base.RemoveBonus();
-            EventBus.Instance.Publish(EngineEventType.SpeedBonusFadeOut);
+            _Type = PickableType.SpeedBoost;
+            int level = _GameMode == GameModeType.ENDLESS ? upgradeData.Level : 1;
+            _Duration = configData.GetValue(level);
+            _Factor = configData.GetFactor(level);
         }
     }
     
     public class MagnetBonus : Bonus
     {
-        public MagnetBonus(float duration, float factor) : base(duration, factor)
+        [Inject]
+        public void Inject(
+            [Inject(Id = GameIdentifier.MagnetConfig)] UpgradeConfigData configData,
+            [Inject(Id = GameIdentifier.MagnetData)] UpgradeData upgradeData)
         {
-            Type = PickableType.Magnet;
+            _Type = PickableType.Magnet;
+            int level = _GameMode == GameModeType.ENDLESS ? upgradeData.Level : 1;
+            _Duration = configData.GetValue(level);
+            _Factor = configData.GetFactor(level);
         }
         
         protected override void RemoveBonus()
         {
             base.RemoveBonus();
-            EventBus.Instance.Publish(EngineEventType.MagnetFadeOut);
         }
     }
     
     public class ShieldBonus : Bonus
     {
         private bool _WarningTrigered;
-        public ShieldBonus(float duration, float factor) : base(duration, factor)
+        
+        [Inject]
+        public void Inject(
+            [Inject(Id = GameIdentifier.ShieldConfig)] UpgradeConfigData configData,
+            [Inject(Id = GameIdentifier.ShieldData)] UpgradeData upgradeData)
         {
-            Type = PickableType.Shield;
+            _Type = PickableType.Shield;
+            int level = _GameMode == GameModeType.ENDLESS ? upgradeData.Level : 1;
+            _Duration = configData.GetValue(level);
+            _Factor = configData.GetFactor(level);
         }
         
         public override void Tick()
@@ -87,58 +110,54 @@ namespace RetroRush.Game.Gameplay
                 EventBus.Instance.Publish(EngineEventType.ShieldFadeOutWarning);
             }
         }
-        protected override void RemoveBonus()
-        {
-            base.RemoveBonus();
-            EventBus.Instance.Publish(EngineEventType.ShieldFadeOut);
-        }
     }
     
     public class StartBonus : Bonus
     {
-        public float Distance;
-        public StartBonus(float distance, float factor) : base(distance, factor)
+        private LevelDesignData _LevelDesignData;
+        private float _Distance;
+        
+        [Inject]
+        public void Inject(
+            [Inject(Id = GameIdentifier.StartBoostConfig)] UpgradeConfigData configData,
+            [Inject(Id = GameIdentifier.StartBoostData)] UpgradeData upgradeData,
+            LevelDesignData levelDesignData)
         {
-            Type = PickableType.StartBoost;
-            Distance = distance;
-            EventBus.Instance.Publish(EngineEventType.StartBoost);
+            _Type = PickableType.StartBoost;
+            int level = _GameMode == GameModeType.ENDLESS ? upgradeData.Level : 1;
+            _Distance = configData.GetValue(level);
+            _Duration = _Distance;
+            _Factor = configData.GetFactor(level);
+            _LevelDesignData = levelDesignData;
         }
 
         private bool _WarningNotTriggered = true;
         public override void Tick()
         {
-            if(Distance <= 100 && _WarningNotTriggered)
+            _Distance -= _LevelDesignData.GetFinalSpeed();
+            
+            if(_Distance <= 100 && _WarningNotTriggered)
             {
                 _WarningNotTriggered = false;
                 EventBus.Instance.Publish(EngineEventType.ShieldFadeOutWarning);
             }
             
-            if(Distance <= 0)
+            if(_Distance <= 0)
                 RemoveBonus();
-        }
-        protected override void RemoveBonus()
-        {
-            base.RemoveBonus();
-            EventBus.Instance.Publish(EngineEventType.ShieldFadeOut);
-            EventBus.Instance.Publish(EngineEventType.SpeedBonusFadeOut);
         }
     }
     
     public class CoinFactorBonus : Bonus
     {
-        public CoinFactorBonus(float distance, float factor) : base(distance, factor)
+        [Inject]
+        public void Inject(
+            [Inject(Id = GameIdentifier.CoinFactorConfig)] UpgradeConfigData configData,
+            [Inject(Id = GameIdentifier.CoinFactorData)] UpgradeData upgradeData)
         {
-            Type = PickableType.CoinFactor;
-            EventBus.Instance.Publish(EngineEventType.CoinFactorStarted);
-        }
-
-        public override void Tick()
-        {
-            
-        }
-        protected override void RemoveBonus()
-        {
-            base.RemoveBonus();
+            _Type = PickableType.CoinFactor;
+            int level = _GameMode == GameModeType.ENDLESS ? upgradeData.Level : 1;
+            _Duration = configData.GetValue(level);
+            _Factor = configData.GetFactor(level);
         }
     }
 }

@@ -7,6 +7,7 @@ using RetroRush.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace RetroRush.UI.Screen
 {
@@ -17,26 +18,33 @@ namespace RetroRush.UI.Screen
         [SerializeField] private Button _Button = null;
         [SerializeField] private TextMeshProUGUI _ButtonText = null;
 
-        private PlayServicesTP _PlayServices;
+        private IPlayServicesTP _PlayServices;
         private List<RankingComponent> _Components;
 
         private bool _IsPlayerCentered = true;
 
         private Coroutine _Coroutine;
+
+        [Inject]
+        public void Inject(IPlayServicesTP playServicesTp)
+        {
+            _PlayServices = playServicesTp;
+        }
+        
         public override void OnReady()
         {
             _Components = new List<RankingComponent>();
             _Close.onClick.AddListener(Close);
             _Button.onClick.AddListener(SwitchLeaderboard);
             
-            _PlayServices = _GuiEngine.ServicesContainer.GetService<PlayServicesTP>();
             _PlayServices.OnScoreLoaded += DisplayScore;
+            _PlayServices.OnPlayerServiceError += DisplayError;
 
             UpdateInfo();
             
             base.OnReady();
         }
-        
+
         private void OnDestroy()
         {
             if(_Coroutine != null)
@@ -66,7 +74,14 @@ namespace RetroRush.UI.Screen
                     } );
             }
 
+            _Animator.SetBool("HasScore", true);
             _Coroutine = StartCoroutine(StopLoading());
+        }
+        
+        private void DisplayError(PlayServicesErrorType errorType)
+        {
+            _Animator.SetBool("HasScore", false);
+            _Animator.SetBool("Loading", false);
         }
 
         private IEnumerator StopLoading()

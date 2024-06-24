@@ -1,28 +1,31 @@
 using HoakleEngine.Core.Graphics;
 using RetroRush.Game.Economics;
 using TMPro;
+using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace RetroRush
 {
-    public class CurrencyComponent : DataGuiComponent<CurrencyData>
+    public class CurrencyComponent : DataGuiComponent<CurrencyHandler>
     {
         [SerializeField] protected TextMeshProUGUI _Text = null;
 
-        public void Start()
+        [Inject]
+        public void Inject(
+            [Inject (Id = CurrencyType.Coin)] CurrencyHandler coinCurrency)
         {
-            Data.OnValueChange += UpdateValue;
-            UpdateValue();
+            coinCurrency.Amount.Subscribe(UpdateValue);
         }
 
-        public void OnDestroy()
+        public override void OnReady()
         {
-            Data.OnValueChange -= UpdateValue;
+            UpdateValue(Data.Amount.Value);
         }
 
-        private void UpdateValue()
+        private void UpdateValue(long amount)
         {
-            _Text.text = Data.Value.ToString();
+            _Text.text = amount.ToString();
         }
     }
 }

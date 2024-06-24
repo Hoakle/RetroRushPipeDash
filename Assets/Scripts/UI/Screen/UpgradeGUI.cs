@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace RetroRush.UI.Screen
 {
-    public class UpgradeGUI : DataGUI<List<UpgradeData>>
+    public class UpgradeGUI : DataGUI<IReadOnlyList<UpgradeData>>
     {
         [SerializeField] private Button m_Close = null;
         [SerializeField] private Transform m_Content = null;

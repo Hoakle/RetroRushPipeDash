@@ -1,66 +1,122 @@
 using System;
 using System.Collections.Generic;
-using RetroRush.Game.Economics;
+using System.Linq;
+using HoakleEngine;
+using HoakleEngine.Core.Game;
+using RetroRush.Config;
 using RetroRush.Game.Gameplay;
 using RetroRush.GameData;
-using UnityEngine;
+using UniRx;
+using Zenject;
 
 namespace RetroRush.GameSave
 {
-    [Serializable]
-    public class GlobalGameSave : HoakleEngine.Core.Game.GameSave
+    public class GlobalGameSave : GameSaveHandler<GlobalGameData>
     {
-        public Wallet Wallet = new Wallet();
-        public List<UpgradeData> Upgrades = new List<UpgradeData>();
-        public List<MissionData> Missions = new List<MissionData>();
+        public IReadOnlyList<UpgradeData> Upgrades
+            => _Data.Upgrades;
 
-        public GameModeData GameMode = new GameModeData();
-        
-        public long BestScore;
+        public IReadOnlyList<MissionData> Missions
+            => _Data.Missions;
 
-        public GlobalGameSave()
+        public IReadOnlyReactiveProperty<long> BestScore
+            => _BestScore;
+
+        public bool IsReviewDone
         {
-            SaveName = "GlobalGameSave";
+            get => _Data.IsReviewDone;
+            set => _Data.IsReviewDone = value;
         }
-        public override void Init()
-        {
-            Wallet.Init();
-            GameMode.Init();
-            
-            foreach (PickableType pickable in Enum.GetValues(typeof(PickableType)))
-            {
-                if(pickable is PickableType.None or PickableType.Coin)
-                    continue;
-                
-                var upgrade = Upgrades.Find(f => f.Type == pickable);
-                if(upgrade == null)
-                    Upgrades.Add(new UpgradeData(pickable));
-            }
 
+        private GameplayConfigData _GameplayConfigData;
+        private IPlayServicesTP _PlayServicesTP;
+        private IReactiveProperty<long> _BestScore = new ReactiveProperty<long>();
+
+        [Inject]
+        public void Inject(
+            GameplayConfigData gameplayConfigData,
+            IPlayServicesTP playServicesTP)
+        {
+            _GameplayConfigData = gameplayConfigData;
+            _PlayServicesTP = playServicesTP;
+        }
+        
+        public GlobalGameSave() : base("GlobalGameSave")
+        {
+
+        }
+
+        protected override void BuildData()
+        {
+            base.BuildData();
             InitMissions();
+            InitUpgrades();
+            _BestScore.Value = _Data.BestScore;
+        }
+
+        public void InitUpgrades()
+        {
+            _Data.Upgrades ??= new List<UpgradeData>();
+            foreach (UpgradeConfigData config in _GameplayConfigData.UpgradeConfigs)
+            {
+                var upgrade = Upgrades.FirstOrDefault(u => u.Type == config.Type);
+                if(upgrade == null)
+                    _Data.Upgrades.Add(new UpgradeData(config.Type));
+            }
         }
 
         private void InitMissions()
         {
+            _Data.Missions ??= new List<MissionData>();
+            
             TryCreateMission(MissionType.FIRST_RUN, "Jouer une première partie de Retro Rush: Pipe Dash");
             TryCreateMission(MissionType.BOOST_COLLECTOR, "Collecter les 3 types de boosts en une partie");
             TryCreateMission(MissionType.BUNNY_UP, "Saute 15 fois en une partie");
+            TryCreateMission(MissionType.JY_FUS, "Avoir téléchargé et joué au jeu à sa sortie");
+            TryCreateMission(MissionType.DANS_LES_ETOILES, "Collecter toutes les étoiles");
         }
 
         private void TryCreateMission(MissionType type, string description)
         {
-            if(Missions.Find(m => m.Type == type) == null)
-                Missions.Add(new MissionData(type, description));
+            if(Missions.FirstOrDefault(m => m.Type == type) == null)
+                _Data.Missions.Add(new MissionData(type, description));
         }
 
-        public MissionData GetMission(MissionType type)
+        private MissionData GetMission(MissionType type)
         {
-            return Missions.Find(m => m.Type == type);
+            return Missions.FirstOrDefault(m => m.Type == type);
+        }
+        
+        public void CompleteMission(MissionType type)
+        {
+            GetMission(type).IsCompleted = true;
+            _PlayServicesTP.UnlockAchievement(_GameplayConfigData.GetMission(type).Key);
+            Save();
         }
 
         public int GetMultiplicator()
         {
-            return Missions.FindAll(m => m.IsCompleted).Count;
+            return Missions.Count(m => m.IsCompleted) + 1;
         }
+        
+        public UpgradeData GetUpgrade(PickableType type)
+        {
+            return Upgrades.FirstOrDefault(u => u.Type == type);
+        }
+
+        public void RegisterScore(long scoreValue)
+        {
+            _BestScore.Value = Math.Max(scoreValue, _BestScore.Value);
+            _Data.BestScore = _BestScore.Value;
+            _PlayServicesTP.UpdateScore("CgkIybW_k5kQEAIQAg", _BestScore.Value);
+        }
+    }
+
+    public struct GlobalGameData
+    {
+        public List<MissionData> Missions;
+        public List<UpgradeData> Upgrades;
+        public long BestScore;
+        public bool IsReviewDone;
     }
 }

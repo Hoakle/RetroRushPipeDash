@@ -8,15 +8,22 @@ using RetroRush.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace RetroRush.UI.Screen
 {
-    public class MissionsGUI : DataGUI<List<MissionData>>
+    public class MissionsGUI : DataGUI<IReadOnlyList<MissionData>>
     {
         [SerializeField] private Button _Close = null;
         [SerializeField] private Transform _Content = null;
         [SerializeField] private TextMeshProUGUI _Factor = null;
-        // Start is called before the first frame update
+
+        [Inject]
+        public void Inject(GlobalGameSave globalGameSave)
+        {
+            _Factor.text = "x" + globalGameSave.GetMultiplicator();
+        }
+        
         public override void OnReady()
         {
             _Close.onClick.AddListener(Close);
@@ -24,10 +31,7 @@ namespace RetroRush.UI.Screen
             {
                 _GuiEngine.CreateDataGUIComponent<MissionComponent, MissionData>(GUIKeys.MISSION_COMPONENT, mission, _Content);
             }
-
-            var gameSave = _GuiEngine.GameSave.GetSave<GlobalGameSave>();
-            _Factor.text = gameSave.GetMultiplicator() + "/" + gameSave.Missions.Count;
-            
+          
             base.OnReady();
         }
         

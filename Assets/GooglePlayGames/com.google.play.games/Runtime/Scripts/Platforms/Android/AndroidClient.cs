@@ -803,9 +803,7 @@ namespace GooglePlayGames.Android
                                     leaderboardId,
                                     collection,
                                     timeSpan,
-                                    annotatedData.Call<bool>("isStale")
-                                        ? ResponseStatus.SuccessWithStale
-                                        : ResponseStatus.Success,
+                                    ResponseStatus.Success,
                                     leaderboardScores));
                                 leaderboardScores.Call("release");
                             }
@@ -855,9 +853,7 @@ namespace GooglePlayGames.Android
                                 token.LeaderboardId,
                                 token.Collection,
                                 token.TimeSpan,
-                                annotatedData.Call<bool>("isStale")
-                                    ? ResponseStatus.SuccessWithStale
-                                    : ResponseStatus.Success,
+                                ResponseStatus.Success,
                                 leaderboardScores));
                             leaderboardScores.Call("release");
                         }

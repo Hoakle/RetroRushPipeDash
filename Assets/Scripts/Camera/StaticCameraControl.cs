@@ -3,15 +3,11 @@ using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
 using UnityEngine;
 
-namespace RetroRush.Camera
+namespace RetroRush
 {
     public class StaticCameraControl : CameraControl
     {
         public Action OnTargetReached;
-        public StaticCameraControl(UnityEngine.Camera camera) : base(camera)
-        {
-            
-        }
 
         private float _PosInterpolationDuration;
         private float _RotInterpolationDuration;

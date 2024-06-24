@@ -5,7 +5,7 @@ using HoakleEngine.Core.Graphics;
 public class GUIEngineImpl : GUIEngine
 {
 
-    public GUIEngineImpl(GameRoot gameRoot) : base(gameRoot)
+    public GUIEngineImpl() : base()
     {
         
     }

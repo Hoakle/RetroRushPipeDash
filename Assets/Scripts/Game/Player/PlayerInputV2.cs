@@ -3,7 +3,7 @@ using HoakleEngine.Core.Communication;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace RetroRush.Game.PlayerNS
+namespace RetroRush.Game.Player
 {
     public class PlayerInputV2 : MonoBehaviour
     {

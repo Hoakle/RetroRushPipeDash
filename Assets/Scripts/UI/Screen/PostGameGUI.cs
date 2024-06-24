@@ -10,6 +10,7 @@ using RetroRush.GameSave;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace RetroRush.UI.Screen
 {
@@ -17,15 +18,33 @@ namespace RetroRush.UI.Screen
     {
         [SerializeField] private Button _Close = null;
         [SerializeField] private TextMeshProUGUI _Score = null;
+        [SerializeField] private TextMeshProUGUI _Coin = null;
         [SerializeField] private TextMeshProUGUI _Title = null;
         [SerializeField] private TextMeshProUGUI _SubTitle = null;
-        
         [SerializeField] private AdsButton _AdsButton = null;
-        // Start is called before the first frame update
+
         private PostGameState _State;
         private static readonly int State = Animator.StringToHash("State");
         private static readonly int Stars = Animator.StringToHash("Stars");
+        private static readonly int AdsWatched = Animator.StringToHash("AdsWatched");
 
+        private ProgressionHandler _ProgressionHandler;
+        private CurrencyHandler _CoinCurrencyHandler;
+        private AdsServicesConfigData _AdsServicesConfigData;
+        private LevelConfigData _LevelConfigData;
+        
+        [Inject]
+        public void Inject(ProgressionHandler progressionHandler,
+            [Inject (Id = CurrencyType.Coin)] CurrencyHandler coinHandler,
+            AdsServicesConfigData adsServicesConfigData,
+            LevelConfigData levelConfigData)
+        {
+            _ProgressionHandler = progressionHandler;
+            _CoinCurrencyHandler = coinHandler;
+            _AdsServicesConfigData = adsServicesConfigData;
+            _LevelConfigData = levelConfigData;
+        }
+        
         public override void OnReady()
         {
             SetState();
@@ -38,53 +57,59 @@ namespace RetroRush.UI.Screen
         protected override void Close()
         {
             _Close.onClick.RemoveListener(BackToMenu);
-
-            if (Data.GameMode.Type == GameModeType.ENDLESS)
-            {
-                _AdsButton.OnClaimReward -= Continue;
-            }
-            else
-            {
-                _AdsButton.OnClaimReward += MultiplyCoin;
-            }
             
-            _GuiEngine.GameSave.Save();
             base.Close();
         }
 
         private void Continue()
         {
+            _AdsButton.OnClaimReward -= Continue;
+            Data.IsFinished = true;
             EventBus.Instance.Publish(EngineEventType.Continue);
             Close();
         }
         private void BackToMenu()
         {
             EventBus.Instance.Publish(EngineEventType.BackToMenu);
+            if(_ProgressionHandler.GameModeType == GameModeType.STAGE && Data.IsFinished)
+                _ProgressionHandler.TryIncrementLevel();
+            
             Close();
         }
 
         private void SetState()
         {
-            if (Data.GameMode.Type == GameModeType.ENDLESS)
+            _Coin.text = " + " + Data.CoinCollected;
+            
+            if (_ProgressionHandler.GameModeType == GameModeType.ENDLESS)
             {
                 _Title.text = "Vous avez perdu !";
                 _SubTitle.text = "Votre score";
                 _Score.text = Data.Score.ToString();
                 _State = PostGameState.CONTINUE;
-                _GuiEngine.InitDataGUIComponent<AdsButton, AdsConfigData>(_AdsButton, _GuiEngine.ConfigContainer.GetConfig<AdsServicesConfigData>().GetAdsConfig(AdsServicesConfigData.RVADS_CONTINUE));
-                _AdsButton.OnClaimReward += Continue;
+                if(!Data.IsFinished)
+                {
+                    _GuiEngine.InitDataGUIComponent<AdsButton, AdsConfigData>(_AdsButton,
+                        _AdsServicesConfigData.GetAdsConfig(AdsServicesConfigData.RVADS_CONTINUE));
+                    _AdsButton.OnClaimReward += Continue;
+                }
+                else
+                {
+                    _GuiEngine.InitDataGUIComponent<AdsButton, AdsConfigData>(_AdsButton, _AdsServicesConfigData.GetAdsConfig(AdsServicesConfigData.RVADS_COIN));
+                    _AdsButton.OnClaimReward += MultiplyCoin;
+                }
+                
             }
             else
             {
-                _SubTitle.text = "Niveau " + Data.GameMode.CurrentLevel;
-                _Score.text = " + " + Data.CoinCollected;
-                _GuiEngine.InitDataGUIComponent<AdsButton, AdsConfigData>(_AdsButton, _GuiEngine.ConfigContainer.GetConfig<AdsServicesConfigData>().GetAdsConfig(AdsServicesConfigData.RVADS_COIN));
+                _SubTitle.text = "Niveau " + _ProgressionHandler.CurrentLevel;
+                _GuiEngine.InitDataGUIComponent<AdsButton, AdsConfigData>(_AdsButton, _AdsServicesConfigData.GetAdsConfig(AdsServicesConfigData.RVADS_COIN));
                 _AdsButton.OnClaimReward += MultiplyCoin;
                 if (Data.IsFinished)
                 {
                     _Title.text = "Vous avez gagné !";
                     _State = PostGameState.LEVEL_WON;
-                    _Animator.SetInteger(Stars, _GuiEngine.ConfigContainer.GetConfig<LevelConfigData>().GetStars(Data.GameMode.CurrentLevel, Data.CoinCollected));
+                    _Animator.SetInteger(Stars, _LevelConfigData.GetStars(_ProgressionHandler.CurrentLevel, (int) Data.CoinCollected));
                 }
                 else
                 {
@@ -98,7 +123,11 @@ namespace RetroRush.UI.Screen
 
         private void MultiplyCoin()
         {
-            _GuiEngine.GameSave.GetSave<GlobalGameSave>().Wallet.Add(CurrencyType.Coin, Data.CoinCollected);
+            _AdsButton.OnClaimReward -= MultiplyCoin;
+            _CoinCurrencyHandler.Add((int) Data.CoinCollected);
+            
+            _Coin.text = " + " + Data.CoinCollected * 2;
+            _Animator.SetBool(AdsWatched, true);
         }
     }
 

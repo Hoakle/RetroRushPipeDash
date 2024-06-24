@@ -11,6 +11,9 @@ namespace RetroRush.Config
         [SerializeField] private List<UpgradeConfigData> _UpgradeConfigs;
         [SerializeField] private List<MissionConfigData> _MissionConfigs;
 
+        public IReadOnlyList<UpgradeConfigData> UpgradeConfigs
+            => _UpgradeConfigs;
+        
         public UpgradeConfigData GetUpgradeConfig(PickableType type)
         {
             return _UpgradeConfigs.Find(f => f.Type == type);

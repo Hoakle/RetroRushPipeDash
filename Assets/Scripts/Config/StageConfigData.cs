@@ -10,6 +10,7 @@ namespace RetroRush.Config
     {
         public int Id;
         public int StageDepth;
+        public int NbCoin;
         
         public List<PipeFaceType> PipeFaceConfigs = new List<PipeFaceType>();
     }
