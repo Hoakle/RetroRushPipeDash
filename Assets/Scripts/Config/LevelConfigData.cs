@@ -17,7 +17,7 @@ namespace RetroRush.Config
 
         public int GetStars(int level, int coinCollected)
         {
-            return 2;
+            return GetStage(level).NbCoin <= coinCollected ? 2 : 1;
         }
     }
 }

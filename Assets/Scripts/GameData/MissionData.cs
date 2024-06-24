@@ -5,26 +5,27 @@ using RetroRush.Game.Gameplay;
 namespace RetroRush.GameData
 {
     [Serializable]
-    public class MissionData : GameSaveData
+    public class MissionData
     {
-        public MissionData(MissionType type, string description)
+        public string Title;
+        public MissionType Type;
+        public string Description;
+        public bool IsCompleted;
+        
+        public MissionData(MissionType type, string description) : base()
         {
             Type = type;
             Title = type.ToString().Replace("_", " ");
             Description = description;
         }
-
-        public string Title;
-        public MissionType Type;
-        public string Description;
-        public bool IsCompleted;
     }
-    
-    [Serializable]
+
     public enum MissionType
     {
             FIRST_RUN,
             BOOST_COLLECTOR,
             BUNNY_UP,
+            JY_FUS,
+            DANS_LES_ETOILES,
     }
 }

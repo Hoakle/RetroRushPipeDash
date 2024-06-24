@@ -50,7 +50,7 @@ namespace RetroRush.Game.Level
             
             //Ajustement de la taille de la dalle en fonction du radius et du nombre de dalle du tube
             data.LocalScale = new Vector3(Mathf.Sqrt(2 * (LevelDesignData.Radius * LevelDesignData.Radius) - 2 * LevelDesignData.Radius * LevelDesignData.Radius * Mathf.Cos((360f / LevelDesignData.NumberOfFace) * Mathf.Deg2Rad)), 0.1f, LevelDesignData.FaceDepth);
-            data.RotateAround = (360 / LevelDesignData.NumberOfFace) * index; //_LevelRepresentation.transform.rotation.eulerAngles.z
+            data.RotateAround = (360f / LevelDesignData.NumberOfFace) * index;
             data.Depth = LevelDesignData.CurrentDepth;
             data.Exist = CheckExist(index, LevelDesignData.CurrentDepth);
             data.Index = index;

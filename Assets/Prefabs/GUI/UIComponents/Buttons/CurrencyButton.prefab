@@ -367,7 +367,7 @@ Animator:
   m_GameObject: {fileID: 6065112043403755455}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c193cb01c76545f49bce6a949352d6db, type: 2}
+  m_Controller: {fileID: 9100000, guid: fbb3673f99d29454894aa8e8485c5d1a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -500,7 +500,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 79.85
+  m_fontSize: 52.3
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

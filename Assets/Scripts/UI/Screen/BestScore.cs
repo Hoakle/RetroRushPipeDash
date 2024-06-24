@@ -1,13 +1,12 @@
-using System;
 using HoakleEngine;
-using HoakleEngine.Core.Communication;
-using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
 using RetroRush.Engine;
 using RetroRush.GameSave;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
+using Zenject;
 
 namespace RetroRush.UI.Screen
 {
@@ -15,20 +14,28 @@ namespace RetroRush.UI.Screen
     {
         [SerializeField] private TextMeshProUGUI m_Text = null;
         [SerializeField] private Button _Button = null;
+
+        private GlobalGameSave _GlobalGameSave;
+        
+        [Inject]
+        public void Inject(GlobalGameSave globalGameSave)
+        {
+            globalGameSave.BestScore.Subscribe(UpdateScore);
+        }
+        
         public override void OnReady()
         {
             _Button.onClick.AddListener(OpenLeaderboard);
-            UpdateScore();
         }
         
         private void OnDestroy()
         {
             _Button.onClick.RemoveListener(OpenLeaderboard);
         }
-        private void UpdateScore()
+        
+        private void UpdateScore(long score)
         {
-            GlobalGameSave save = _GuiEngine.GetEngine<GraphicsEngine>().GameSave.GetSave<GlobalGameSave>();
-            m_Text.text = save.BestScore.ToString();
+            m_Text.text = score.ToString();
         }
 
         private void OpenLeaderboard()

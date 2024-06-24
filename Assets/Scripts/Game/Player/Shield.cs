@@ -1,11 +1,12 @@
-using System;
 using System.Collections;
 using HoakleEngine.Core.Communication;
-using Unity.VisualScripting;
+using RetroRush.Game.Gameplay;
+using UniRx;
 using UnityEngine;
+using Zenject;
 using EventBus = HoakleEngine.Core.Communication.EventBus;
 
-namespace RetroRush.Game.PlayerNS
+namespace RetroRush.Game.Player
 {
     public class Shield : MonoBehaviour
     {
@@ -17,24 +18,47 @@ namespace RetroRush.Game.PlayerNS
         private Coroutine _Coroutine = null;
         private WaitForEndOfFrame _Waiter = new WaitForEndOfFrame();
         private WaitForSeconds _WarningWaiter = new WaitForSeconds(0.25f);
+        
+        private IBonusMediator _BonusMediator;
+        
+        [Inject]
+        public void Inject(IBonusMediator bonusMediator,
+            IGameState gameState)
+        {
+            _BonusMediator = bonusMediator;
+            
+            gameState.State
+                .Where(state => state == State.Start)
+                .Subscribe(_ => ResetMaterials());
+            
+            bonusMediator.OnBonusStarted
+                .SkipLatestValueOnSubscribe()
+                .Where(bonus => bonus.Type is PickableType.Shield or PickableType.StartBoost)
+                .Subscribe(_ => ActiveShield());
+            
+            bonusMediator.OnBonusFadeOut
+                .SkipLatestValueOnSubscribe()
+                .Where(bonus => bonus.Type is PickableType.Shield or PickableType.StartBoost)
+                .Subscribe(_ => UnactiveShield());
+        }
+        
         private void Start()
         {
             EventBus.Instance.Subscribe(EngineEventType.ShieldFadeOutWarning, DisplayWarning);
-            EventBus.Instance.Subscribe(EngineEventType.StartBoost, ActiveShield);
-            EventBus.Instance.Subscribe(EngineEventType.ShieldFadeOut, UnactiveShield);
-            EventBus.Instance.Subscribe(EngineEventType.Shield, ActiveShield);
-            EventBus.Instance.Subscribe(EngineEventType.Continue, ActiveShield);
+            EventBus.Instance.Subscribe(EngineEventType.Continue, () => _BonusMediator.CollectPickable(PickableType.Shield));
         }
 
         private void OnDestroy()
         {
             EventBus.Instance.UnSubscribe(EngineEventType.ShieldFadeOutWarning, DisplayWarning);
-            EventBus.Instance.UnSubscribe(EngineEventType.StartBoost, ActiveShield);
-            EventBus.Instance.UnSubscribe(EngineEventType.ShieldFadeOut, UnactiveShield);
-            EventBus.Instance.UnSubscribe(EngineEventType.Shield, ActiveShield);
-            EventBus.Instance.UnSubscribe(EngineEventType.Continue, ActiveShield);
+            EventBus.Instance.UnSubscribe(EngineEventType.Continue, () => _BonusMediator.CollectPickable(PickableType.Shield));
         }
-
+        
+        private void ResetMaterials()
+        {
+            _Mesh.sharedMaterial.SetFloat(_DissolvePower, 0);
+        }
+        
         public void ActiveShield()
         {
             if (_Coroutine != null)

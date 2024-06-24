@@ -17,6 +17,7 @@ namespace RetroRush.Engine
         public static string LEADERBOARD_GUI = "LeaderboardGUI";
         public static string GAMEMODE_GUI = "GameModeGUI";
         public static string LEVELWON_GUI = "LevelWonGUI";
+        public static string REVIEW_SCREEN = "ReviewScreen";
         
         //Component
         public static string RANKING_COMPONENT = "RankingComponent";

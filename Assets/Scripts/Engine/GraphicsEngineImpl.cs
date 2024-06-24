@@ -1,28 +1,26 @@
-using System.Collections.Generic;
-using HoakleEngine;
-using HoakleEngine.Core;
 using HoakleEngine.Core.Communication;
-using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
-using RetroRush.Camera;
 using RetroRush.UI.Screen;
-using UnityEngine;
+using Zenject;
 
 namespace RetroRush.Engine
 {
     public class GraphicsEngineImpl : GraphicsEngine
     {
-        public GraphicsEngineImpl(GameRoot gameRoot) : base(gameRoot)
+        private ThirdPersonCameraControl _ThirdPersonCameraControl;
+        [Inject]
+        public void Inject(ThirdPersonCameraControl cameraControl)
         {
-            GuiEngine = new GUIEngineImpl(gameRoot);
+            _ThirdPersonCameraControl = cameraControl;
         }
-
-        public override void Init(UnityEngine.Camera camera)
+        
+        public override void Init()
         {
             GuiEngine.LinkEngine(GetEngine<GameEngineImpl>());
             GuiEngine.LinkEngine(this);
+
+            CameraControl = _ThirdPersonCameraControl;
             
-            CameraControl = new ThirdPersonCameraControl(_GameRoot.Camera, new CameraSettingsData( -7f, -2f, -3f));
             _UpdateableList.Add(CameraControl);
             
             GuiEngine.CreateGUI<Header>(GUIKeys.HEADER);
@@ -30,37 +28,27 @@ namespace RetroRush.Engine
             EventBus.Instance.Subscribe(EngineEventType.BackToMenu, DisplayMainMenu);
             EventBus.Instance.Subscribe(EngineEventType.StartGame, LoadLevelScene);
             
-            GuiEngine.CreateGUI<LoadingScreen>(GUIKeys.LOADING);
-            
-            base.Init(camera);
+            CreateGraphicalRepresentation<MainMenu>("MainMenu", null);
+            base.Init();
         }
         
         private void DisplayMainMenu()
         {
-            _GameRoot.GameSaveContainer.Save();
             CreateGraphicalRepresentation<MainMenu>("MainMenu");
         }
 
         private void LoadLevelScene()
         {
-            SetCameraControl(new ThirdPersonCameraControl(_GameRoot.Camera, new CameraSettingsData( -7f, -2f, -3f)));
+            SetCameraControl(_ThirdPersonCameraControl);
         }
 
-        public void SetCameraControl(CameraControl cameraControl, List<Transform> targets = null)
+        public void SetCameraControl(CameraControl cameraControl)
         {
             if (_UpdateableList.Contains(CameraControl))
                 _UpdateableList.Remove(CameraControl);
 
             CameraControl = cameraControl;
             _UpdateableList.Add(CameraControl);
-            
-            if(targets != null)
-                foreach (var target in targets)
-                {
-                    CameraControl.AddTarget(target);
-                }
-            
-            CameraControl.SetStartPositionAndSize();
         }
     }
 }

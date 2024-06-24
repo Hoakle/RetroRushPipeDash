@@ -1,4 +1,4 @@
-namespace RetroRush.Game.PlayerNS
+namespace RetroRush.Game.Player
 {
     public class PlayerData
     {

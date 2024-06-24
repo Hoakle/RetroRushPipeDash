@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using HoakleEngine;
 using HoakleEngine.Core.Communication;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+using Zenject;
 
 namespace RetroRush.UI.Components
 {
@@ -12,11 +14,18 @@ namespace RetroRush.UI.Components
     {
         [SerializeField] private BoxCollider _Collider = null;
 
-        private UnityEngine.Camera _Camera;
+        private Camera _Camera;
 
         public bool IsClickable = true;
         
         public Action OnClick;
+
+        [Inject]
+        public void Inject(ICameraProvider cameraProvider)
+        {
+            _Camera = cameraProvider.Camera.Value;
+        }
+        
         private void Update()
         {
             if(Input.touchCount > 0)
@@ -58,11 +67,6 @@ namespace RetroRush.UI.Components
             RaycastHit hit;
 
             return _Collider.Raycast(ray, out hit, 100f);
-        }
-
-        public void SetCamera(UnityEngine.Camera camera)
-        {
-            _Camera = camera;
         }
 
         private bool CanBeClicked()

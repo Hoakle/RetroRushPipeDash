@@ -6,6 +6,7 @@ using RetroRush.GameSave;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace RetroRush.UI.Components 
 {
@@ -18,12 +19,24 @@ namespace RetroRush.UI.Components
         [SerializeField] private CurrencyButton _UpgradeButton = null;
 
         private UpgradeConfigData _Config;
-        // Start is called before the first frame update
+        private CurrencyHandler _CoinCurrencyHandler;
+        private GlobalGameSave _GlobalGameSave;
+        private GameplayConfigData _GameplayConfigData;
+        
+        [Inject]
+        public void Inject([Inject (Id = CurrencyType.Coin)] CurrencyHandler coinHandler,
+            GameplayConfigData gameplayConfigData,
+            GlobalGameSave globalGameSave)
+        {
+            _CoinCurrencyHandler = coinHandler;
+            _GlobalGameSave = globalGameSave;
+            _GameplayConfigData = gameplayConfigData;
+        }
+        
         public override void OnReady()
         {
-            _Config = _GuiEngine.ConfigContainer.GetConfig<GameplayConfigData>().GetUpgradeConfig(Data.Type);
-            
-            _GuiEngine.InitDataGUIComponent<CurrencyButton, CurrencyData>(_UpgradeButton, _GuiEngine.GameSave.GetSave<GlobalGameSave>().Wallet.Get(CurrencyType.Coin));
+            _Config = _GameplayConfigData.GetUpgradeConfig(Data.Type);
+            _GuiEngine.InitDataGUIComponent<CurrencyButton, CurrencyHandler>(_UpgradeButton, _CoinCurrencyHandler);
             _UpgradeButton.OnBuy += Upgrade;
 
             UpdateInfo();
@@ -40,11 +53,12 @@ namespace RetroRush.UI.Components
             if(Data.Level != _Config.MaxLevel)
                 _UpgradeButton.SetPrice(_Config.GetUpgradePrice(Data.Level));
         }
+        
         private void Upgrade()
         {
             Data.Level++;
-            _GuiEngine.GameSave.Save();
             UpdateInfo();
+            _GlobalGameSave.Save();
         }
     }
 }

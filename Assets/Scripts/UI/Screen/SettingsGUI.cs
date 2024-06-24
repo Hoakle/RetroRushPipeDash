@@ -4,6 +4,7 @@ using HoakleEngine.Core.Services;
 using RetroRush.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace RetroRush.UI.Screen
 {
@@ -13,10 +14,19 @@ namespace RetroRush.UI.Screen
         [SerializeField] private ToogleButton _MusicToogle = null;
         [SerializeField] private ToogleButton _SfxToogle = null;
         [SerializeField] private Button _ContactUs = null;
+
+        private MiscThirdPartyService _MiscTP;
+        
+        [Inject]
+        public void Inject(MiscThirdPartyService miscTp)
+        {
+            _MiscTP = miscTp;
+        }
+        
         public override void OnReady()
         {
-            _GuiEngine.InitDataGUIComponent<ToogleButton, bool>(_MusicToogle, Data.HasMusic);
-            _GuiEngine.InitDataGUIComponent<ToogleButton, bool>(_SfxToogle, Data.HasSfx);
+            _GuiEngine.InitDataGUIComponent<ToogleButton, bool>(_MusicToogle, Data.HasMusic.Value);
+            _GuiEngine.InitDataGUIComponent<ToogleButton, bool>(_SfxToogle, Data.HasSfx.Value);
             
             _CloseButton.onClick.AddListener(Close);
             _MusicToogle.OnToogleChange += ToogleMusic;
@@ -39,20 +49,17 @@ namespace RetroRush.UI.Screen
 
         private void ToogleMusic(bool isActive)
         {
-            Debug.LogError(isActive);
-            Data.HasMusic = isActive;
-            _GuiEngine.GameSave.Save();
+            Data.ToggleMusic(isActive);
         }
 
         private void ToogleSfx(bool isActive)
         {
-            Data.HasSfx = isActive;
-            _GuiEngine.GameSave.Save();
+            Data.ToggleSfx(isActive);
         }
 
         private void ContactUs()
         {
-            _GuiEngine.ServicesContainer.GetService<MiscThirdPartyService>().OpenEmail();
+            _MiscTP.OpenEmail();
         }
     }
 }

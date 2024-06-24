@@ -5,7 +5,7 @@ using RetroRush.Game.Gameplay;
 namespace RetroRush.GameData
 {
     [Serializable]
-    public class UpgradeData : GameSaveData
+    public class UpgradeData
     {
         public UpgradeData(PickableType type)
         {

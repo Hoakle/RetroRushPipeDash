@@ -7,17 +7,23 @@ using RetroRush.Config;
 using RetroRush.Game.Level;
 using RetroRush.GameData;
 using RetroRush.GameSave;
+using Zenject;
 
 namespace RetroRush.Engine
 {
     public class GameEngineImpl : GameEngine
     {
-        
-        public GameEngineImpl(GameRoot gameRoot) : base(gameRoot)
-        {
-            _GameDataHandler = new GameDataHandlerImpl(this);
-        }
+        private LevelDesignData _LevelDesignData;
+        private ProgressionHandler _ProgressionHandler;
 
+        [Inject]
+        public void Inject(
+            LevelDesignData levelDesignData,
+            ProgressionHandler progressionHandler)
+        {
+            _LevelDesignData = levelDesignData;
+        }
+        
         public override void Init()
         {
             EventBus.Instance.Subscribe(EngineEventType.StartGame, StartGame);
@@ -31,16 +37,9 @@ namespace RetroRush.Engine
 
         public void StartGame()
         {
-            GetEngine<GraphicsEngine>().CreateGraphicalRepresentation<Level, LevelDesignData>("Level", ((GameDataHandlerImpl)_GameDataHandler).CreateNewLevel(GameSave.GetSave<GlobalGameSave>().GameMode));
+            _LevelDesignData.Reset();
+            GetEngine<GraphicsEngine>().CreateGraphicalRepresentation<Level, LevelDesignData>("Level", _LevelDesignData);
             //GetEngine<GraphicsEngine>().GuiEngine.CreateGUI<DebugOverlay>(GUIKeys.DEBUG_OVERLAY);
-        }
-
-        public void CompleteMission(MissionType type)
-        {
-            var mission = GameSave.GetSave<GlobalGameSave>().GetMission(type);
-            mission.IsCompleted = true;
-            
-            ServicesContainer.GetService<PlayServicesTP>().UnlockAchievement(ConfigContainer.GetConfig<GameplayConfigData>().GetMission(type).Key);
         }
     }
 }

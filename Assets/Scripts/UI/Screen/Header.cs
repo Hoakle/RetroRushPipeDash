@@ -2,6 +2,7 @@ using HoakleEngine.Core.Graphics;
 using RetroRush.Game.Economics;
 using RetroRush.GameSave;
 using UnityEngine;
+using Zenject;
 
 namespace RetroRush.UI.Screen
 {
@@ -10,10 +11,21 @@ namespace RetroRush.UI.Screen
         [SerializeField] private CurrencyComponent _CoinComponent = null;
 
         private GlobalGameSave _GlobalSave;
-        public void Start()
+        private CurrencyHandler _CoinCurrencyHandler;
+
+        [Inject]
+        public void Inject(GlobalGameSave gameSave,
+            [Inject (Id = CurrencyType.Coin)] CurrencyHandler coinHandler)
         {
-            _GlobalSave = _GuiEngine.GetEngine<GraphicsEngine>().GameSave.GetSave<GlobalGameSave>();
-            _GuiEngine.InitDataGUIComponent<CurrencyComponent, CurrencyData>(_CoinComponent, _GlobalSave.Wallet.Get(CurrencyType.Coin));
+            _GlobalSave = gameSave;
+            _CoinCurrencyHandler = coinHandler;
+        }
+        
+        public override void OnReady()
+        {
+            base.OnReady();
+            
+            _GuiEngine.InitDataGUIComponent<CurrencyComponent, CurrencyHandler>(_CoinComponent, _CoinCurrencyHandler);
         }
     }
 }

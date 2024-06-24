@@ -1,18 +1,22 @@
+using HoakleEngine;
 using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
 using UnityEngine;
+using Zenject;
 
-namespace RetroRush.Camera
+namespace RetroRush
 {
     public class ThirdPersonCameraControl : CameraControl
     {
         private CameraSettingsData _CameraSettingsData;
         public CameraSettingsData CameraSettingsData => _CameraSettingsData;
-        public ThirdPersonCameraControl(UnityEngine.Camera camera, CameraSettingsData cameraData) : base(camera)
+
+        [Inject]
+        public void Inject(CameraSettingsData cameraData)
         {
             _CameraSettingsData = cameraData;
         }
-
+        
         protected override void Move()
         {
             Vector3 offset = _Targets[0].forward * _CameraSettingsData.ZOffset;

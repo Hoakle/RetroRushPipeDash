@@ -2,10 +2,13 @@ using System;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Game;
 using HoakleEngine.Core.Graphics;
+using RetroRush.Game.Economics;
 using RetroRush.Game.Level;
 using RetroRush.GameSave;
 using TMPro;
+using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace RetroRush
 {
@@ -13,20 +16,21 @@ namespace RetroRush
     {
         [SerializeField] private TextMeshProUGUI m_Text = null;
 
-        public override void OnReady()
+        [Inject]
+        public void Inject(IGameState gameState,
+            LevelDesignData levelDesignData)
         {
-            EventBus.Instance.Subscribe(EngineEventType.GameOver, Close);
-        }
-        
-        protected override void Close()
-        {
-            EventBus.Instance.UnSubscribe(EngineEventType.GameOver, Close);
-            base.Close();
+            gameState.State
+                .Where(state => state == State.GameOver)
+                .TakeUntilDestroy(this)
+                .Subscribe(_ => Close());
+
+            levelDesignData.Score.Subscribe(UpdateScore);
         }
 
-        public void Update()
+        private void UpdateScore(long score)
         {
-            m_Text.text = Data.Score.ToString();
+            m_Text.text = score.ToString();
         }
     }
 }

@@ -10,6 +10,7 @@ using RetroRush.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace RetroRush.UI.Screen
 {
@@ -22,6 +23,21 @@ namespace RetroRush.UI.Screen
 
         [Header("GameMode")] 
         [SerializeField] private GameModeComponent _GameModeComponent = null;
+
+        private ProgressionHandler _ProgressionHandler;
+        private GlobalGameSave _GlobalGameSave;
+        private SettingsGameSave _SettingsGameSave;
+
+        [Inject]
+        public void Inject(ProgressionHandler progressionHandler,
+            GlobalGameSave globalGameSave,
+            SettingsGameSave settingsGameSave)
+        {
+            _ProgressionHandler = progressionHandler;
+            _GlobalGameSave = globalGameSave;
+            _SettingsGameSave = settingsGameSave;
+        }
+        
         public override void OnReady()
         {
             _SettingsButton.onClick.AddListener(OpenSettings);
@@ -30,7 +46,7 @@ namespace RetroRush.UI.Screen
 
             EventBus.Instance.Subscribe(EngineEventType.StartGame, Close);
             _GuiEngine.InitGUIComponent<BestScore>(_BestScore);
-            _GuiEngine.InitDataGUIComponent<GameModeComponent, GameModeData>(_GameModeComponent, _GuiEngine.GameSave.GetSave<GlobalGameSave>().GameMode);
+            _GuiEngine.InitDataGUIComponent<GameModeComponent, ProgressionHandler>(_GameModeComponent, _ProgressionHandler);
         }
 
         protected override void Close()
@@ -42,17 +58,17 @@ namespace RetroRush.UI.Screen
         private void OpenSettings()
         {
             _GuiEngine.CreateDataGUI<SettingsGUI, SettingsGameSave>(GUIKeys.SETTINGS_SCREEN,
-                _GuiEngine.GameSave.GetSave<SettingsGameSave>());
+                _SettingsGameSave);
         }
 
         private void OpenMissions()
         {
-            _GuiEngine.CreateDataGUI<MissionsGUI, List<MissionData>>(GUIKeys.MISSION_SCREEN,
-                _GuiEngine.GameSave.GetSave<GlobalGameSave>().Missions);
+            _GuiEngine.CreateDataGUI<MissionsGUI, IReadOnlyList<MissionData>>(GUIKeys.MISSION_SCREEN,
+                _GlobalGameSave.Missions);
         }
         private void OpenUpgrades()
         {
-            _GuiEngine.CreateDataGUI<UpgradeGUI, List<UpgradeData>>(GUIKeys.UPGRADE_GUI, _GuiEngine.GameSave.GetSave<GlobalGameSave>().Upgrades);
+            _GuiEngine.CreateDataGUI<UpgradeGUI, IReadOnlyList<UpgradeData>>(GUIKeys.UPGRADE_GUI, _GlobalGameSave.Upgrades);
         }
         
         private void OnDestroy()

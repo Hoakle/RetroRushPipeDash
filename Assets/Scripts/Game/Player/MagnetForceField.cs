@@ -1,41 +1,33 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using HoakleEngine.Core.Communication;
-using HoakleEngine.Core.Graphics;
 using RetroRush.Game.Gameplay;
+using UniRx;
 using UnityEngine;
+using Zenject;
 
-namespace RetroRush
+namespace RetroRush.Game.Player
 {
     public class MagnetForceField : MonoBehaviour
     {
         [SerializeField] private SphereCollider _MagnetForceField = null;
 
-        private List<Coin> _Coins;
-
-        private void Start()
+        private List<Coin> _Coins = new List<Coin>();
+        private bool Active
         {
-            _Coins = new List<Coin>();
+            set => _MagnetForceField.enabled = value;
         }
 
-        private void OnEnable()
+        [Inject]
+        public void Inject(IBonusMediator bonusMediator)
         {
-            EventBus.Instance.Subscribe(EngineEventType.Magnet, ActiveMagnet);
-            EventBus.Instance.Subscribe(EngineEventType.MagnetFadeOut, UnActiveMagnet);
-        }
-
-        private void OnDisable()
-        {
-            Active = false;
-            for(int i = _Coins.Count - 1; i > 0; i--)
-            {
-                _Coins[i].OnDispose -= RemoveCoin;
-                _Coins.RemoveAt(i);
-            }
+            bonusMediator.OnBonusStarted
+                .SkipLatestValueOnSubscribe()
+                .Where(b => b.Type == PickableType.Magnet)
+                .Subscribe(_ => ActiveMagnet());
             
-            EventBus.Instance.UnSubscribe(EngineEventType.Magnet, ActiveMagnet);
-            EventBus.Instance.UnSubscribe(EngineEventType.MagnetFadeOut, UnActiveMagnet);
+            bonusMediator.OnBonusFadeOut
+                .SkipLatestValueOnSubscribe()
+                .Where(b => b.Type == PickableType.Magnet)
+                .Subscribe(_ => UnActiveMagnet());
         }
 
         private void OnTriggerEnter(Collider other)
@@ -63,11 +55,6 @@ namespace RetroRush
             }
         }
 
-        private bool Active
-        {
-            set => _MagnetForceField.enabled = value;
-        }
-        
         private void ActiveMagnet()
         {
             Active = true;
@@ -76,6 +63,11 @@ namespace RetroRush
         private void UnActiveMagnet()
         {
             Active = false;
+            for(int i = _Coins.Count - 1; i > 0; i--)
+            {
+                _Coins[i].OnDispose -= RemoveCoin;
+                _Coins.RemoveAt(i);
+            }
         }
     }
 }

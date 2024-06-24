@@ -245,7 +245,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _LevelContainer: {fileID: 7733388145312674783}
-  _LevelInput: {fileID: 6640955909215571694}
 --- !u!114 &6640955909215571694
 MonoBehaviour:
   m_ObjectHideFlags: 0

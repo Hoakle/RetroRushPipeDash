@@ -1,7 +1,4 @@
-﻿using HoakleEngine;
-using HoakleEngine.Core.Audio;
-using HoakleEngine.Core.Communication;
-using UnityEngine;
+﻿using HoakleEngine.Core.Audio;
 
 namespace RetroRush.Game.Gameplay
 {
@@ -9,12 +6,12 @@ namespace RetroRush.Game.Gameplay
     {
         public override void SendEvent()
         {
-            EventBus.Instance.Publish(EngineEventType.SpeedBonus);
+            _BonusMediator.CollectPickable(PickableType.SpeedBoost);
         }
         
         public override void PlayAudio()
         {
-            AudioPlayer.Instance.Play(AudioKeys.BonusCollect);
+            _AudioPlayer.Play(AudioKeys.BonusCollect);
         }
     }
 }

@@ -125,6 +125,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &826415624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4138504542784309446, guid: 6ab037188e2b783489976a10b3b434c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1126549859917451817}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &826415629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826415624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5052738d81d75d34eb5fcbb7bbbabf6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &826415635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826415624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fe8048fef37c6c4ca38d4222f8efa10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _AudioList: {fileID: 11400000, guid: 1109792d64e726c47ab236c96e094873, type: 2}
+  _AudioEmitter: {fileID: 2005353234}
+--- !u!20 &1258165524 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4138504541540011606, guid: 6ab037188e2b783489976a10b3b434c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1126549859917451817}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2005353234 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4138504541080197698, guid: 6ab037188e2b783489976a10b3b434c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1126549859917451817}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1126549859917451817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -227,6 +271,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4138504542784309464, guid: 6ab037188e2b783489976a10b3b434c9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4138504542784309465, guid: 6ab037188e2b783489976a10b3b434c9,
+        type: 3}
+      propertyPath: _Camera
+      value: 
+      objectReference: {fileID: 1258165524}
+    - target: {fileID: 6001055184126617848, guid: 6ab037188e2b783489976a10b3b434c9,
+        type: 3}
+      propertyPath: _monoInstallers.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6001055184126617848, guid: 6ab037188e2b783489976a10b3b434c9,
+        type: 3}
+      propertyPath: _monoInstallers.Array.data[2]
+      value: 
+      objectReference: {fileID: 826415635}
     - target: {fileID: 6506279341003539883, guid: 6ab037188e2b783489976a10b3b434c9,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -302,5 +366,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -45
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1381733462101452812, guid: 6ab037188e2b783489976a10b3b434c9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6ab037188e2b783489976a10b3b434c9, type: 3}

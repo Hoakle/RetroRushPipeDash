@@ -4,7 +4,9 @@ using HoakleEngine.Core.Graphics;
 using RetroRush.Engine;
 using RetroRush.Game.Gameplay;
 using RetroRush.Game.Gameplay.Obstacle;
+using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace RetroRush.Game.Level
 {
@@ -16,6 +18,28 @@ namespace RetroRush.Game.Level
         [SerializeField] private Material _BaseMaterial;
         [SerializeField] private Material _ShieldMaterial;
         [SerializeField] private Material _FinishMaterial;
+
+        private IBonusMediator _BonusMediator;
+        private IGameState _GameState;
+        
+        [Inject]
+        public void Inject(IBonusMediator bonusMediator,
+            IGameState gameState)
+        {
+            _BonusMediator = bonusMediator;
+            _GameState = gameState;
+            
+            bonusMediator.OnBonusStarted
+                .SkipLatestValueOnSubscribe()
+                .Where(bonus => bonus.Type is PickableType.Shield or PickableType.StartBoost)
+                .Subscribe(_ => ActiveShield());
+            
+            bonusMediator.OnBonusFadeOut
+                .SkipLatestValueOnSubscribe()
+                .Where(bonus => bonus.Type is PickableType.Shield or PickableType.StartBoost)
+                .Subscribe(_ => UnActiveShield());
+        }
+        
         public override void OnReady()
         {
             Data.OnRemoveFace += Dispose;
@@ -23,7 +47,7 @@ namespace RetroRush.Game.Level
             SetState();
             SetPositionAndRotation();
             SetPickable();
-
+            SetObstacle();
             base.OnReady();
         }
 
@@ -38,10 +62,7 @@ namespace RetroRush.Game.Level
                 _MeshRenderer.sharedMaterial = _BaseMaterial;
             else
             {
-                EventBus.Instance.Subscribe(EngineEventType.Shield, ActiveShield);
                 EventBus.Instance.Subscribe(EngineEventType.Continue, ActiveShield);
-                EventBus.Instance.Subscribe(EngineEventType.StartBoost, ActiveShield);
-                EventBus.Instance.Subscribe(EngineEventType.ShieldFadeOut, UnActiveShield);
                 _MeshRenderer.sharedMaterial = _ShieldMaterial;
             }
         }
@@ -62,7 +83,7 @@ namespace RetroRush.Game.Level
                 case PickableType.Coin:
                     SetPickable<Coin>();
                     break;
-                case PickableType.SpeedBonus:
+                case PickableType.SpeedBoost:
                     SetPickable<SpeedBoost>();
                     break;
                 case PickableType.Magnet:
@@ -90,37 +111,42 @@ namespace RetroRush.Game.Level
 
         public void SetObstacle()
         {
-            AddGOR<Lazer, ObstacleType>(PrefabKeys.LAZER, ObstacleType.Lazer, null, lazer =>
+            if (Data.HasObstacle)
             {
-                lazer.transform.localScale = new Vector3(0.2f,
-                    (float)Math.Sqrt(Math.Pow(transform.position.y - Data.LinkedFace.Position.y, 2) +
-                                     Math.Pow(transform.position.x - Data.LinkedFace.Position.x, 2)) / 2f, 0.2f);
+                AddGOR<Lazer, ObstacleType>(PrefabKeys.LAZER, ObstacleType.Lazer, null, lazer =>
+                {
+                    lazer.transform.localScale = new Vector3(0.2f,
+                        (float)Math.Sqrt(Math.Pow(transform.position.y - Data.LinkedFace.Position.y, 2) +
+                                         Math.Pow(transform.position.x - Data.LinkedFace.Position.x, 2)) / 2f, 0.2f);
 
-                lazer.transform.SetParent(transform, false);
+                    lazer.transform.SetParent(transform, false);
 
-                lazer.transform.position = new Vector3((transform.position.x + Data.LinkedFace.Position.x) / 2,
-                    (transform.position.y + Data.LinkedFace.Position.y) / 2, transform.position.z);
-                lazer.transform.LookAt(transform.position);
-                lazer.transform.Rotate(Vector3.right, 90);
+                    lazer.transform.position = new Vector3((transform.position.x + Data.LinkedFace.Position.x) / 2,
+                        (transform.position.y + Data.LinkedFace.Position.y) / 2, transform.position.z);
+                    lazer.transform.LookAt(transform.position);
+                    lazer.transform.Rotate(Vector3.right, 90);
 
-            });
+                });
+            }
         }
 
         private void RotateAroundParent()
         {
-            transform.RotateAround(transform.parent.position, Vector3.back,
+            transform.RotateAround(transform.parent.position, Vector3.back, 
                 Data.RotateAround - transform.parent.eulerAngles.z);
             Data.Position = transform.position;
         }
 
         public void ActiveShield()
         {
-            gameObject.SetActive(true);
+            if(!Data.Exist)
+                gameObject.SetActive(true);
         }
 
         private void UnActiveShield()
         {
-            gameObject.SetActive(false);
+            if(!Data.Exist)
+                gameObject.SetActive(false);
         }
 
         void OnTriggerEnter(Collider other)
@@ -130,7 +156,7 @@ namespace RetroRush.Game.Level
 
             if (other.CompareTag("Player"))
             {
-                EventBus.Instance.Publish(EngineEventType.Win);
+                _GameState.SetState(State.WinLevel);
             }
         }
         
@@ -139,10 +165,7 @@ namespace RetroRush.Game.Level
             Data.OnRemoveFace -= Dispose;
             if (!Data.Exist)
             {
-                EventBus.Instance.UnSubscribe(EngineEventType.Shield, ActiveShield);
                 EventBus.Instance.UnSubscribe(EngineEventType.Continue, ActiveShield);
-                EventBus.Instance.UnSubscribe(EngineEventType.StartBoost, ActiveShield);
-                EventBus.Instance.UnSubscribe(EngineEventType.ShieldFadeOut, UnActiveShield);
                 _MeshRenderer.sharedMaterial = _ShieldMaterial;
             }
 

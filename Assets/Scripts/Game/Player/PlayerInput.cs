@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace RetroRush.Game.PlayerNS
+namespace RetroRush.Game.Player
 {
     public class PlayerInput : MonoBehaviour
     {
