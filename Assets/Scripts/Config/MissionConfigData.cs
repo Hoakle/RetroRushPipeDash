@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using RetroRush.Game.Gameplay;
 using RetroRush.GameData;
-using UnityEngine;
 
 namespace RetroRush.Config
 {
@@ -11,5 +8,6 @@ namespace RetroRush.Config
     {
         public MissionType Type;
         public string Key;
+        public string TranslationKey;
     }
 }

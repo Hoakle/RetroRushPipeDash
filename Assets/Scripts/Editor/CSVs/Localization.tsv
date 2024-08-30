@@ -1,0 +1,55 @@
+Key	Français	English
+Generic/On	On	On
+Generic/Off	Off	Off
+Loading/Loading	Chargement...	Loading...
+Home/GameMode	Mode de jeu:	Game mode:
+Home/GameMode_Endless	Infini	Endless
+Home/GameMode_Stage	Level {0}	Stage  {0}
+Home/Missions	Missions	Missions
+Home/Upgrades	Améliorations	Upgrades
+GameMode/Header	Choix du mode	Mode selection
+GameMode/Endless	Infini	Endless
+GameMode/Stage	Classique	Stages
+Leaderboard/Header	Classement	Leaderboard
+Leaderboard/Top10	Top 10	Top 10
+Leaderboard/MyPosition	Ma position	My position
+Leaderboard/NoScore	Joue une partie en mode Infini pour avoir ton premier record ! 	Play a game in Endless mode to get your first high score!
+Mission/Header	Missions	Missions
+Mission/Desc	Termine des missions pour augmenter ton multiplicateur de score !	Complete missions to increase your score multiplier!
+Mission/MultiplyLabel	Multiplicateur de score :	Score multiplier:
+Mission/FirstRun	Jouer une première partie de Retro Rush: Pipe Dash	Play a first game of Retro Rush: Pipe Dash
+Mission/BoostColector	Collecter les 3 types de boosts en une partie	Collect all 3 types of boosts in one match
+Mission/BunnyUp	Saute 15 fois en une partie	Jump 15 times in one game
+Mission/IWasHere	Avoir téléchargé et joué au jeu à sa sortie	Have downloaded and played the game upon release
+Mission/InTheStars	Collecter toutes les étoiles	Collect all the stars
+Mission/FirstRun/Title	Première course	First run
+Mission/BoostColector/Title	Collectionneur	Collector
+Mission/BunnyUp/Title	Saute mouton	Bunny up
+Mission/IWasHere/Title	J'y fu	I went there
+Mission/InTheStars/Title	Dans les étoiles	In the stars
+PostGame/Title/Lose	Vous avez perdu !	You lost!
+PostGame/Title/Win	Vous avez gagné !	You won!
+PostGame/Subtitle/YourScore	Votre score	Your score
+PostGame/Subtitle/Level	Niveau  {0}	Level {0}
+Ads/Continue	Continuer	Continue
+Review/Title	Merci !	Thanks!
+Review/Content	Merci d'avoir téléchargé et joué à Retro Rush: Pipe Dash ! Souhaite tu laisser une note sur le store ? 	Thank you for downloading and playing Retro Rush: Pipe Dash! Would you like to leave a note on the store? 
+Review/No	Non, Désolé	No, sorry
+Review/Yes	Oui	Yes
+Settings/Title	Settings	Settings
+Settings/Music	Musique	Music
+Settings/SFX	Effets sonore	Sound effects
+Settings/Contact	Me contacter	Contact me
+Upgrades/Header	Amélioration de Bonus	Bonus Improvement
+Upgrade/Title/CoinFactor	Valeur des pièces	Value of coins
+Upgrade/Content/CoinFactor	La valeur des pièces que vous ramassez est augmenté de {1} après {0}m	The value of the coins you collect is increased by {1} after {0}m
+Upgrade/Title/Magnet	Aiment	Magnet
+Upgrade/Content/Magnet	Attire les pièces vers vous durant {0} secondes	Draws coins towards you for {0} seconds
+Upgrade/Title/PickableSpawn	Apparition des bonus	Appearance of bonuses
+Upgrade/Content/PickableSpawn	Les bonus apparaissent {0}% plus souvent	Bonuses appear {0}% more often
+Upgrade/Title/Shield	Shield	Shield
+Upgrade/Content/Shield	Vous protège durant {0} secondes	Protects you for {0} seconds
+Upgrade/Title/SpeedBoost	Accélération	Acceleration
+Upgrade/Content/SpeedBoost	Augmente votre vitesse durant {0} secondes	Increases your speed for {0} seconds
+Upgrade/Title/StartBoost	Départ rapide	Quick start
+Upgrade/Content/StartBoost	Augmente votre vitesse par 4 et vous protège pendant les {0} premiers mêtres!	Increases your speed by 4 and protects you for the first {0} meters!

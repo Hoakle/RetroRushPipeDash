@@ -40,9 +40,10 @@
     <type fullname="RetroRush.UI.Screen.UpgradeGUI" preserve="all" />
   </assembly>
   <assembly fullname="HoakleEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="HoakleEngine.Core.Audio.PlayOnClick" preserve="all" />
+    <type fullname="HoakleEngine.Core.Localization.LocalizedText" preserve="all" />
     <type fullname="HoakleEngine.Core.UI.Components.AdsButton" preserve="all" />
     <type fullname="HoakleEngine.Core.UI.Utils.SafeAreaResize" preserve="all" />
-    <type fullname="HoakleEngine.PlayOnClick" preserve="all" />
   </assembly>
   <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
     <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />

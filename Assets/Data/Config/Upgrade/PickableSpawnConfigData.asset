@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PickableSpawnConfigData
   m_EditorClassIdentifier: 
   _Type: 7
-  _Title: Apparition des bonus
-  _Desc: Les bonus apparaissent {0}% plus souvent
+  _Title: Upgrade/Title/PickableSpawn
+  _Desc: Upgrade/Content/PickableSpawn
   _Icone: {fileID: 21300000, guid: fc1778972776a0040be68d49b3be3490, type: 3}
   _ValuePerLevel: 00000000050000000a0000000f0000001400000019000000
   _FactorPerLevel:

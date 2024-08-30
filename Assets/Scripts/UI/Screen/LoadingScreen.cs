@@ -1,5 +1,6 @@
 using HoakleEngine;
 using HoakleEngine.Core.Communication;
+using HoakleEngine.Core.Graphics;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;

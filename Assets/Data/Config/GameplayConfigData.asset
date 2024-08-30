@@ -22,11 +22,16 @@ MonoBehaviour:
   _MissionConfigs:
   - Type: 0
     Key: CgkIybW_k5kQEAIQAQ
+    TranslationKey: FirstRun
   - Type: 1
     Key: CgkIybW_k5kQEAIQAw
+    TranslationKey: BoostColector
   - Type: 2
     Key: CgkIybW_k5kQEAIQBA
+    TranslationKey: BunnyUp
   - Type: 3
     Key: CgkIybW_k5kQEAIQBQ
+    TranslationKey: IWasHere
   - Type: 4
     Key: CgkIybW_k5kQEAIQBg
+    TranslationKey: InTheStars

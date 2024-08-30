@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: StartBoostConfigData
   m_EditorClassIdentifier: 
   _Type: 6
-  _Title: "D\xE9part rapide"
-  _Desc: "Augmente votre vitesse par 4 et vous prot\xE8ge pendant les {0} premiers
-    m\xEAtres!"
+  _Title: Upgrade/Title/StartBoost
+  _Desc: Upgrade/Content/StartBoost
   _Icone: {fileID: 21300000, guid: c9f60be2868b2cf43a79c71a4b9bc7ba, type: 3}
   _ValuePerLevel: 00000000960000002c010000f4010000ee020000e8030000
   _FactorPerLevel:

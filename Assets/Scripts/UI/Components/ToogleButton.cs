@@ -1,5 +1,6 @@
 using System;
 using HoakleEngine.Core.Graphics;
+using HoakleEngine.Core.Localization;
 using RetroRush.Game.Economics;
 using RetroRush.GameSave;
 using TMPro;
@@ -11,7 +12,7 @@ namespace RetroRush.UI.Components
     public class ToogleButton : DataGuiComponent<bool>
     {
         [SerializeField] private Button _Button = null;
-        [SerializeField] private TextMeshProUGUI _ToogleText = null;
+        [SerializeField] private LocalizedText _ToogleText = null;
         
         public Action<bool> OnToogleChange;
         public override void OnReady()
@@ -29,7 +30,7 @@ namespace RetroRush.UI.Components
 
         private void UpdateText()
         {
-            _ToogleText.text = Data ? "On" : "Off";
+            _ToogleText.SetKey(Data ? "Generic/On" : "Generic/Off");
         }
 
         private void Toogle()

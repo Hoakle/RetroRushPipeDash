@@ -43,6 +43,8 @@ namespace RetroRush.Game.Level
         private GameplayConfigData _GameplayConfigData;
         private LevelConfigData _LevelConfigData;
 
+        private const float INTERPOLATION_FACTOR = 2f;
+        
         [Inject]
         public void Inject(
             IGameState gameState, 
@@ -141,6 +143,7 @@ namespace RetroRush.Game.Level
             if (_GameState.State.Value == State.Start)
             {
                 MoveLevel();
+                CheckCoinFactorBonus();
                 Data.Score.Value = ((int) - Data.Distance * 10) * _GlobalGameSave.GetMultiplicator();
             }
             
@@ -148,7 +151,7 @@ namespace RetroRush.Game.Level
 
         private void MoveLevel()
         {
-            _LevelContainer.position = new Vector3(_LevelContainer.position.x, _LevelContainer.position.y, _LevelContainer.position.z - (Data.Speed * Data.SpeedFactor * Time.deltaTime));
+            _LevelContainer.position = new Vector3(_LevelContainer.position.x, _LevelContainer.position.y, _LevelContainer.position.z - (Data.GetFinalSpeed()));
             Data.Distance = _LevelContainer.position.z;
             _LevelGenerator.UpdateLevel(Data.Distance);
 
@@ -158,7 +161,7 @@ namespace RetroRush.Game.Level
                 var lerp = Mathf.Lerp(0, _RotationAngle - _RotationProgression, _InterpolationDuration);
                 _RotationProgression += lerp;
                 _LevelContainer.Rotate(0, 0, lerp);
-                _InterpolationDuration += Time.deltaTime / _PendingRotation;
+                _InterpolationDuration += (Time.deltaTime / _PendingRotation) * INTERPOLATION_FACTOR;
                 
                 if (Math.Abs(_RotationAngle - _RotationProgression) == 0f)
                 {
@@ -170,9 +173,17 @@ namespace RetroRush.Game.Level
             }
 
             if(_Player != null)
-                _Player.NotifyMovement(Data.Speed * Data.SpeedFactor * Time.deltaTime);
+                _Player.NotifyMovement(Data.GetFinalSpeed());
         }
 
+        private void CheckCoinFactorBonus()
+        {
+            if (_BonusMediator.HasBonus(PickableType.CoinFactor))
+                return;
+            
+            if(Data.Distance >= _GameplayConfigData.GetUpgradeConfig(PickableType.CoinFactor).GetValue(_GlobalGameSave.GetUpgrade(PickableType.CoinFactor).Level))
+                _BonusMediator.CollectPickable(PickableType.CoinFactor);
+        }
         private void RotateLevel(int direction)
         {
             //Calculate the angle to mode to the next plane

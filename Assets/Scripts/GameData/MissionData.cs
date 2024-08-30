@@ -1,22 +1,19 @@
 using System;
 using HoakleEngine.Core.Game;
 using RetroRush.Game.Gameplay;
+using UnityEngine.Serialization;
 
 namespace RetroRush.GameData
 {
     [Serializable]
     public class MissionData
     {
-        public string Title;
         public MissionType Type;
-        public string Description;
         public bool IsCompleted;
         
-        public MissionData(MissionType type, string description) : base()
+        public MissionData(MissionType type) : base()
         {
             Type = type;
-            Title = type.ToString().Replace("_", " ");
-            Description = description;
         }
     }
 

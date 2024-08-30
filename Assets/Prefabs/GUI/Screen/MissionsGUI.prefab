@@ -200,6 +200,7 @@ GameObject:
   - component: {fileID: 8254146031990054573}
   - component: {fileID: 5400219758500805567}
   - component: {fileID: 2924584739817445146}
+  - component: {fileID: 6956009563014084092}
   m_Layer: 5
   m_Name: MultiplicateurLabel
   m_TagString: Untagged
@@ -324,6 +325,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6956009563014084092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199456352831528007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a662c7e0160643542a862e06cef07208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Key: Mission/MultiplyLabel
+  _Text: {fileID: 2924584739817445146}
 --- !u!1 &1348608519349016561
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,6 +588,7 @@ GameObject:
   - component: {fileID: 4766591393967121241}
   - component: {fileID: 1205053950097813267}
   - component: {fileID: 2790220696401344405}
+  - component: {fileID: 2868234032652155241}
   m_Layer: 5
   m_Name: MultiplicateurDesc
   m_TagString: Untagged
@@ -697,6 +713,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2868234032652155241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4738770921342305868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a662c7e0160643542a862e06cef07208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Key: Mission/Desc
+  _Text: {fileID: 2790220696401344405}
 --- !u!1 &5117292905301714608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1624,6 +1654,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 646aed5996e8c2e4b985782441139b4d, type: 3}
+--- !u!114 &41151352907421112 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4759229118730314588, guid: 646aed5996e8c2e4b985782441139b4d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4800308634012579556}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884463291760198289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5358566668501658665 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 631467921092467405, guid: 646aed5996e8c2e4b985782441139b4d,
@@ -1642,3 +1684,23 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4800308634012579556}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8884463291760198289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4167495476701181045, guid: 646aed5996e8c2e4b985782441139b4d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4800308634012579556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4876928350548090228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884463291760198289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a662c7e0160643542a862e06cef07208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Key: Mission/Header
+  _Text: {fileID: 41151352907421112}

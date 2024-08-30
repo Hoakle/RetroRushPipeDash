@@ -1,4 +1,5 @@
 using HoakleEngine.Addons;
+using HoakleEngine.Addons.Scripts;
 using HoakleEngine.Core.Audio;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Graphics;

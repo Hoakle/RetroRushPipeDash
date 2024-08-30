@@ -24,7 +24,7 @@ namespace RetroRush.Engine
             Container.Bind<CameraSettingsData>().FromInstance(new CameraSettingsData( -7f, -2f, -3f)).AsSingle();
             Container.Bind<ThirdPersonCameraControl>().AsSingle();
 
-            Container.Bind<LevelDesignData>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LevelDesignData>().AsSingle();
         }
     }
 }

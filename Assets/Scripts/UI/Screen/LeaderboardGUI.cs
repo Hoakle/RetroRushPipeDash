@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using HoakleEngine;
 using HoakleEngine.Core.Graphics;
+using HoakleEngine.Core.Localization;
+using HoakleEngine.Core.Services.PlayServices;
 using RetroRush.Engine;
 using RetroRush.UI.Components;
 using TMPro;
@@ -16,7 +18,7 @@ namespace RetroRush.UI.Screen
         [SerializeField] private Button _Close = null;
         [SerializeField] private Transform _Content = null;
         [SerializeField] private Button _Button = null;
-        [SerializeField] private TextMeshProUGUI _ButtonText = null;
+        [SerializeField] private LocalizedText _ButtonText = null;
 
         private IPlayServicesTP _PlayServices;
         private List<RankingComponent> _Components;
@@ -94,7 +96,7 @@ namespace RetroRush.UI.Screen
         {
             _Animator.SetBool("Loading", true);
             _PlayServices.LoadScore("CgkIybW_k5kQEAIQAg", _IsPlayerCentered);
-            _ButtonText.text = _IsPlayerCentered ? "Top 10" : "Ma Position";
+            _ButtonText.SetKey(_IsPlayerCentered ? "Leaderboard/Top10" : "Leaderboard/MyPosition");
         }
 
         private void SwitchLeaderboard()

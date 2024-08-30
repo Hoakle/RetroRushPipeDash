@@ -13,6 +13,8 @@ namespace RetroRush.Config
 
         public IReadOnlyList<UpgradeConfigData> UpgradeConfigs
             => _UpgradeConfigs;
+        public IReadOnlyList<MissionConfigData> MissionConfigs
+            => _MissionConfigs;
         
         public UpgradeConfigData GetUpgradeConfig(PickableType type)
         {

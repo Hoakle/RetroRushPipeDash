@@ -54,6 +54,7 @@ Thumbs.db
 *.unitypackage.meta
 Library/
 Temp/
+Recordings/
 .vs/
 obj/
 *.sln

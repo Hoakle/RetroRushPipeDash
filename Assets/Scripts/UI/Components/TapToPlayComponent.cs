@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using HoakleEngine;
 using HoakleEngine.Core.Communication;
+using HoakleEngine.Core.Graphics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;

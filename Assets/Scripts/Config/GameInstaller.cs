@@ -2,8 +2,12 @@ using System;
 using HoakleEngine;
 using HoakleEngine.Core.Config.Ads;
 using HoakleEngine.Core.Game;
-using HoakleEngine.Core.Services;
+using HoakleEngine.Core.Graphics;
+using HoakleEngine.Core.Localization;
 using HoakleEngine.Core.Services.AdsServices;
+using HoakleEngine.Core.Services.GameSaveService;
+using HoakleEngine.Core.Services.MiscService;
+using HoakleEngine.Core.Services.PlayServices;
 using RetroRush.Config;
 using RetroRush.Game.Economics;
 using RetroRush.Game.Gameplay;
@@ -19,6 +23,7 @@ namespace RetroRush
         [SerializeField] private GameplayConfigData _GameplayConfigData;
         [SerializeField] private LevelConfigData _LevelConfigData;
         [SerializeField] private AdsServicesConfigData _AdsServicesConfigData;
+        [SerializeField] private LocalizationDataBase _LocalizationDataBase;
         
         public override void InstallBindings()
         {
@@ -27,6 +32,12 @@ namespace RetroRush
             InstallConfig();
             InstallGameSave();
             InstallServices();
+
+            Container.BindInterfacesTo<LocalizationProvider>().FromSubContainerResolve().ByMethod(subContaienr =>
+            {
+                subContaienr.Install<LocalizationInstaller>();
+                subContaienr.BindInstance(_LocalizationDataBase).AsSingle();
+            }).AsSingle().NonLazy();
         }
 
         private void InstallConfig()

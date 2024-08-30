@@ -1,5 +1,6 @@
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Graphics;
+using HoakleEngine.Core.Localization;
 using RetroRush.Engine;
 using RetroRush.GameData;
 using RetroRush.UI.Screen;
@@ -12,7 +13,7 @@ namespace RetroRush
     public class GameModeComponent : DataGuiComponent<ProgressionHandler>
     {
         [SerializeField] private Animator _Animator = null;
-        [SerializeField] private TextMeshProUGUI _GameModeText = null;
+        [SerializeField] private LocalizedText _GameModeText = null;
         [SerializeField] private Button _SwitchButton = null;
         [SerializeField] private Button _PreviousButton = null;
         [SerializeField] private Button _NextButton = null;
@@ -39,11 +40,12 @@ namespace RetroRush
         {
             _Animator.SetInteger(ModeType, (int) Data.GameModeType);
             if (Data.GameModeType == GameModeType.ENDLESS)
-                _GameModeText.text = "Endless";
+                _GameModeText.SetKey("Home/GameMode_Endless");
             else
             {
                 var level = Data.GetLevel(Data.CurrentLevel);
-                _GameModeText.text = "Stage " + Data.CurrentLevel;
+                _GameModeText.SetKey("Home/GameMode_Stage");
+                _GameModeText.SetParameters(Data.CurrentLevel.ToString());
                 _NextButton.gameObject.SetActive(level.Stars != 0 && Data.Levels.Count > level.Level);
                 _PreviousButton.gameObject.SetActive(level.Level != 1);
                 _Animator.SetInteger(Stars, level.Stars);

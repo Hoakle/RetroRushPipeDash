@@ -9,7 +9,7 @@ using Zenject;
 
 namespace RetroRush.Game.Level
 {
-    public class LevelDesignData
+    public class LevelDesignData : ITickable
     {
         public int NumberOfFace => _NumberOfFace;
         public int Radius => _Radius;
@@ -20,6 +20,8 @@ namespace RetroRush.Game.Level
         private const int _Radius = 5;
         private const int _FaceDepth = 4;
         private const float _Speed = 10f;
+        private float _SpeedFactor = 1f;
+        private float _TargetedSpeedFactor = 1f;
         
         private IBonusMediator _BonusMediator;
         private CurrencyHandler _CoinCurrencyHandler;
@@ -55,7 +57,16 @@ namespace RetroRush.Game.Level
         public IReactiveProperty<long> Score = new ReactiveProperty<long>();
         public float CoinCollected;
         public bool IsFinished = false;
-        public float SpeedFactor = 1f;
+        public float SpeedFactor
+        {
+            get => _SpeedFactor;
+            set
+            {
+                _InterpolationDuration = 0;
+                _TargetedSpeedFactor = Mathf.Max(value, 1);
+            }
+        }
+        
         public float Distance;
         public float GetFinalSpeed()
         {
@@ -86,5 +97,15 @@ namespace RetroRush.Game.Level
         public int LevelDepth => PipeFaces.Count > 0 ? PipeFaces.Last().Depth - PipeFaces.First().Depth + 1 : 0;
 
         public Action OnDepthAdded;
+
+        private float _InterpolationDuration;
+        public void Tick()
+        {
+            if (Math.Abs(_SpeedFactor - _TargetedSpeedFactor) > 0.01f)
+            {
+                _SpeedFactor = Mathf.Lerp(_SpeedFactor, _TargetedSpeedFactor, _InterpolationDuration);
+                _InterpolationDuration += Time.deltaTime / 2f;
+            }
+        }
     }
 }

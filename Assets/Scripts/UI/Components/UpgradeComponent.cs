@@ -1,4 +1,5 @@
 using HoakleEngine.Core.Graphics;
+using HoakleEngine.Core.Localization;
 using RetroRush.Config;
 using RetroRush.Game.Economics;
 using RetroRush.GameData;
@@ -13,8 +14,8 @@ namespace RetroRush.UI.Components
     public class UpgradeComponent : DataGuiComponent<UpgradeData>
     {
         [SerializeField] private Animator _Animator = null;
-        [SerializeField] private TextMeshProUGUI _Title = null;
-        [SerializeField] private TextMeshProUGUI _Desc = null;
+        [SerializeField] private LocalizedText _Title = null;
+        [SerializeField] private LocalizedText _Desc = null;
         [SerializeField] private Image _Icone = null;
         [SerializeField] private CurrencyButton _UpgradeButton = null;
 
@@ -46,8 +47,9 @@ namespace RetroRush.UI.Components
         private void UpdateInfo()
         {
             _Animator.SetBool("IsMaxRank", Data.Level == _Config.MaxLevel);
-            _Title.text = _Config.Title;
-            _Desc.text = _Config.Desc.Replace("{0}", _Config.GetValue(Data.Level).ToString());
+            _Title.SetKey(_Config.Title);
+            _Desc.SetKey(_Config.Desc);
+            _Desc.SetParameters( _Config.GetValue(Data.Level).ToString(), _Config.GetFactor(Data.Level).ToString());
             _Icone.sprite = _Config.Icone;
             
             if(Data.Level != _Config.MaxLevel)

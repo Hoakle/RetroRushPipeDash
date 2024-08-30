@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Game;
@@ -6,8 +5,6 @@ using HoakleEngine.Core.Graphics;
 using RetroRush.Engine;
 using RetroRush.GameData;
 using RetroRush.GameSave;
-using RetroRush.UI.Components;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;

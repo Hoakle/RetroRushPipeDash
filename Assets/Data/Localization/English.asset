@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae2941483f30274eb463776153e8e00, type: 3}
+  m_Name: English
+  m_EditorClassIdentifier: 
+  Name: English
+  Language: 10
+  Translations:
+  - On
+  - Off
+  - Loading...
+  - 'Game mode:'
+  - Endless
+  - Stage  {0}
+  - Missions
+  - Upgrades
+  - Mode selection
+  - Endless
+  - Stages
+  - Leaderboard
+  - Top 10
+  - My position
+  - Play a game in Endless mode to get your first high score!
+  - Missions
+  - Complete missions to increase your score multiplier!
+  - 'Score multiplier:'
+  - 'Play a first game of Retro Rush: Pipe Dash'
+  - Collect all 3 types of boosts in one match
+  - Jump 15 times in one game
+  - Have downloaded and played the game upon release
+  - Collect all the stars
+  - First run
+  - Collector
+  - Bunny up
+  - I went there
+  - In the stars
+  - You lost!
+  - You won!
+  - Your score
+  - Level {0}
+  - Continue
+  - Thanks!
+  - 'Thank you for downloading and playing Retro Rush: Pipe Dash! Would you like
+    to leave a note on the store? '
+  - No, sorry
+  - Yes
+  - Settings
+  - Music
+  - Sound effects
+  - Contact me
+  - Bonus Improvement
+  - Value of coins
+  - The value of the coins you collect is increased by {1} after {0}m
+  - Magnet
+  - Draws coins towards you for {0} seconds
+  - Appearance of bonuses
+  - Bonuses appear {0}% more often
+  - Shield
+  - Protects you for {0} seconds
+  - Acceleration
+  - Increases your speed for {0} seconds
+  - Quick start
+  - Increases your speed by 4 and protects you for the first {0} meters!

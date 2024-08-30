@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae2941483f30274eb463776153e8e00, type: 3}
+  m_Name: "Fran\xE7ais"
+  m_EditorClassIdentifier: 
+  Name: "Fran\xE7ais"
+  Language: 14
+  Translations:
+  - On
+  - Off
+  - Chargement...
+  - 'Mode de jeu:'
+  - Infini
+  - Level {0}
+  - Missions
+  - "Am\xE9liorations"
+  - Choix du mode
+  - Infini
+  - Classique
+  - Classement
+  - Top 10
+  - Ma position
+  - 'Joue une partie en mode Infini pour avoir ton premier record ! '
+  - Missions
+  - Termine des missions pour augmenter ton multiplicateur de score !
+  - 'Multiplicateur de score :'
+  - "Jouer une premi\xE8re partie de Retro Rush: Pipe Dash"
+  - Collecter les 3 types de boosts en une partie
+  - Saute 15 fois en une partie
+  - "Avoir t\xE9l\xE9charg\xE9 et jou\xE9 au jeu \xE0 sa sortie"
+  - "Collecter toutes les \xE9toiles"
+  - "Premi\xE8re course"
+  - Collectionneur
+  - Saute mouton
+  - J'y fu
+  - "Dans les \xE9toiles"
+  - Vous avez perdu !
+  - "Vous avez gagn\xE9 !"
+  - Votre score
+  - Niveau  {0}
+  - Continuer
+  - Merci !
+  - "Merci d'avoir t\xE9l\xE9charg\xE9 et jou\xE9 \xE0 Retro Rush: Pipe Dash ! Souhaite
+    tu laisser une note sur le store ? "
+  - "Non, D\xE9sol\xE9"
+  - Oui
+  - Settings
+  - Musique
+  - Effets sonore
+  - Me contacter
+  - "Am\xE9lioration de Bonus"
+  - "Valeur des pi\xE8ces"
+  - "La valeur des pi\xE8ces que vous ramassez est augment\xE9 de {1} apr\xE8s {0}m"
+  - Aiment
+  - "Attire les pi\xE8ces vers vous durant {0} secondes"
+  - Apparition des bonus
+  - Les bonus apparaissent {0}% plus souvent
+  - Shield
+  - "Vous prot\xE8ge durant {0} secondes"
+  - "Acc\xE9l\xE9ration"
+  - Augmente votre vitesse durant {0} secondes
+  - "D\xE9part rapide"
+  - "Augmente votre vitesse par 4 et vous prot\xE8ge pendant les {0} premiers m\xEAtres!"

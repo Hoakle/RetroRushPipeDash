@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fe9ba03296741a4fa0f4f84cc46245c, type: 3}
+  m_Name: LocalizationDataBase
+  m_EditorClassIdentifier: 
+  _DefaultLanguage: 10
+  _Keys:
+  - Generic/On
+  - Generic/Off
+  - Loading/Loading
+  - Home/GameMode
+  - Home/GameMode_Endless
+  - Home/GameMode_Stage
+  - Home/Missions
+  - Home/Upgrades
+  - GameMode/Header
+  - GameMode/Endless
+  - GameMode/Stage
+  - Leaderboard/Header
+  - Leaderboard/Top10
+  - Leaderboard/MyPosition
+  - Leaderboard/NoScore
+  - Mission/Header
+  - Mission/Desc
+  - Mission/MultiplyLabel
+  - Mission/FirstRun
+  - Mission/BoostColector
+  - Mission/BunnyUp
+  - Mission/IWasHere
+  - Mission/InTheStars
+  - Mission/FirstRun/Title
+  - Mission/BoostColector/Title
+  - Mission/BunnyUp/Title
+  - Mission/IWasHere/Title
+  - Mission/InTheStars/Title
+  - PostGame/Title/Lose
+  - PostGame/Title/Win
+  - PostGame/Subtitle/YourScore
+  - PostGame/Subtitle/Level
+  - Ads/Continue
+  - Review/Title
+  - Review/Content
+  - Review/No
+  - Review/Yes
+  - Settings/Title
+  - Settings/Music
+  - Settings/SFX
+  - Settings/Contact
+  - Upgrades/Header
+  - Upgrade/Title/CoinFactor
+  - Upgrade/Content/CoinFactor
+  - Upgrade/Title/Magnet
+  - Upgrade/Content/Magnet
+  - Upgrade/Title/PickableSpawn
+  - Upgrade/Content/PickableSpawn
+  - Upgrade/Title/Shield
+  - Upgrade/Content/Shield
+  - Upgrade/Title/SpeedBoost
+  - Upgrade/Content/SpeedBoost
+  - Upgrade/Title/StartBoost
+  - Upgrade/Content/StartBoost
+  _Language:
+  - {fileID: 11400000, guid: 113cb3c3ed8b6aa49906290200612016, type: 2}
+  - {fileID: 11400000, guid: 9e868097365aa3e4eb8e5d14a6be646a, type: 2}

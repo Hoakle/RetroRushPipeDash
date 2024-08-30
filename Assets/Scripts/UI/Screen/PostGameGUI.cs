@@ -1,12 +1,12 @@
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Config.Ads;
 using HoakleEngine.Core.Graphics;
+using HoakleEngine.Core.Localization;
 using HoakleEngine.Core.UI.Components;
 using RetroRush.Config;
 using RetroRush.Game.Economics;
 using RetroRush.Game.Level;
 using RetroRush.GameData;
-using RetroRush.GameSave;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,12 +19,12 @@ namespace RetroRush.UI.Screen
         [SerializeField] private Button _Close = null;
         [SerializeField] private TextMeshProUGUI _Score = null;
         [SerializeField] private TextMeshProUGUI _Coin = null;
-        [SerializeField] private TextMeshProUGUI _Title = null;
-        [SerializeField] private TextMeshProUGUI _SubTitle = null;
+        [SerializeField] private LocalizedText _Title = null;
+        [SerializeField] private LocalizedText _SubTitle = null;
         [SerializeField] private AdsButton _AdsButton = null;
 
         private PostGameState _State;
-        private static readonly int State = Animator.StringToHash("State");
+        private static readonly int StateKey = Animator.StringToHash("State");
         private static readonly int Stars = Animator.StringToHash("Stars");
         private static readonly int AdsWatched = Animator.StringToHash("AdsWatched");
 
@@ -32,17 +32,20 @@ namespace RetroRush.UI.Screen
         private CurrencyHandler _CoinCurrencyHandler;
         private AdsServicesConfigData _AdsServicesConfigData;
         private LevelConfigData _LevelConfigData;
+        private IGameState _GameState;
         
         [Inject]
         public void Inject(ProgressionHandler progressionHandler,
             [Inject (Id = CurrencyType.Coin)] CurrencyHandler coinHandler,
             AdsServicesConfigData adsServicesConfigData,
-            LevelConfigData levelConfigData)
+            LevelConfigData levelConfigData,
+            IGameState gameState)
         {
             _ProgressionHandler = progressionHandler;
             _CoinCurrencyHandler = coinHandler;
             _AdsServicesConfigData = adsServicesConfigData;
             _LevelConfigData = levelConfigData;
+            _GameState = gameState;
         }
         
         public override void OnReady()
@@ -74,6 +77,7 @@ namespace RetroRush.UI.Screen
             if(_ProgressionHandler.GameModeType == GameModeType.STAGE && Data.IsFinished)
                 _ProgressionHandler.TryIncrementLevel();
             
+            _GameState.SetState(State.Menu);
             Close();
         }
 
@@ -83,8 +87,8 @@ namespace RetroRush.UI.Screen
             
             if (_ProgressionHandler.GameModeType == GameModeType.ENDLESS)
             {
-                _Title.text = "Vous avez perdu !";
-                _SubTitle.text = "Votre score";
+                _Title.SetKey("PostGame/Title/Lose");
+                _SubTitle.SetKey("PostGame/Subtitle/YourScore");
                 _Score.text = Data.Score.ToString();
                 _State = PostGameState.CONTINUE;
                 if(!Data.IsFinished)
@@ -102,23 +106,24 @@ namespace RetroRush.UI.Screen
             }
             else
             {
-                _SubTitle.text = "Niveau " + _ProgressionHandler.CurrentLevel;
+                _SubTitle.SetKey("PostGame/Subtitle/Level");
+                _SubTitle.SetParameters(_ProgressionHandler.CurrentLevel.ToString());
                 _GuiEngine.InitDataGUIComponent<AdsButton, AdsConfigData>(_AdsButton, _AdsServicesConfigData.GetAdsConfig(AdsServicesConfigData.RVADS_COIN));
                 _AdsButton.OnClaimReward += MultiplyCoin;
                 if (Data.IsFinished)
                 {
-                    _Title.text = "Vous avez gagné !";
+                    _Title.SetKey("PostGame/Title/Win");
                     _State = PostGameState.LEVEL_WON;
                     _Animator.SetInteger(Stars, _LevelConfigData.GetStars(_ProgressionHandler.CurrentLevel, (int) Data.CoinCollected));
                 }
                 else
                 {
-                    _Title.text = "Vous avez perdu !";
+                    _Title.SetKey("PostGame/Title/Lose");
                     _State = PostGameState.LEVEL_LOST;
                 }
             }
             
-            _Animator.SetInteger(State, (int) _State);
+            _Animator.SetInteger(StateKey, (int) _State);
         }
 
         private void MultiplyCoin()

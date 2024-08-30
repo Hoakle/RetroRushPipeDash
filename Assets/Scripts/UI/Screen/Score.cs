@@ -21,7 +21,7 @@ namespace RetroRush
             LevelDesignData levelDesignData)
         {
             gameState.State
-                .Where(state => state == State.GameOver)
+                .Where(state => state == State.Menu)
                 .TakeUntilDestroy(this)
                 .Subscribe(_ => Close());
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8139156624083122058}
   - component: {fileID: 5423468302895749761}
   - component: {fileID: 6162897557808798816}
+  - component: {fileID: 813544637234494578}
   m_Layer: 5
   m_Name: Description
   m_TagString: Untagged
@@ -136,6 +137,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &813544637234494578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27835305212045113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a662c7e0160643542a862e06cef07208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Key: Mission/FirstRun/Title
+  _Text: {fileID: 6162897557808798816}
 --- !u!1 &1142869790761157222
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,6 +162,7 @@ GameObject:
   - component: {fileID: 2401166031810474424}
   - component: {fileID: 6462033587126940462}
   - component: {fileID: 6017008019384311507}
+  - component: {fileID: 3868269537370683485}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -271,6 +287,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3868269537370683485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142869790761157222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a662c7e0160643542a862e06cef07208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Key: Mission/FirstRun/Title
+  _Text: {fileID: 6017008019384311507}
 --- !u!1 &3130674888171901904
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,8 +392,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Animator: {fileID: 9047015868454813974}
-  _Title: {fileID: 6017008019384311507}
-  _Desc: {fileID: 6162897557808798816}
+  _Title: {fileID: 3868269537370683485}
+  _Desc: {fileID: 813544637234494578}
 --- !u!1 &4432700932650270160
 GameObject:
   m_ObjectHideFlags: 0

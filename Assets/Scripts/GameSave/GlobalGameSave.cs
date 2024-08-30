@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HoakleEngine;
 using HoakleEngine.Core.Game;
+using HoakleEngine.Core.Services.PlayServices;
 using RetroRush.Config;
 using RetroRush.Game.Gameplay;
 using RetroRush.GameData;
@@ -68,18 +69,17 @@ namespace RetroRush.GameSave
         private void InitMissions()
         {
             _Data.Missions ??= new List<MissionData>();
-            
-            TryCreateMission(MissionType.FIRST_RUN, "Jouer une première partie de Retro Rush: Pipe Dash");
-            TryCreateMission(MissionType.BOOST_COLLECTOR, "Collecter les 3 types de boosts en une partie");
-            TryCreateMission(MissionType.BUNNY_UP, "Saute 15 fois en une partie");
-            TryCreateMission(MissionType.JY_FUS, "Avoir téléchargé et joué au jeu à sa sortie");
-            TryCreateMission(MissionType.DANS_LES_ETOILES, "Collecter toutes les étoiles");
+
+            foreach (var mission in _GameplayConfigData.MissionConfigs)
+            {
+                TryCreateMission(mission.Type);
+            }
         }
 
-        private void TryCreateMission(MissionType type, string description)
+        private void TryCreateMission(MissionType type)
         {
             if(Missions.FirstOrDefault(m => m.Type == type) == null)
-                _Data.Missions.Add(new MissionData(type, description));
+                _Data.Missions.Add(new MissionData(type));
         }
 
         private MissionData GetMission(MissionType type)
