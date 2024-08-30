@@ -8,6 +8,7 @@ using RetroRush.Config;
 using RetroRush.Game.Gameplay;
 using RetroRush.GameData;
 using UniRx;
+using UnityEngine;
 using Zenject;
 
 namespace RetroRush.GameSave
@@ -78,7 +79,7 @@ namespace RetroRush.GameSave
 
         private void TryCreateMission(MissionType type)
         {
-            if(Missions.FirstOrDefault(m => m.Type == type) == null)
+            if(_Data.Missions.FirstOrDefault(m => m.Type == type) == null)
                 _Data.Missions.Add(new MissionData(type));
         }
 

@@ -12,15 +12,15 @@ namespace RetroRush.UI.Components
         [SerializeField] private Animator _Animator = null;
         [SerializeField] private LocalizedText _Title = null;
         [SerializeField] private LocalizedText _Desc = null;
-
-        [Inject]
+        
         private MissionConfigData _MissionConfigData;
         
-        
+        [Inject]
         public void Inject(GameplayConfigData gameplayConfigData)
         {
             _MissionConfigData = gameplayConfigData.GetMission(Data.Type);
         }
+        
         public override void OnReady()
         {
             UpdateInfo();
@@ -30,8 +30,8 @@ namespace RetroRush.UI.Components
         private void UpdateInfo()
         {
             _Animator.SetBool("IsCompleted", Data.IsCompleted);
-            _Title.SetKey(_MissionConfigData.Key + "/Title");
-            _Desc.SetKey(_MissionConfigData.Key);
+            _Title.SetKey("Mission/" + _MissionConfigData.TranslationKey + "/Title");
+            _Desc.SetKey("Mission/" + _MissionConfigData.TranslationKey);
         }
     }
 }
