@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MainAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 414d56e07dbbbae4fa86105809e0894c, type: 3}
+    - {fileID: 102900000, guid: 361153d15fcc16c4cbaa8c1efae09d95, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 13cc8c61cea2cd146a108abfd81af045, type: 3}
+  - {fileID: 21300000, guid: a3529362107ebf74d87c30f65b664d4f, type: 3}
+  - {fileID: 21300000, guid: 471050b2069763749b0e21f4125cda11, type: 3}
+  - {fileID: 21300000, guid: c9f60be2868b2cf43a79c71a4b9bc7ba, type: 3}
+  - {fileID: 21300000, guid: 6b9e05f223ff5c8498a8997063ad0e25, type: 3}
+  - {fileID: 21300000, guid: 76faada3b175c2342841250e395be8e0, type: 3}
+  - {fileID: 21300000, guid: 1f7ad2d38c0a66242ba63054dc47cc41, type: 3}
+  - {fileID: 21300000, guid: 29d9fc5577decec439869c2f0b5622a7, type: 3}
+  - {fileID: 21300000, guid: 2986db475de95044ba00014bb28e2de9, type: 3}
+  - {fileID: 21300000, guid: fc1778972776a0040be68d49b3be3490, type: 3}
+  - {fileID: 21300000, guid: 2c7849d7acbf20f47a3e14d0b126daee, type: 3}
+  - {fileID: 21300000, guid: 32644ad7bbd777243bbdf216493904a4, type: 3}
+  - {fileID: 21300000, guid: aa93d6f7046305d46a381205787f19f3, type: 3}
+  - {fileID: 21300000, guid: 6f48bb38e3421d740b88b96b96a53c9e, type: 3}
+  - {fileID: 21300000, guid: da5d05581b81f084cac6ef45356388dd, type: 3}
+  - {fileID: 21300000, guid: 1eae3e785510f8e4b92936d0609c5d26, type: 3}
+  - {fileID: 21300000, guid: 1c2f0fd9097b52849886ed6f92496b36, type: 3}
+  - {fileID: 21300000, guid: af89c2ebbd78847469e94248e4284277, type: 3}
+  - {fileID: 21300000, guid: f5d9a5fbf16786045ba8cf218d260cab, type: 3}
+  - {fileID: 21300000, guid: 2b177a7ebc1c9b44990c6283c12b2e9a, type: 3}
+  - {fileID: 21300000, guid: d5a6c78e99a94e24da567218a72f47a7, type: 3}
+  - {fileID: -24393782, guid: 5a2c2d8e7c9d06845a17d609cb62e1bc, type: 3}
+  - {fileID: 7482667652216324306, guid: 6fe897be2b5365b4c91d793dce3eeebf, type: 3}
+  - {fileID: 21300000, guid: 70ce057f9d3fe7b44809ce51c0c7d291, type: 3}
+  - {fileID: 21300000, guid: fdf1fe7fd5ce0ab4a9539bb491fb2b65, type: 3}
+  - {fileID: 21300000, guid: e4d09baf52ec8c64ca0fcd2a22fca087, type: 3}
+  - {fileID: 21300000, guid: f230a4bf1a912314196dd6d7cd6f6a97, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - SpeedBoostpng
+  - Trophy
+  - Panel
+  - Arrows
+  - StarFilled
+  - Plus
+  - Button
+  - coin
+  - Arrow
+  - UpgradeSpawn
+  - Play
+  - Pencil
+  - MagnetIcone
+  - PlayIcone
+  - Loader
+  - UI_Panel
+  - Gear
+  - CPU
+  - Cross
+  - StarLined
+  - Shield
+  - HardCurrency_0
+  - Square
+  - Task
+  - Infinity
+  - Crownv2
+  - Crown
+  m_RenderDataMap: {}
+  m_Tag: MainAtlas
+  m_IsVariant: 0
