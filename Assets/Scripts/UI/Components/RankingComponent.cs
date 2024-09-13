@@ -1,10 +1,5 @@
-using HoakleEngine;
 using HoakleEngine.Core.Graphics;
 using HoakleEngine.Core.Services.PlayServices;
-using RetroRush.Config;
-using RetroRush.Game.Economics;
-using RetroRush.GameData;
-using RetroRush.GameSave;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,7 +12,7 @@ namespace RetroRush.UI.Components
         [SerializeField] private TextMeshProUGUI _Username = null;
         [SerializeField] private TextMeshProUGUI _Score = null;
         [SerializeField] private TextMeshProUGUI _Rank = null;
-        [SerializeField] private Image _Icone = null;
+        [SerializeField] private RawImage _Icone = null;
 
         public bool IsOdd
         {
@@ -39,6 +34,9 @@ namespace RetroRush.UI.Components
             _Username.text = Data.UserId;
             _Score.text = Data.Score.ToString();
             _Rank.text = Data.Rank.ToString();
+
+            if (Data.Image != null)
+                _Icone.texture = Data.Image;
         }
     }
 }

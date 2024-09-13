@@ -94,12 +94,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.2
+  m_fontSize: 34.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 40
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -657,7 +657,7 @@ GameObject:
   - component: {fileID: 149804108392942772}
   - component: {fileID: 2473308136204758690}
   m_Layer: 0
-  m_Name: MusicLabel
+  m_Name: LanguageLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -680,8 +680,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.09175296, y: 0.4768094}
   m_AnchorMax: {x: 0.4667246, y: 0.7661797}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -6.189209, y: 0}
+  m_SizeDelta: {x: 12.3783, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2575903196751122812
 CanvasRenderer:
@@ -738,12 +738,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42.65
+  m_fontSize: 50
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 50
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -792,7 +792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a662c7e0160643542a862e06cef07208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Key: Settings/Music
+  _Key: Settings/Language
   _Text: {fileID: 149804108392942772}
 --- !u!1 &3309093170101389325
 GameObject:
@@ -1570,7 +1570,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64.1
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1994,7 +1994,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60.15
+  m_fontSize: 62.65
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2130,12 +2130,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41
+  m_fontSize: 40
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 40
   m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -2201,7 +2201,7 @@ PrefabInstance:
     - target: {fileID: 2474051670062273464, guid: 6a2ecd424ddb6ff4bb7d0944db9d7cd9,
         type: 3}
       propertyPath: m_fontSize
-      value: 85.45
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3708398464012680457, guid: 6a2ecd424ddb6ff4bb7d0944db9d7cd9,
         type: 3}
@@ -2411,7 +2411,7 @@ PrefabInstance:
     - target: {fileID: 2474051670062273464, guid: 6a2ecd424ddb6ff4bb7d0944db9d7cd9,
         type: 3}
       propertyPath: m_fontSize
-      value: 49
+      value: 51.05
       objectReference: {fileID: 0}
     - target: {fileID: 3708398464012680457, guid: 6a2ecd424ddb6ff4bb7d0944db9d7cd9,
         type: 3}
@@ -2596,7 +2596,7 @@ PrefabInstance:
     - target: {fileID: 2474051670062273464, guid: 6a2ecd424ddb6ff4bb7d0944db9d7cd9,
         type: 3}
       propertyPath: m_fontSize
-      value: 85.45
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3708398464012680457, guid: 6a2ecd424ddb6ff4bb7d0944db9d7cd9,
         type: 3}
