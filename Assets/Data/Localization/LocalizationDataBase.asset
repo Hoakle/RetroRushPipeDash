@@ -52,6 +52,7 @@ MonoBehaviour:
   - Review/No
   - Review/Yes
   - Settings/Title
+  - Settings/Language
   - Settings/Music
   - Settings/SFX
   - Settings/Contact

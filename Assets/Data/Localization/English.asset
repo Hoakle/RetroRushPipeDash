@@ -54,14 +54,15 @@ MonoBehaviour:
   - No, sorry
   - Yes
   - Settings
+  - 'Languages:'
   - Music
   - Sound effects
   - Contact me
   - Bonus Improvement
   - Value of coins
-  - The value of the coins you collect is increased by {1} after {0}m
+  - The value of the coins you collect is multiplied by {1} after {0}m
   - Magnet
-  - Draws coins towards you for {0} seconds
+  - Attracts coins towards you for {0} seconds
   - Appearance of bonuses
   - Bonuses appear {0}% more often
   - Shield

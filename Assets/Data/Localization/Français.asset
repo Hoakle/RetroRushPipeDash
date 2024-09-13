@@ -22,7 +22,7 @@ MonoBehaviour:
   - Infini
   - Level {0}
   - Missions
-  - "Am\xE9liorations"
+  - Upgrades
   - Choix du mode
   - Infini
   - Classique
@@ -54,17 +54,19 @@ MonoBehaviour:
   - "Non, D\xE9sol\xE9"
   - Oui
   - Settings
+  - 'Langue :'
   - Musique
   - Effets sonore
   - Me contacter
   - "Am\xE9lioration de Bonus"
   - "Valeur des pi\xE8ces"
-  - "La valeur des pi\xE8ces que vous ramassez est augment\xE9 de {1} apr\xE8s {0}m"
+  - "La valeur des pi\xE8ces que vous ramassez est multipki\xE9 par {1} apr\xE8s
+    {0}m"
   - Aiment
   - "Attire les pi\xE8ces vers vous durant {0} secondes"
   - Apparition des bonus
   - Les bonus apparaissent {0}% plus souvent
-  - Shield
+  - Bouclier
   - "Vous prot\xE8ge durant {0} secondes"
   - "Acc\xE9l\xE9ration"
   - Augmente votre vitesse durant {0} secondes
