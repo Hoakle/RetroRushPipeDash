@@ -1,9 +1,12 @@
 using System;
 using HoakleEngine.Core.Game;
 using UniRx;
+using UnityEngine;
+using Zenject;
 
 namespace RetroRush.Game.Economics
 {
+    
     [Serializable]
     public class CurrencyHandler : GameSaveHandler<CurrencyData>
     {
@@ -63,5 +66,6 @@ namespace RetroRush.Game.Economics
     public enum CurrencyType
     {
         Coin,
+        CPU,
     }
 }

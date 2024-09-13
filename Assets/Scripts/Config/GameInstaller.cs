@@ -68,7 +68,7 @@ namespace RetroRush
             InitCurrencyHandler();
 
             Container.BindInterfacesAndSelfTo<GlobalGameSave>().AsSingle();
-            Container.BindInterfacesAndSelfTo<SettingsGameSave>().AsSingle();
+            Container.BindInterfacesAndSelfTo<SettingsGameSave>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ProgressionHandler>().AsSingle().WithArguments("ProgressionHandler");
             Container.Bind<UpgradeData>()
                 .WithId(GameIdentifier.MagnetData)
@@ -98,11 +98,12 @@ namespace RetroRush
             {
                 Container.Bind<CurrencyHandler>()
                     .WithId((CurrencyType)type)
-                    .AsSingle()
+                    .AsCached()
                     .WithArguments((CurrencyType)type)
-                    .OnInstantiated<CurrencyHandler>((container, obj) => 
-                        container.Container.Resolve<InitializableManager>()
-                            .Add(obj)
+                    .OnInstantiated<CurrencyHandler>((container, obj) =>
+                        {
+                            obj.Initialize();
+                        }
                     );
             }
         }

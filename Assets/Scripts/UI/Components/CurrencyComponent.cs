@@ -11,15 +11,9 @@ namespace RetroRush
     {
         [SerializeField] protected TextMeshProUGUI _Text = null;
 
-        [Inject]
-        public void Inject(
-            [Inject (Id = CurrencyType.Coin)] CurrencyHandler coinCurrency)
-        {
-            coinCurrency.Amount.Subscribe(UpdateValue);
-        }
-
         public override void OnReady()
         {
+            Data.Amount.Subscribe(UpdateValue);
             UpdateValue(Data.Amount.Value);
         }
 
