@@ -72,6 +72,7 @@ namespace RetroRush
         private void CheckReviewProcess()
         {
             var level2 = _ProgressionHandler.GetLevel(2);
+            Debug.LogError("Check review: Is level 2 complete = " + (level2 is { Stars: > 0 }) + ", Is already review done = " + _GlobalGameSave.IsReviewDone);
             if(level2 is { Stars: > 0 } && !_GlobalGameSave.IsReviewDone)
             {
                 _PlayServicesTp.OnReviewInfoReady += DisplayReviewPopup;
