@@ -13,6 +13,7 @@ namespace RetroRush
         public int Depth;
         public int Index;
         public bool Exist;
+        public bool IsInPath;
 
         public bool HasObstacle;
         public PipeFaceData LinkedFace;

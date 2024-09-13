@@ -112,7 +112,7 @@ namespace RetroRush.Game.Level
             _LevelContainer.rotation = Quaternion.identity;
             if (_ProgressionHandler.GameModeType == GameModeType.ENDLESS)
             {
-                _LevelGenerator = new EndlessLevelGenerator(Data, _GameplayConfigData.GetUpgradeConfig(PickableType.PickableSpawn)
+                _LevelGenerator = new EndlessLevelGeneratorV2(Data, _GameplayConfigData.GetUpgradeConfig(PickableType.PickableSpawn)
                     .GetValue(_GlobalGameSave.GetUpgrade(PickableType.PickableSpawn).Level));
             }
             else

@@ -82,6 +82,7 @@ MonoBehaviour:
   _MeshRenderer: {fileID: 8595641767583962702}
   _PickableContainer: {fileID: 953580030917856427}
   _BaseMaterial: {fileID: 2100000, guid: 107c7683c47d14c48b2d4613d9a2bd18, type: 2}
+  _PathMaterial: {fileID: 2100000, guid: d76363855a10dfb4ab8beb954d77bc7f, type: 2}
   _ShieldMaterial: {fileID: 2100000, guid: 6a0f6db2b228f8f4c9dcf53563c8321b, type: 2}
   _FinishMaterial: {fileID: 2100000, guid: aadd5a709a48466c887296bb5b1b8110, type: 2}
 --- !u!65 &5651361090914987374

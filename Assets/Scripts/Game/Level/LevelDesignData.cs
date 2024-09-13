@@ -19,7 +19,7 @@ namespace RetroRush.Game.Level
         private const int _NumberOfFace = 11;
         private const int _Radius = 5;
         private const int _FaceDepth = 4;
-        private const float _Speed = 10f;
+        private const float _Speed = 12f;
         private float _SpeedFactor = 1f;
         private float _TargetedSpeedFactor = 1f;
         
@@ -101,10 +101,14 @@ namespace RetroRush.Game.Level
         private float _InterpolationDuration;
         public void Tick()
         {
+            var interpolationDurationFactor = 0.5f;
+            if (_SpeedFactor > _TargetedSpeedFactor)
+                interpolationDurationFactor = 0.25f;
+            
             if (Math.Abs(_SpeedFactor - _TargetedSpeedFactor) > 0.01f)
             {
                 _SpeedFactor = Mathf.Lerp(_SpeedFactor, _TargetedSpeedFactor, _InterpolationDuration);
-                _InterpolationDuration += Time.deltaTime / 2f;
+                _InterpolationDuration += Time.deltaTime * interpolationDurationFactor;
             }
         }
     }

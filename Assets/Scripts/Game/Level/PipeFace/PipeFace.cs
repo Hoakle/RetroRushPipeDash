@@ -16,6 +16,7 @@ namespace RetroRush.Game.Level
         [SerializeField] private MeshRenderer _MeshRenderer;
         [SerializeField] private Transform _PickableContainer;
         [SerializeField] private Material _BaseMaterial;
+        [SerializeField] private Material _PathMaterial;
         [SerializeField] private Material _ShieldMaterial;
         [SerializeField] private Material _FinishMaterial;
 
@@ -58,6 +59,8 @@ namespace RetroRush.Game.Level
             {
                 _MeshRenderer.sharedMaterial = _FinishMaterial;
             }
+            else if (Data.IsInPath)
+                _MeshRenderer.sharedMaterial = _PathMaterial;
             else if (Data.Exist)
                 _MeshRenderer.sharedMaterial = _BaseMaterial;
             else
