@@ -29,7 +29,7 @@ namespace RetroRush.GameSave
             get => _Data.IsReviewDone;
             set => _Data.IsReviewDone = value;
         }
-
+        
         private GameplayConfigData _GameplayConfigData;
         private IPlayServicesTP _PlayServicesTP;
         private IReactiveProperty<long> _BestScore = new ReactiveProperty<long>();
@@ -95,6 +95,11 @@ namespace RetroRush.GameSave
             Save();
         }
 
+        public List<string> GetCompletedMissionKeys()
+        {
+            return Missions.Where(m => m.IsCompleted).Select(m => _GameplayConfigData.GetMission(m.Type).Key).ToList();
+        }
+        
         public int GetMultiplicator()
         {
             return Missions.Count(m => m.IsCompleted) + 1;

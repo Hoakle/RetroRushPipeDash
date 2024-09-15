@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using HoakleEngine;
 using HoakleEngine.Core.Audio;
 using HoakleEngine.Core.Communication;
@@ -57,6 +58,7 @@ namespace RetroRush
             _StaticCameraControl.SetStartPositionAndSize();
 
             CheckReviewProcess();
+            _PlayServicesTp.Synchronize(_GlobalGameSave.GetCompletedMissionKeys());
             
             base.OnReady();
         }
