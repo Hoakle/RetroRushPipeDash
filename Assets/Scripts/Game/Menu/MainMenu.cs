@@ -5,6 +5,7 @@ using HoakleEngine.Core.Audio;
 using HoakleEngine.Core.Communication;
 using HoakleEngine.Core.Graphics;
 using HoakleEngine.Core.Services.PlayServices;
+using RetroRush.Config;
 using RetroRush.Engine;
 using RetroRush.GameData;
 using RetroRush.GameSave;
@@ -27,19 +28,22 @@ namespace RetroRush
         private IPlayServicesTP _PlayServicesTp;
         private ProgressionHandler _ProgressionHandler;
         private GlobalGameSave _GlobalGameSave;
+        private TutorialHandler _TutorialHandler;
 
         [Inject]
         public void Inject(StaticCameraControl staticCameraControl,
             AudioPlayer audioPlayer,
             IPlayServicesTP playServicesTp,
             ProgressionHandler progressionHandler,
-            GlobalGameSave globalGameSave)
+            GlobalGameSave globalGameSave,
+            TutorialHandler tutorialHandler)
         {
             _StaticCameraControl = staticCameraControl;
             _AudioPlayer = audioPlayer;
             _PlayServicesTp = playServicesTp;
             _ProgressionHandler = progressionHandler;
             _GlobalGameSave = globalGameSave;
+            _TutorialHandler = tutorialHandler;
         }
         
         public override void OnReady()
@@ -51,7 +55,12 @@ namespace RetroRush
             
             _AudioPlayer.Play(AudioKeys.RainLoop);
             
-            _GraphicsEngineImpl.GuiEngine.CreateGUI<MainScreen>(GUIKeys.MAIN_GUI, screen => EventBus.Instance.Publish(EngineEventType.MainMenuLoaded));
+            _GraphicsEngineImpl.GuiEngine.CreateGUI<MainScreen>(GUIKeys.MAIN_GUI, screen =>
+            {
+                EventBus.Instance.Publish(EngineEventType.MainMenuLoaded);
+                CheckTutorial();
+            });
+            
             _GraphicsEngineImpl.SetCameraControl(_StaticCameraControl);
             _StaticCameraControl.RemoveAllTarget();
             _StaticCameraControl.AddTarget(_MenuCameraPosition);
@@ -71,10 +80,16 @@ namespace RetroRush
             base.Dispose();
         }
 
+        private void CheckTutorial()
+        {
+            if(!_TutorialHandler.IsDone(TutorialStep.Welcome))
+                _GraphicsEngineImpl.GuiEngine.CreateDataGUI<TutorialGUI, TutorialStep>(GUIKeys.TUTORIAL_GUI, TutorialStep.Welcome, (gui) => 
+                    _TapToPlayComponent.OnClick += gui.ValidateStep);
+        }
+        
         private void CheckReviewProcess()
         {
             var level2 = _ProgressionHandler.GetLevel(2);
-            Debug.LogError("Check review: Is level 2 complete = " + (level2 is { Stars: > 0 }) + ", Is already review done = " + _GlobalGameSave.IsReviewDone);
             if(level2 is { Stars: > 0 } && !_GlobalGameSave.IsReviewDone)
             {
                 _PlayServicesTp.OnReviewInfoReady += DisplayReviewPopup;

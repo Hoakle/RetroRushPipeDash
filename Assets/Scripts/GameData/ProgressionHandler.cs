@@ -26,20 +26,18 @@ namespace RetroRush.GameData
         {
             _LevelConfigData = levelConfigData;
         }
-        
-        protected override void BuildData()
-        {
-            base.BuildData();
-            _Data.CurrentLevel = Math.Max(1, _Data.CurrentLevel);
-            _Data.Levels ??= new List<LevelData>();
 
+        protected override void CreateData()
+        {
+            _Data.GameModeType = GameModeType.STAGE;
+            _Data.CurrentLevel = 1;
+            _Data.Levels = new List<LevelData>();
             foreach (var stage in _LevelConfigData.StageConfigs)
-            {
-                if(_Data.Levels.Find(s => s.Level == stage.Id) == null)
-                   _Data.Levels.Add(new LevelData(stage.Id));
+            { 
+                _Data.Levels.Add(new LevelData(stage.Id));
             }
         }
-
+        
         public int MaxLevel
         {
             get

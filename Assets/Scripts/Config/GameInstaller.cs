@@ -24,6 +24,7 @@ namespace RetroRush
         [SerializeField] private LevelConfigData _LevelConfigData;
         [SerializeField] private AdsServicesConfigData _AdsServicesConfigData;
         [SerializeField] private LocalizationDataBase _LocalizationDataBase;
+        [SerializeField] private TutorialConfigData _TutorialConfigData;
         
         public override void InstallBindings()
         {
@@ -45,6 +46,7 @@ namespace RetroRush
             Container.Bind<GameplayConfigData>().FromInstance(_GameplayConfigData).AsSingle();
             Container.Bind<LevelConfigData>().FromInstance(_LevelConfigData).AsSingle();
             Container.Bind<AdsServicesConfigData>().FromInstance(_AdsServicesConfigData).AsSingle();
+            Container.Bind<TutorialConfigData>().FromInstance(_TutorialConfigData).AsSingle();
             Container.Bind<UpgradeConfigData>()
                 .WithId(GameIdentifier.MagnetConfig)
                 .FromResolveGetter<GameplayConfigData>(config => config.GetUpgradeConfig(PickableType.Magnet));
@@ -70,6 +72,7 @@ namespace RetroRush
             Container.BindInterfacesAndSelfTo<GlobalGameSave>().AsSingle();
             Container.BindInterfacesAndSelfTo<SettingsGameSave>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ProgressionHandler>().AsSingle().WithArguments("ProgressionHandler");
+            Container.BindInterfacesAndSelfTo<TutorialHandler>().AsSingle();
             Container.Bind<UpgradeData>()
                 .WithId(GameIdentifier.MagnetData)
                 .FromResolveGetter<GlobalGameSave>(save => save.GetUpgrade(PickableType.Magnet));

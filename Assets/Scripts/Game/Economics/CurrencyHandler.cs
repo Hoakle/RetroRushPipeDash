@@ -27,6 +27,11 @@ namespace RetroRush.Game.Economics
             _Amount.Value = _Data.Value;
         }
 
+        protected override void CreateData()
+        {
+            
+        }
+
         public bool TrySpend(int price)
         {
             if (HasEnough(price))

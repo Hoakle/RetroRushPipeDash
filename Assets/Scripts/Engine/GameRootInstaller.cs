@@ -1,5 +1,7 @@
 using HoakleEngine;
 using HoakleEngine.Core;
+using HoakleEngine.Core.Services;
+using HoakleEngine.Core.Services.PlayServices;
 using RetroRush.Game.Level;
 using UnityEngine;
 using Zenject;
@@ -15,7 +17,11 @@ namespace RetroRush.Engine
         {
             Container.Bind<Transform>().WithId(GameRootIdentifier.GameContainer).FromInstance(_GameContainer);
 
-            Container.Bind<GameRoot>().FromInstance(_GameRoot).AsSingle();
+            Container.Bind<GameRoot>().FromInstance(_GameRoot).AsSingle().OnInstantiated<GameRoot>((ctn, gameRoot) =>
+            {
+                ctn.Container.Resolve<IPlayServicesTP>().SetGameRoot(gameRoot);
+            });
+            
             Container.BindInterfacesAndSelfTo<GameEngineImpl>().AsSingle();
             Container.BindInterfacesAndSelfTo<GraphicsEngineImpl>().AsSingle();
             Container.BindInterfacesAndSelfTo<GUIEngineImpl>().AsSingle();

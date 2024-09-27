@@ -51,14 +51,19 @@ namespace RetroRush.GameSave
         protected override void BuildData()
         {
             base.BuildData();
+            _BestScore.Value = _Data.BestScore;
             InitMissions();
             InitUpgrades();
-            _BestScore.Value = _Data.BestScore;
+        }
+
+        protected override void CreateData()
+        {
+            _Data.Upgrades = new List<UpgradeData>();
+            _Data.Missions = new List<MissionData>();
         }
 
         public void InitUpgrades()
         {
-            _Data.Upgrades ??= new List<UpgradeData>();
             foreach (UpgradeConfigData config in _GameplayConfigData.UpgradeConfigs)
             {
                 var upgrade = Upgrades.FirstOrDefault(u => u.Type == config.Type);
@@ -69,8 +74,6 @@ namespace RetroRush.GameSave
 
         private void InitMissions()
         {
-            _Data.Missions ??= new List<MissionData>();
-
             foreach (var mission in _GameplayConfigData.MissionConfigs)
             {
                 TryCreateMission(mission.Type);

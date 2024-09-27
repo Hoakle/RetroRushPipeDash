@@ -81,3 +81,5 @@ MonoBehaviour:
     type: 2}
   _LocalizationDataBase: {fileID: 11400000, guid: bce993a00cf06e448b1c7e912244a77f,
     type: 2}
+  _TutorialConfigData: {fileID: 11400000, guid: 5fdc785d1960f6348a58aefd090516b1,
+    type: 2}
