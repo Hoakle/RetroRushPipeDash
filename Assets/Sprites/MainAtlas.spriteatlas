@@ -41,11 +41,15 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 13cc8c61cea2cd146a108abfd81af045, type: 3}
   - {fileID: 21300000, guid: a3529362107ebf74d87c30f65b664d4f, type: 3}
+  - {fileID: -1406149882, guid: 2e13428299826ff4ca883c4cdbba04bf, type: 3}
   - {fileID: 21300000, guid: 471050b2069763749b0e21f4125cda11, type: 3}
   - {fileID: 21300000, guid: c9f60be2868b2cf43a79c71a4b9bc7ba, type: 3}
   - {fileID: 21300000, guid: 6b9e05f223ff5c8498a8997063ad0e25, type: 3}
+  - {fileID: 21300000, guid: e208c233da690764183cf062e25e3863, type: 3}
   - {fileID: 21300000, guid: 76faada3b175c2342841250e395be8e0, type: 3}
   - {fileID: 21300000, guid: 1f7ad2d38c0a66242ba63054dc47cc41, type: 3}
+  - {fileID: 21300000, guid: 8c8d76b4cc76ae644859e46c63a846bf, type: 3}
+  - {fileID: -1163048010, guid: 1455bfd46d178ea44a243c7ee6bfb075, type: 3}
   - {fileID: 21300000, guid: 29d9fc5577decec439869c2f0b5622a7, type: 3}
   - {fileID: 21300000, guid: 2986db475de95044ba00014bb28e2de9, type: 3}
   - {fileID: 21300000, guid: fc1778972776a0040be68d49b3be3490, type: 3}
@@ -55,25 +59,26 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6f48bb38e3421d740b88b96b96a53c9e, type: 3}
   - {fileID: 21300000, guid: da5d05581b81f084cac6ef45356388dd, type: 3}
   - {fileID: 21300000, guid: 1eae3e785510f8e4b92936d0609c5d26, type: 3}
-  - {fileID: 21300000, guid: 1c2f0fd9097b52849886ed6f92496b36, type: 3}
-  - {fileID: 21300000, guid: af89c2ebbd78847469e94248e4284277, type: 3}
+  - {fileID: 21300000, guid: 1a5500a96ddada744ab32e42c1ee2693, type: 3}
   - {fileID: 21300000, guid: f5d9a5fbf16786045ba8cf218d260cab, type: 3}
+  - {fileID: 1507986702, guid: 4b43713de34092f42866323d37716ad9, type: 3}
   - {fileID: 21300000, guid: 2b177a7ebc1c9b44990c6283c12b2e9a, type: 3}
   - {fileID: 21300000, guid: d5a6c78e99a94e24da567218a72f47a7, type: 3}
   - {fileID: -24393782, guid: 5a2c2d8e7c9d06845a17d609cb62e1bc, type: 3}
   - {fileID: 7482667652216324306, guid: 6fe897be2b5365b4c91d793dce3eeebf, type: 3}
-  - {fileID: 21300000, guid: 70ce057f9d3fe7b44809ce51c0c7d291, type: 3}
   - {fileID: 21300000, guid: fdf1fe7fd5ce0ab4a9539bb491fb2b65, type: 3}
-  - {fileID: 21300000, guid: e4d09baf52ec8c64ca0fcd2a22fca087, type: 3}
-  - {fileID: 21300000, guid: f230a4bf1a912314196dd6d7cd6f6a97, type: 3}
   m_PackedSpriteNamesToIndex:
   - SpeedBoostpng
   - Trophy
+  - Hand_0
   - Panel
   - Arrows
   - StarFilled
+  - Gear
   - Plus
   - Button
+  - SdCardBaked
+  - BackedMedal_0
   - coin
   - Arrow
   - UpgradeSpawn
@@ -83,17 +88,14 @@ SpriteAtlas:
   - PlayIcone
   - Loader
   - UI_Panel
-  - Gear
-  - CPU
+  - Robot
   - Cross
+  - FolderBaked_0
   - StarLined
   - Shield
   - HardCurrency_0
   - Square
-  - Task
   - Infinity
-  - Crownv2
-  - Crown
   m_RenderDataMap: {}
   m_Tag: MainAtlas
   m_IsVariant: 0
